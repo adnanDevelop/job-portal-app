@@ -21,7 +21,7 @@ app.use(cors(corsOptions));
 
 // All routes
 app.use("/api/v1", userRoute);
-app.use("/company", companyRoute);
+app.use("/api/v1/company", companyRoute);
 // "http://localhost:3000/api/v1/user/register"
 
 const PORT = process.env.PORT || 3000;

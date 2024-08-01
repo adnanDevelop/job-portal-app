@@ -12,8 +12,8 @@ const router = Router();
 
 router.route("/register").post(isAuthenticated, registerCompany);
 router.route("/update/:id").put(isAuthenticated, updateCompany);
-router.route("/delete").delete(isAuthenticated, deleteCompany);
+router.route("/delete/:id").delete(isAuthenticated, deleteCompany);
 router.route("/get").get(isAuthenticated, getCompany);
-router.route("get/:id").get(isAuthenticated, getCompanyById);
+router.route("/get/:id").get(isAuthenticated, getCompanyById);
 
 export default router;

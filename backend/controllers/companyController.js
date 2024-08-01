@@ -112,7 +112,7 @@ export const deleteCompany = async (req, res) => {
     const companyId = req.params.id;
 
     // If company not exist
-    const isCompanyExist = await Company.findOne({ _id: companyId });
+    const isCompanyExist = await Company.find({ _id: companyId });
     if (!isCompanyExist) {
       return res.status(400).json({
         message: "Company not found",
@@ -126,6 +126,11 @@ export const deleteCompany = async (req, res) => {
       return res.status(400).json({
         message: "Company not deleted",
         status: 400,
+      });
+    } else {
+      return res.status(200).json({
+        message: "Company deleted successfully",
+        status: 200,
       });
     }
   } catch (error) {
@@ -151,7 +156,7 @@ export const getCompany = async (req, res) => {
     }
 
     return res.status(200).json({
-      message: "Company registered successfully",
+      message: "Data retreived successfully",
       data: companies,
       status: 200,
     });
