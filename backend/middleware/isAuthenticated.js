@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 const isAuthenticated = async (req, res, next) => {
   try {
-    const token = req.cookie.token;
+    const token = req.cookies.token;
     if (!token) {
       return res.status(401).json({
         message: "Unauthorized HTTP, Token not provided",
@@ -21,7 +21,7 @@ const isAuthenticated = async (req, res, next) => {
     req.id = decodeToken.userId;
     next();
   } catch (error) {
-    console.log("Error while authenticating token", error.message);
+    console.log("Error while authenticating token", error);
     return res.status(401).json({
       message: error.message,
       status: 401,

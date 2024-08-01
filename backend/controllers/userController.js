@@ -157,30 +157,12 @@ export const updateProfile = async (req, res) => {
       phoneNumber,
     } = req.body;
 
-    console.log(req.id);
-
-    // If all fields are empty
-    // if (
-    //   !fullName ||
-    //   !email ||
-    //   !studentName ||
-    //   !bio ||
-    //   !skills ||
-    //   !experience ||
-    //   !dateOfBirth ||
-    //   !address ||
-    //   !city ||
-    //   !country ||
-    //   !phoneNumber
-    // ) {
-    //   return res.status(400).json({
-    //     message: "All fields are required",
-    //     status: 400,
-    //   });
-    // }
-
     const userId = req.id;
-    const skillsArray = skills.split(",");
+
+    let skillsArray;
+    if (skills) {
+      skillsArray = skills.split(",");
+    }
 
     let user = await User.findById(userId);
     if (!user) {
