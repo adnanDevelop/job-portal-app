@@ -65,12 +65,12 @@ export const login = async (req, res) => {
       });
     }
 
+    // if password doesn't exist
     const comparePassword = await bcrypt.compare(
       password,
       isUserExist.password
     );
 
-    // if password doesn't exist
     if (!comparePassword) {
       return res.status(400).json({
         message: "Invalid password",
@@ -110,8 +110,8 @@ export const login = async (req, res) => {
         sameSite: "strict",
       })
       .json({
-        message: `Welcome back ${fullName}`,
-        user: isUserExist,
+        message: `Login successfull`,
+        data: isUserExist,
         status_code: 200,
       });
   } catch (error) {

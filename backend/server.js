@@ -18,7 +18,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use("/api/v1", userRoute);
-// "https://localhost:3000/api/v1/user/register"
+// "http://localhost:3000/api/v1/user/register"
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {
