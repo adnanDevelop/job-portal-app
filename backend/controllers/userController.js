@@ -57,7 +57,6 @@ export const login = async (req, res) => {
     }
 
     let isUserExist = await User.findOne({ email });
-    console.log(isUserExist);
     if (!isUserExist) {
       return res.status(400).json({
         message: "Invalid email address",
@@ -99,6 +98,7 @@ export const login = async (req, res) => {
       _id: isUserExist._id,
       email: isUserExist.email,
       role: isUserExist.role,
+      fullName: isUserExist.fullName,
     };
 
     // login user
@@ -110,7 +110,7 @@ export const login = async (req, res) => {
         sameSite: "strict",
       })
       .json({
-        message: `Login successfull`,
+        message: `Welcome back ${isUserExist.fullName}`,
         data: isUserExist,
         status_code: 200,
       });
@@ -144,6 +144,8 @@ export const updateProfile = async (req, res) => {
   try {
     const file = req.file;
     const {
+      fullName,
+      email,
       studentName,
       bio,
       skills,
@@ -155,26 +157,30 @@ export const updateProfile = async (req, res) => {
       phoneNumber,
     } = req.body;
 
-    // If all fields are empty
-    if (
-      !studentName ||
-      !bio ||
-      !skills ||
-      !experience ||
-      !dateOfBirth ||
-      !address ||
-      !city ||
-      !country ||
-      !phoneNumber
-    ) {
-      return res.status(400).json({
-        message: "All fields are required",
-        status: 400,
-      });
-    }
+    console.log(req.id);
 
-    const skillsArray = skills.split(",");
+    // If all fields are empty
+    // if (
+    //   !fullName ||
+    //   !email ||
+    //   !studentName ||
+    //   !bio ||
+    //   !skills ||
+    //   !experience ||
+    //   !dateOfBirth ||
+    //   !address ||
+    //   !city ||
+    //   !country ||
+    //   !phoneNumber
+    // ) {
+    //   return res.status(400).json({
+    //     message: "All fields are required",
+    //     status: 400,
+    //   });
+    // }
+
     const userId = req.id;
+    const skillsArray = skills.split(",");
 
     let user = await User.findById(userId);
     if (!user) {
@@ -184,10 +190,25 @@ export const updateProfile = async (req, res) => {
       });
     }
 
+    if (fullName) user.fullName = fullName;
+    if (email) user.email = email;
+    if (studentName) user.studentName = studentName;
+    if (bio) user.bio = bio;
+    if (skills) user.skills = skillsArray;
+    if (experience) user.experience = experience;
+    if (dateOfBirth) user.dateOfBirth = dateOfBirth;
+    if (address) user.address = address;
+    if (city) user.city = city;
+    if (country) user.country = country;
+    if (phoneNumber) user.phoneNumber = phoneNumber;
+
     //   udpate user profile data
     await user.save();
 
     user = {
+      _id: user._id,
+      fullName: user.fullName,
+      email: user.email,
       studentName: user.studentName,
       bio: user.bio,
       skillsArray: user.skills,
@@ -202,6 +223,7 @@ export const updateProfile = async (req, res) => {
     res.status(200).json({
       message: "Profile updated successfully",
       status: 200,
+      data: user,
     });
   } catch (error) {
     console.log("error while updating profile", error.message);

@@ -18,7 +18,8 @@ const isAuthenticated = async (req, res, next) => {
       });
     }
 
-    (req.id = decodeToken.userId), next();
+    req.id = decodeToken.userId;
+    next();
   } catch (error) {
     console.log("Error while authenticating token", error.message);
     return res.status(401).json({
