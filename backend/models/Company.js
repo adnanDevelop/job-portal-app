@@ -1,18 +1,19 @@
-import { Schema, model } from "mongoose";
+import mongoose from "mongoose";
 
-const userSchema = new Schema(
+const userSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
-    location: { type: String, required: true },
-    logo: { type: String, required: true },
-    companyBanner: { type: String, required: true },
+    companyName: { type: String, required: true },
+    bio: { type: String, required: true },
     description: { type: String, required: true },
+    location: { type: String, required: true },
+    logo: { type: String },
+    companyBanner: { type: String },
     founded: { type: Number, required: true },
     founder: { type: String, required: true },
     headQuater: { type: String, required: true },
-    website: { type: String },
+    websiteLink: { type: String },
     userId: {
-      type: mongoose.Schema.Types.objectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
@@ -20,4 +21,4 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-export const Company = new model("Company", userSchema);
+export const Company = new mongoose.model("Company", userSchema);
