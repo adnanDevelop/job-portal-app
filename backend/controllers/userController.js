@@ -57,6 +57,7 @@ export const login = async (req, res) => {
     }
 
     let isUserExist = await User.findOne({ email });
+    console.log(isUserExist);
     if (!isUserExist) {
       return res.status(400).json({
         message: "Invalid email address",
@@ -96,18 +97,15 @@ export const login = async (req, res) => {
 
     isUserExist = {
       _id: isUserExist._id,
-      fullName: isUserExist.fullName,
       email: isUserExist.email,
-      phoneNumber: isUserExist.phoneNumber,
       role: isUserExist.role,
-      profile: isUserExist.profile,
     };
 
     // login user
     return res
       .status(200)
       .cookie("token", generateToken, {
-        maxAge: "1*24*60*60*1000",
+        maxAge: 1 * 24 * 60 * 60 * 1000,
         httpsOnly: true,
         sameSite: "strict",
       })

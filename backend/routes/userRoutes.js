@@ -4,8 +4,8 @@ import isAuthenticated from "../middleware/isAuthenticated.js";
 
 const router = Router();
 
-router.route("/api/register").post(register);
-router.route("/api/login").post(login);
-router.route("/api/profile/update").post(isAuthenticated, logout);
+router.route("/user/register").post(register);
+router.route("/user/login").post(login);
+router.route("/user/profile/update").post(isAuthenticated, logout);
 
 export default router;
