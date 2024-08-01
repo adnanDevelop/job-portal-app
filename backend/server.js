@@ -5,8 +5,7 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 dotenv.config({});
 import connectDb from "./db/db.js";
-
-app.get("/home", (req, res) => res.json({ message: "server working" }));
+import userRoute from "./routes/userRoutes.js";
 
 // middleware
 app.use(express.json());
@@ -17,6 +16,8 @@ const corsOptions = {
   credentials: true,
 };
 app.use(cors(corsOptions));
+
+app.use("/auth", userRoute);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {
