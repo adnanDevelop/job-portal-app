@@ -1,0 +1,19 @@
+npm i bcrypt cloudinary cookie-parser cors dotenv express express-fileupload jsonwebtoken mongoose node-cron nodemailer validator
+
+PORT=
+MONGO_URI=
+FRONT_URI=
+JWT_SECRET_KEY=
+JWT_EXPIRE=
+COOKIE_EXPIRE=
+
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_SECRET=
+CLOUDINARY_API_KEY=
+
+
+SMTP_SERVICE=
+SMPT_MAIL=
+SMTP_PASSWORD=
+SMTP_HOST=
+SMTP_PART=
