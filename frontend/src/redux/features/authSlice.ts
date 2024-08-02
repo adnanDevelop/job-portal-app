@@ -1,9 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
-
 const initialState = {
-  isAuthenticated: false,
+  isAuthenticated: true,
   token: null,
 };
 
@@ -21,14 +19,8 @@ const authSlice = createSlice({
       state.token = null;
       localStorage.removeItem("foodAppToken");
     },
-
-    deleteAccountDetails: (state) => {
-      state.isAuthenticated = false;
-      state.token = null;
-      localStorage.removeItem("foodAppToken");
-    },
   },
 });
 
-export const { storeToken, logout, deleteAccountDetails } = authSlice.actions;
+export const { storeToken, logout } = authSlice.actions;
 export default authSlice.reducer;
