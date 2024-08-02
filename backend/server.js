@@ -8,6 +8,7 @@ import connectDb from "./db/db.js";
 
 import userRoute from "./routes/userRoutes.js";
 import companyRoute from "./routes/companyRoutes.js";
+import jobRoute from "./routes/jobPostRoutes.js";
 
 // middleware
 app.use(express.json());
@@ -22,6 +23,7 @@ app.use(cors(corsOptions));
 // All routes
 app.use("/api/v1", userRoute);
 app.use("/api/v1/company", companyRoute);
+app.use("/api/v1/job", jobRoute);
 // "http://localhost:3000/api/v1/user/register"
 
 const PORT = process.env.PORT || 3000;
