@@ -36,7 +36,7 @@ const jobSchema = new mongoose.Schema(
       required: true,
     },
     experience: { type: String, required: true },
-    qualification: { type: String, required: true },
+    qualification: { type: String },
     salary: { type: Number, required: true },
     company: {
       type: mongoose.Schema.Types.ObjectId,
