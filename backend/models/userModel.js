@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ["student", "recruitor"],
       required: true,
+      default: "student",
     },
     profile: {
       studentName: { type: String },

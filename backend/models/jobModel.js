@@ -3,12 +3,38 @@ import mongoose from "mongoose";
 const jobSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
-    employmentType: { type: String, required: true },
+    employmentType: {
+      type: String,
+      enum: ["Permanent", "Temporary"],
+      required: true,
+    },
     requirements: [{ type: String, required: true }],
     description: { type: String, required: true },
     positions: { type: Number, required: true },
-    location: { type: String, required: true },
-    jobType: { type: String, required: true },
+    category: {
+      type: String,
+      enum: [
+        "Graphic Design",
+        "Web Developer",
+        "App Developer",
+        "UI / UX Designer",
+        "Video Editor",
+        "Content Creator",
+        "Blockchain Developer",
+      ],
+      required: true,
+    },
+    location: {
+      type: String,
+      enum: ["Islamabad", "Lahore", "Karachi", "Peshawar", "Faisalabad"],
+      required: true,
+    },
+    address: { type: String, required: true },
+    jobType: {
+      type: String,
+      enum: ["Full Time", "Part Time", "Freelancing", "Remote"],
+      required: true,
+    },
     experience: { type: String, required: true },
     qualification: { type: String, required: true },
     salary: { type: Number, required: true },
