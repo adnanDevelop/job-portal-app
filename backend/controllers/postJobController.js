@@ -5,31 +5,44 @@ export const postJob = async (req, res) => {
   try {
     const {
       title,
-      company,
       employmentType,
+      requirements,
       description,
+      positions,
+      location,
       jobType,
       experience,
       qualification,
       salary,
+      company,
       application,
     } = req.body;
 
     const userId = req.id;
 
+    let requirementsArray;
+    if (requirements) {
+      requirementsArray = requirements.split(",");
+    }
+
+    // Create job
     const createJob = await Job.create({
       title,
-      company,
       employmentType,
+      requirements: requirementsArray,
       description,
+      positions,
+      location,
       jobType,
       experience,
       qualification,
       salary,
+      company,
       application,
       createdBy: userId,
     });
 
+    // sending response
     return res.status(200).json({
       message: "New job created successfully",
       status: 200,
@@ -37,6 +50,69 @@ export const postJob = async (req, res) => {
     });
   } catch (error) {
     console.log("Error while posting job:", error.message);
+    return res.status(400).json({
+      message: error.message,
+      status: 400,
+    });
+  }
+};
+
+export const updateJob = async (req, res) => {
+  try {
+    const jobId = req.id;
+    const {
+      title,
+      employmentType,
+      requirements,
+      description,
+      location,
+      jobType,
+      experience,
+      qualification,
+      salary,
+      application,
+    } = req.body;
+
+    console.log(jobId, "jobid");
+
+    // update data
+    const updateJobData = {
+      title,
+      employmentType,
+      requirements,
+      description,
+      location,
+      jobType,
+      experience,
+      qualification,
+      salary,
+      application,
+    };
+
+    const findJob = await Job.find({ _id: jobId });
+    console.log(findJob, "job data");
+
+    // // Update Job
+    // const job = await Job.findByIdAndUpdate({ _id }, updateJobData, {
+    //   new: true,
+    // });
+
+    // // If job not found
+    // if (!job) {
+    //   return res.status(400).json({
+    //     message: "job not found.",
+    //     status: 400,
+    //   });
+    // }
+
+    // // Sending response
+    // return res.status(200).json({
+    //   message: "job updated successfully",
+    //   status: 200,
+    //   data: job,
+    // });
+  } catch (error) {
+    console.log("Error while updating job:", error.message);
     return res.status(400).json({
       message: error.message,
       status: 400,
@@ -89,7 +165,12 @@ export const getJob = async (req, res) => {
       ],
     };
 
-    const getAllJobs = await Job.find(query);
+    const getAllJobs = await Job.find(query)
+      .populate({
+        path: "company",
+      })
+      .sort({ createdAt: -1 });
+
     // If jobs not found
     if (!getAllJobs) {
       return res.status(400).json({
@@ -100,7 +181,7 @@ export const getJob = async (req, res) => {
 
     // Sending response
     return res.status(200).json({
-      message: "New job created successfully",
+      message: "Data retreived successfully",
       status: 200,
       data: getAllJobs,
     });
@@ -117,7 +198,7 @@ export const getJob = async (req, res) => {
 export const getJobById = async (req, res) => {
   try {
     const jobId = req.params.id;
-    const findJob = await Job.findById(jobId);
+    const findJob = await Job.findById(jobId).populate({ path: "company" });
     if (!findJob) {
       return res.status(400).json({
         message: "Job not found",
