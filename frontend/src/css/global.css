@@ -13,7 +13,7 @@
   }
 
   .padding-inline {
-    @apply md:px-[45px] px-[20px];
+    @apply md:px-[80px] px-[20px];
   }
 
   .primary-btn {

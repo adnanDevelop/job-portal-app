@@ -49,8 +49,8 @@ const Navbar = () => {
     <div className="relative">
       {/* large screen navbar */}
       <nav
-        className={`flex items-center justify-between w-full  h-[75px] padding-inline transitions  fixed top-0 left-0 z-[10] ${
-          scrollAnimation ? "bg-dark-blue" : "bg-transparent"
+        className={`flex items-center justify-between w-full  h-[75px] padding-inline transitions   fixed top-0 left-0 z-[10] border-b border-b-color ${
+          scrollAnimation ? "bg-dark-blue" : "lg:bg-transparent bg-dark-blue"
         }`}
       >
         {/* Logo section */}
@@ -80,7 +80,8 @@ const Navbar = () => {
           <div className="w-[170px] rounded-full border-color border h-[35px] relative lg:block hidden">
             <input
               type="text"
-              className="w-full h-full text-xs text-white bg-transparent border border-transparent rounded-full ps-2 pe-8 focus:outline-none focus:border-green"
+              className="w-full h-full text-xs text-white bg-transparent border border-transparent rounded-full placeholder:text-xs placeholder:text-white ps-3 pe-8 focus:outline-none focus:border-green"
+              placeholder="Search..."
             />
             <span className="absolute text-white right-2 top-[50%] translate-y-[-50%] text-xl cursor-pointer">
               <IoIosSearch />
