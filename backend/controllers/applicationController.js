@@ -109,7 +109,7 @@ export const getApplicants = async (req, res) => {
     });
 
     if (!findJob) {
-      res.status(400).json({
+      return res.status(400).json({
         message: "Job not found",
         status: 400,
       });
@@ -144,10 +144,8 @@ export const updateStatus = async (req, res) => {
     }
 
     // find application
-    const application = await Application.findOne(
-      { _id: applicationId },
-      { $set: { status } }
-    );
+    const application = await Application.findOne({ _id: applicationId });
+
     // if application not found
     if (!application) {
       return res.status(400).json({
@@ -166,6 +164,40 @@ export const updateStatus = async (req, res) => {
     });
   } catch (error) {
     console.log("error while updating application status ", error.message);
+    return res.status(400).json({
+      message: error.message,
+      status: 400,
+    });
+  }
+};
+
+export const deleteApplication = async (req, res) => {
+  try {
+    const applicationId = req.params.id;
+
+    const findApplication = await Application.findOne({ _id: applicationId });
+    if (!findApplication) {
+      return res.status(400).json({
+        message: "Application not found",
+        status: 400,
+      });
+    }
+
+    // Delete Application
+    const application = await Application.deleteOne({ _id: applicationId });
+    if (application.deletedCount !== 1) {
+      return res.status(400).json({
+        message: "Application not deleted",
+        status: 400,
+      });
+    } else {
+      return res.status(200).json({
+        message: "Application deleted successfully",
+        status: 200,
+      });
+    }
+  } catch (error) {
+    console.log("error while deleting application ", error.message);
     return res.status(400).json({
       message: error.message,
       status: 400,

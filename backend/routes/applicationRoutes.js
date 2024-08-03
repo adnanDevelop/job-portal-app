@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   applyJob,
+  deleteApplication,
   getApplicants,
   getAppliedJobs,
   updateStatus,
@@ -13,5 +14,6 @@ router.route("/apply/:id").get(isAuthenticated, applyJob);
 router.route("/getjob").get(isAuthenticated, getAppliedJobs);
 router.route("/:id/applicant").get(isAuthenticated, getApplicants);
 router.route("/:id/update").put(isAuthenticated, updateStatus);
+router.route("/:id/delete").delete(isAuthenticated, deleteApplication);
 
 export default router;
