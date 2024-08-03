@@ -90,7 +90,7 @@ const Login = () => {
                   type="radio"
                   className="radio radio-xs radio-accent"
                   value="student"
-                  {...register("role", { required: true })}
+                  {...register("role", { required: "Name is required" })}
                 />
                 <span>Student</span>
               </div>
@@ -99,24 +99,24 @@ const Login = () => {
                   type="radio"
                   className="radio radio-xs radio-accent"
                   value="recruitor"
-                  {...register("role", { required: true })}
+                  {...register("role", { required: "Name is required" })}
                 />
                 <span>Recruitor</span>
               </div>
             </div>
+            {errors.role && (
+              <p className="mt-1 text-xs text-red-500">{errors.role.message}</p>
+            )}
           </div>
 
           {/* Submit button */}
           <div className="mt-3">
-            <button
-              type="submit"
-              className="w-full h-[40px] rounded-md text-white font-poppin font-medium capitalize text-sm transitions hover:scale-[1.05] bg-green"
-            >
-              Register
+            <button type="submit" className="w-full primary-btn">
+              Login
             </button>
             <p className="mt-2 text-xs text-center text-white">
               Don't have an account?{" "}
-              <Link to="/login" className="font-semibold text-green">
+              <Link to="/register" className="font-semibold text-green">
                 Login
               </Link>
             </p>

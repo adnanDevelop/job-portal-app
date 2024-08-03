@@ -9,6 +9,7 @@ export default {
         green: "#059669",
         slate: "#94A3B8",
         ouline: "#1F2937FF",
+        color: "#94a3b857",
       },
       boxShadow: {
         "custom-light": "0px 0.5px 10px rgba(0, 0, 0, 0.08)",

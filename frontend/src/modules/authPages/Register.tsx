@@ -19,7 +19,7 @@ const Register = () => {
   };
 
   return (
-    <main className="w-full relaive z-[1] h-screen bg-[url('/image/auth-bg.jpg')] bg-no-repeat bg-center bg-cover">
+    <main className="w-full relaive z-[1] py-[20px] bg-[url('/image/auth-bg.jpg')] bg-no-repeat bg-center bg-cover bg-fixed">
       <div className="fixed top-0  left-0 w-full h-full bg-gradient-to-b from-transparent to-[#161c2d]" />
       <div className="relative z-[1] flex items-center justify-center w-full h-full  px-[20px]">
         {/* Form section */}
@@ -141,7 +141,7 @@ const Register = () => {
                   type="radio"
                   className="radio radio-xs radio-accent"
                   value="student"
-                  {...register("role", { required: true })}
+                  {...register("role", { required: "Role is required" })}
                 />
                 <span>Student</span>
               </div>
@@ -150,19 +150,19 @@ const Register = () => {
                   type="radio"
                   className="radio radio-xs radio-accent"
                   value="recruitor"
-                  {...register("role", { required: true })}
+                  {...register("role", { required: "Role is required" })}
                 />
                 <span>Recruitor</span>
               </div>
             </div>
+            {errors.role && (
+              <p className="mt-1 text-xs text-red-500">{errors.role.message}</p>
+            )}
           </div>
 
           {/* Submit button */}
           <div className="mt-3">
-            <button
-              type="submit"
-              className="w-full h-[40px] rounded-md text-white font-poppin font-medium capitalize text-sm transitions hover:scale-[1.05] bg-green"
-            >
+            <button type="submit" className="w-full primary-btn">
               Register
             </button>
             <p className="mt-2 text-xs text-center text-white">
