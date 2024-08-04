@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Icons
 import { IoIosSearch } from "react-icons/io";
@@ -18,6 +18,7 @@ interface ILinks {
 }
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const isAuthenticated = useSelector(
     (state: any) => state.auth.isAuthenticated
   );
@@ -153,19 +154,21 @@ const Navbar = () => {
               </div>
             </>
           ) : (
-            <div className="flex items-center justify-end gap-x-4">
-              <Link
-                className="flex items-center justify-center primary-btn-outline px-[20px]"
-                to="/login"
-              >
-                Login
-              </Link>
-              <Link
-                className="flex items-center justify-center primary-btn px-[20px]"
-                to="/register"
-              >
-                Register
-              </Link>
+            <div className="hidden md:block">
+              <div className="flex items-center justify-end sm:gap-x-4 gap-x-2">
+                <Link
+                  className="flex items-center justify-center primary-btn-outline px-[20px]"
+                  to="/login"
+                >
+                  Login
+                </Link>
+                <Link
+                  className="flex items-center justify-center primary-btn px-[20px]"
+                  to="/register"
+                >
+                  Register
+                </Link>
+              </div>
             </div>
           )}
 
@@ -203,7 +206,7 @@ const Navbar = () => {
       {/* Small screen navbar */}
       <div>
         <div
-          className={`fixed w-[250px] h-screen bg-dark-blue border-r-2 border-r-green rounded-tr-xl top-0 transitions z-10 ${
+          className={`fixed w-[250px] h-screen bg-dark-blue border-r-2 border-r-green rounded-tr-xl top-0 transitions overflow-y-auto z-10 ${
             sideBar ? " left-[0%]" : "left-[-200%]"
           } `}
         >
@@ -252,6 +255,21 @@ const Navbar = () => {
                 </li>
               ))}
             </ul>
+
+            <div className="mt-[40px] md:hidden block">
+              <button
+                onClick={() => navigate("/login")}
+                className="w-full mb-2 primary-btn"
+              >
+                Sign Up
+              </button>
+              <button
+                onClick={() => navigate("/register")}
+                className="w-full primary-btn-outline"
+              >
+                Login
+              </button>
+            </div>
           </div>
         </div>
       </div>

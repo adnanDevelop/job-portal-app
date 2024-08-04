@@ -1,5 +1,6 @@
 // Components
 import Hero from "./component/Hero";
+import PopularJob from "./component/PopularJob";
 import PopularCategory from "./component/PopularCategory";
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
     <>
       <Hero />
       <PopularCategory />
+      <PopularJob />
     </>
   );
 };

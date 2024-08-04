@@ -7,31 +7,31 @@ const Hero = () => {
 
       {/* Image animation section */}
       <div>
-        <div className="w-[40px] h-[40px] rounded-md border border-color shadow bg-dark-blue sm:block hidden slow-bounce absolute md:top-[18%] top-[15%] left-[50%] translate-x-[-50%] ">
+        <div className="w-[40px] h-[40px] rounded-md border border-gray-700  shadow shadow-gray-800 bg-dark-blue sm:block hidden slow-bounce absolute md:top-[18%] top-[15%] left-[50%] translate-x-[-50%] ">
           <div className="flex items-center justify-center h-[40px]">
             <img src="/image/hero/img-1.png" className="w-[22px]" alt="" />
           </div>
         </div>
         {/* 2 */}
-        <div className="w-[40px] h-[40px] rounded-md lg:block hidden border border-color shadow bg-dark-blue  round-animate absolute top-[40%] left-[10%]  ">
+        <div className="w-[40px] h-[40px] rounded-md lg:block hidden border border-gray-700  shadow shadow-gray-800 bg-dark-blue  round-animate absolute top-[40%] left-[10%]  ">
           <div className="flex items-center justify-center h-[40px]">
             <img src="/image/hero/img-2.png" className="w-[22px]" alt="" />
           </div>
         </div>
 
         {/* 4 */}
-        <div className="w-[40px] h-[40px] rounded-md border border-color lg:block hidden shadow bg-dark-blue   absolute top-[40%] right-[10%]  ">
+        <div className="w-[40px] h-[40px] rounded-md border border-gray-700  shadow-gray-800 lg:block hidden shadow bg-dark-blue   absolute top-[40%] right-[10%]  ">
           <div className="flex items-center justify-center h-[40px]">
             <img src="/image/hero/img-4.png" className="w-[22px]" alt="" />
           </div>
         </div>
         {/* 5 */}
-        <div className="w-[40px] h-[40px] rounded-md border border-color shadow bg-dark-blue  xl:block hidden round-animate absolute bottom-[36%] right-[8%]  ">
+        <div className="w-[40px] h-[40px] rounded-md border border-gray-700  shadow shadow-gray-800 bg-dark-blue  xl:block hidden round-animate absolute bottom-[36%] right-[8%]  ">
           <div className="flex items-center justify-center h-[40px]">
             <img src="/image/hero/img-5.png" className="w-[22px]" alt="" />
           </div>
         </div>
-        <div className="w-[40px] h-[40px] rounded-md border border-color shadow bg-dark-blue  xl:block hidden  absolute bottom-[36%] left-[8%]  ">
+        <div className="w-[40px] h-[40px] rounded-md border border-gray-700  shadow shadow-gray-800 bg-dark-blue  xl:block hidden  absolute bottom-[36%] left-[8%]  ">
           <div className="flex items-center justify-center h-[40px]">
             <img src="/image/hero/img-3.png" className="w-[22px]" alt="" />
           </div>
@@ -59,21 +59,21 @@ const Hero = () => {
             <input
               type="Search you keywords..."
               placeholder="Search Jobs"
-              className="w-full h-[40px] px-2 text-xs text-white border rounded-md placeholder:text-xs focus:outline-none focus:border-green border-slate bg-dark-blue"
+              className="w-full h-[40px] px-2 text-xs text-white  rounded-md placeholder:text-xs focus:outline-none focus:border-green shadow-gray-800 shadow border border-gray-700 bg-dark-blue"
             />
           </div>
           <div className="sm:col-span-6 col-span-full md:col-span-4 lg:col-span-3">
             <input
               type="text"
               placeholder="Location"
-              className="w-full h-[40px] px-2 text-xs text-white border rounded-md placeholder:text-xs focus:outline-none focus:border-green border-slate bg-dark-blue"
+              className="w-full h-[40px] px-2 text-xs text-white  rounded-md placeholder:text-xs focus:outline-none focus:border-green shadow-gray-800 shadow border border-gray-700 bg-dark-blue"
             />
           </div>
           <div className="sm:col-span-6 col-span-full md:col-span-4 lg:col-span-3">
             <input
               type="text"
               placeholder="Job Type"
-              className="w-full h-[40px] px-2 text-xs text-white border rounded-md placeholder:text-xs focus:outline-none focus:border-green border-slate bg-dark-blue"
+              className="w-full h-[40px] px-2 text-xs text-white  rounded-md placeholder:text-xs focus:outline-none focus:border-green shadow-gray-800 shadow border border-gray-700 bg-dark-blue"
             />
           </div>
           {/* button section */}
