@@ -1,9 +1,16 @@
+import axios from "axios";
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+
 // Types
 import { IRegisterUser } from "./type";
-import { Link } from "react-router-dom";
+import { userApiEndPoint } from "../../utils/apiEndPoints";
+import { useState } from "react";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -11,10 +18,36 @@ const Register = () => {
   } = useForm<IRegisterUser>();
 
   const submitData = async (data: IRegisterUser) => {
+    const formData = new FormData();
+    formData.append("fullName", data.fullName);
+    formData.append("email", data.email);
+    formData.append("phoneNumber", data.phoneNumber);
+    formData.append("password", data.password);
+    formData.append("role", data.role);
+    if (data.file?.[0]) {
+      formData.append("file", data.file[0]);
+    }
+
     try {
-      console.log(data);
+      const response = await axios.post(
+        `${userApiEndPoint}/register`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (response.status === 200) {
+        navigate("/login");
+        toast.success(response?.data?.message);
+      }
     } catch (error) {
       console.log("error while registering user", error);
+    } finally {
+      setLoading(true);
     }
   };
 
@@ -86,7 +119,9 @@ const Register = () => {
               type="tel"
               className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
               placeholder="03230838836"
-              {...register("phoneNumber", { required: "Name is required" })}
+              {...register("phoneNumber", {
+                required: "Phone number is required",
+              })}
             />
             {errors.phoneNumber && (
               <p className="mt-1 text-xs text-red-500">
@@ -127,9 +162,14 @@ const Register = () => {
               Select Image:
             </label>
             <input
+              accept="image/*"
               type="file"
               className="mt-1 w-full h-[40px] max-w-full text-xs text-white bg-transparent file-input rounded-md border border-[#94a3b857]"
+              {...register("file", { required: "Image is required" })}
             />
+            {errors.file && (
+              <p className="mt-1 text-xs text-red-500">{errors.file.message}</p>
+            )}
           </div>
 
           {/* Select role */}
@@ -163,7 +203,11 @@ const Register = () => {
           {/* Submit button */}
           <div className="mt-3">
             <button type="submit" className="w-full primary-btn">
-              Register
+              {loading ? (
+                <span className="loading loading-dots loading-md"></span>
+              ) : (
+                "Register"
+              )}
             </button>
             <p className="mt-2 text-xs text-center text-white">
               Already have an account?{" "}

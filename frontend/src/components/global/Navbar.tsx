@@ -8,12 +8,17 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { GrClose } from "react-icons/gr";
 
+// Redux
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/features/authSlice";
+
 interface ILinks {
   name: string;
   path: string;
 }
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState<boolean>(false);
   const [sideBar, showSideBar] = useState<boolean>(false);
   const [scrollAnimation, setScrollAnimation] = useState<boolean>(false);
@@ -49,7 +54,7 @@ const Navbar = () => {
     <div className="relative">
       {/* large screen navbar */}
       <nav
-        className={`flex items-center justify-between w-full  h-[75px] padding-inline transitions   fixed top-0 left-0 z-[10] border-b border-b-color ${
+        className={`flex items-center justify-between w-full  h-[75px] padding-inline transitions fixed top-0 left-0 z-[10] shadow ${
           scrollAnimation ? "bg-dark-blue" : "lg:bg-transparent bg-dark-blue"
         }`}
       >
@@ -97,8 +102,8 @@ const Navbar = () => {
                 className="flex items-center justify-center"
               >
                 <img
-                  src={`${"/image/avator.png"}`}
-                  className="w-[35px] h-[35px] border border-green object-cover rounded-full"
+                  src={`${"/image/avator.jpg"}`}
+                  className="w-[35px] h-[35px] border-2 border-green object-cover rounded-full"
                   alt=""
                 />
               </div>
@@ -126,7 +131,10 @@ const Navbar = () => {
                 <li>
                   <button
                     type="button"
-                    className="!p-2   font-medium bg-transparent rounded-md transitions hover:bg-green text-white text-content-color hover:text-yellow focus:text-yellow"
+                    className="!p-2 font-medium bg-transparent rounded-md transitions hover:bg-green text-white text-content-color hover:text-yellow focus:text-yellow"
+                    onClick={() => {
+                      dispatch(logout());
+                    }}
                   >
                     <IoExitOutline className="text-base" /> Logout
                   </button>

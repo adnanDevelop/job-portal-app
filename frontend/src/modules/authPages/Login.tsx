@@ -1,20 +1,47 @@
+import axios from "axios";
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+
 // Types
 import { ILoginUser } from "./type";
-import { Link } from "react-router-dom";
+import { userApiEndPoint } from "../../utils/apiEndPoints";
+
+// Redux
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/features/authSlice";
+import { useState } from "react";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const disptach = useDispatch();
+  const [loading, setLoading] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ILoginUser>();
 
+  // Submit data
   const submitData = async (data: ILoginUser) => {
     try {
-      console.log(data);
+      const response = await axios.post(`${userApiEndPoint}/login`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
+
+      if (response.status === 200) {
+        navigate("/");
+        disptach(login());
+        console.log(response);
+        toast.success(response?.data?.message);
+      }
     } catch (error) {
-      console.log("error while registering user", error);
+      console.log("error while login user", error);
+    } finally {
+      setLoading(true);
     }
   };
 
@@ -32,7 +59,7 @@ const Login = () => {
             className="w-[120px] h-auto object-cover mx-auto"
             alt=""
           />
-          <h1 className="!text-white font-poppin font-medium my-2">Register</h1>
+          <h1 className="!text-white font-poppin font-medium my-2">Login</h1>
 
           {/* email input */}
           <div className="mb-2">
@@ -90,7 +117,7 @@ const Login = () => {
                   type="radio"
                   className="radio radio-xs radio-accent"
                   value="student"
-                  {...register("role", { required: "Name is required" })}
+                  {...register("role", { required: "Role is required" })}
                 />
                 <span>Student</span>
               </div>
@@ -99,7 +126,7 @@ const Login = () => {
                   type="radio"
                   className="radio radio-xs radio-accent"
                   value="recruitor"
-                  {...register("role", { required: "Name is required" })}
+                  {...register("role", { required: "Role is required" })}
                 />
                 <span>Recruitor</span>
               </div>
@@ -111,13 +138,21 @@ const Login = () => {
 
           {/* Submit button */}
           <div className="mt-3">
-            <button type="submit" className="w-full primary-btn">
-              Login
+            <button
+              type="submit"
+              className="flex items-center justify-center w-full primary-btn"
+              disabled={loading}
+            >
+              {loading ? (
+                <span className="loading loading-dots loading-md"></span>
+              ) : (
+                "Login"
+              )}
             </button>
             <p className="mt-2 text-xs text-center text-white">
               Don't have an account?{" "}
               <Link to="/register" className="font-semibold text-green">
-                Login
+                Register
               </Link>
             </p>
           </div>

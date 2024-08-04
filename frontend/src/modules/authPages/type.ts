@@ -1,10 +1,10 @@
 export interface IRegisterUser {
   fullName: string;
   email: string;
-  phoneNumber: number;
+  phoneNumber: string;
   password: string;
   role: string;
-  profilePhoto?: string;
+  file?: string;
 }
 
 export interface ILoginUser {
