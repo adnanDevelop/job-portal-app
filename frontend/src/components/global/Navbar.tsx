@@ -21,12 +21,11 @@ const Navbar = () => {
   const isAuthenticated = useSelector(
     (state: any) => state.auth.isAuthenticated
   );
-  console.log(isAuthenticated);
-
   const dispatch = useDispatch();
   const [open, setOpen] = useState<boolean>(false);
   const [sideBar, showSideBar] = useState<boolean>(false);
   const [scrollAnimation, setScrollAnimation] = useState<boolean>(false);
+  const activeLink = window.location.pathname;
   const links: ILinks[] = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
@@ -35,7 +34,6 @@ const Navbar = () => {
     { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
   ];
-  const activeLink = window.location.pathname;
 
   // Scroll animation
   useEffect(() => {
@@ -59,7 +57,7 @@ const Navbar = () => {
     <div className="relative">
       {/* large screen navbar */}
       <nav
-        className={`flex items-center justify-between w-full sm:h-[75px] h-[55px] padding-inline transitions fixed top-0 left-0 z-[10] shadow ${
+        className={`flex items-center justify-between w-full sm:h-[75px] h-[55px] padding-inline transitions fixed top-0 left-0 z-[10] shadow-gray-800 shadow ${
           scrollAnimation ? "bg-dark-blue" : "lg:bg-transparent bg-dark-blue"
         }`}
       >

@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <main className="lg:pt-[220px] pt-[120px] lg:pb-[140px] md:pb-[100px] pb-[70px] bg-dark-blue relative z-[1] padding-inline ">
+    <main className="lg:pt-[150px] pt-[120px] lg:pb-[120px] md:pb-[100px] pb-[70px] bg-dark-blue relative z-[1] padding-inline ">
       <div className="absolute top-0 left-0 w-full h-full z-[-1] bg-gradient-to-b from-[#0596681e] to-[#05966814]" />
 
       {/* Image animation section */}
       <div>
-        <div className="w-[40px] h-[40px] rounded-md border border-color shadow bg-dark-blue sm:block hidden slow-bounce absolute md:top-[20%] top-[15%] left-[50%] translate-x-[-50%] ">
+        <div className="w-[40px] h-[40px] rounded-md border border-color shadow bg-dark-blue sm:block hidden slow-bounce absolute md:top-[18%] top-[15%] left-[50%] translate-x-[-50%] ">
           <div className="flex items-center justify-center h-[40px]">
             <img src="/image/hero/img-1.png" className="w-[22px]" alt="" />
           </div>
@@ -87,17 +87,21 @@ const Hero = () => {
           <span className="block mb-2 text-color sm:inline-block sm:mb-0">
             Popular Searches :
           </span>{" "}
-          {["Developer", "Web", "IOS", "PHP", "Senior Engineer"].map(
-            (item: string, index: number) => (
-              <Link
-                to="/jobs"
-                key={index}
-                className="m-1 text-[11px] leading-none badge  badge-outline border-green text-green transitions hover:bg-green hover:text-white focus:bg-green focus:text-white"
-              >
-                {item}
-              </Link>
-            )
-          )}
+          {[
+            "Web Developer",
+            "UI / UX Design",
+            "App Developer",
+            "Graphic Design",
+            "Content Write",
+          ].map((item: string, index: number) => (
+            <Link
+              to="/jobs"
+              key={index}
+              className="m-1 text-[11px] leading-none badge  badge-outline border-green text-green transitions hover:bg-green hover:text-white focus:bg-green focus:text-white"
+            >
+              {item}
+            </Link>
+          ))}
         </p>
       </section>
     </main>

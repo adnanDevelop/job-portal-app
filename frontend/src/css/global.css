@@ -17,7 +17,7 @@
   }
 
   .padding-block {
-    @apply md:py-[80px] sm:py-[40px] py-[20px];
+    @apply md:py-[100px] py-[80px];
   }
 
   .primary-btn {
