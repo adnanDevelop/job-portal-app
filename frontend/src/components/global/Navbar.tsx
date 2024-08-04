@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { GrClose } from "react-icons/gr";
 
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/features/authSlice";
 
 interface ILinks {
@@ -18,6 +18,11 @@ interface ILinks {
 }
 
 const Navbar = () => {
+  const isAuthenticated = useSelector(
+    (state: any) => state.auth.isAuthenticated
+  );
+  console.log(isAuthenticated);
+
   const dispatch = useDispatch();
   const [open, setOpen] = useState<boolean>(false);
   const [sideBar, showSideBar] = useState<boolean>(false);
@@ -54,14 +59,18 @@ const Navbar = () => {
     <div className="relative">
       {/* large screen navbar */}
       <nav
-        className={`flex items-center justify-between w-full  h-[75px] padding-inline transitions fixed top-0 left-0 z-[10] shadow ${
+        className={`flex items-center justify-between w-full sm:h-[75px] h-[55px] padding-inline transitions fixed top-0 left-0 z-[10] shadow ${
           scrollAnimation ? "bg-dark-blue" : "lg:bg-transparent bg-dark-blue"
         }`}
       >
         {/* Logo section */}
         <div>
           <img src="/image/logo-light.png" className="hidden md:block" alt="" />
-          <img src="/image/small-logo.png" className="block md:hidden" alt="" />
+          <img
+            src="/image/small-logo.png"
+            className="block md:hidden w-[35px] object-cover"
+            alt=""
+          />
         </div>
 
         {/* links */}
@@ -81,67 +90,86 @@ const Navbar = () => {
           </div>
         </div>
         <div className="flex items-center justify-center gap-x-3">
-          {/* Search bar */}
-          <div className="w-[170px] rounded-full border-color border h-[35px] relative lg:block hidden">
-            <input
-              type="text"
-              className="w-full h-full text-xs text-white bg-transparent border border-transparent rounded-full placeholder:text-xs placeholder:text-white ps-3 pe-8 focus:outline-none focus:border-green"
-              placeholder="Search..."
-            />
-            <span className="absolute text-white right-2 top-[50%] translate-y-[-50%] text-xl cursor-pointer">
-              <IoIosSearch />
-            </span>
-          </div>
-
-          {/* Profile dropdown */}
-          <div className="flex items-center justify-center">
-            <div className="rounded-md dropdown dropdown-bottom dropdown-end ">
-              <div
-                tabIndex={0}
-                role="button"
-                className="flex items-center justify-center"
-              >
-                <img
-                  src={`${"/image/avator.jpg"}`}
-                  className="w-[35px] h-[35px] border-2 border-green object-cover rounded-full"
-                  alt=""
+          {isAuthenticated ? (
+            <>
+              {/* Search bar */}
+              <div className="w-[170px] rounded-full border-color border h-[35px] relative lg:block hidden">
+                <input
+                  type="text"
+                  className="w-full h-full text-xs text-white bg-transparent border border-transparent rounded-full placeholder:text-xs placeholder:text-white ps-3 pe-8 focus:outline-none focus:border-green"
+                  placeholder="Search..."
                 />
+                <span className="absolute text-white right-2 top-[50%] translate-y-[-50%] text-xl cursor-pointer">
+                  <IoIosSearch />
+                </span>
               </div>
-              {/* dropdown links */}
-              <ul
-                tabIndex={0}
-                className="dropdown-content !top-[150%] menu  rounded-xl p-2 z-[1] w-[180px]  bg-dark-blue shadow"
+
+              {/* Profile dropdown */}
+              <div className="flex items-center justify-center">
+                <div className="rounded-md dropdown dropdown-bottom dropdown-end ">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="flex items-center justify-center"
+                  >
+                    <img
+                      src={`${"/image/avator.jpg"}`}
+                      className="w-[35px] h-[35px] border-2 border-green object-cover rounded-full"
+                      alt=""
+                    />
+                  </div>
+                  {/* dropdown links */}
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content !top-[150%] menu  rounded-xl p-2 z-[1] w-[180px]  bg-dark-blue shadow"
+                  >
+                    <li>
+                      <Link
+                        to="/user-profile"
+                        className="p-2 font-medium text-white bg-transparent rounded-md transitions hover:bg-green text-content-color hover:text-yellow focus:text-yellow"
+                      >
+                        <FaRegUser className="text-base" /> Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/setting"
+                        className="p-2 font-medium text-white bg-transparent rounded-md transitions hover:bg-green text-content-color hover:text-yellow focus:text-yellow"
+                      >
+                        <IoSettingsOutline className="text-base" /> Setting
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className="!p-2 font-medium bg-transparent rounded-md transitions hover:bg-green text-white text-content-color hover:text-yellow focus:text-yellow"
+                        onClick={() => {
+                          dispatch(logout());
+                        }}
+                      >
+                        <IoExitOutline className="text-base" /> Logout
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="flex items-center justify-end gap-x-4">
+              <Link
+                className="flex items-center justify-center primary-btn-outline px-[20px]"
+                to="/login"
               >
-                <li>
-                  <Link
-                    to="/user-profile"
-                    className="p-2 font-medium text-white bg-transparent rounded-md transitions hover:bg-green text-content-color hover:text-yellow focus:text-yellow"
-                  >
-                    <FaRegUser className="text-base" /> Profile
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/setting"
-                    className="p-2 font-medium text-white bg-transparent rounded-md transitions hover:bg-green text-content-color hover:text-yellow focus:text-yellow"
-                  >
-                    <IoSettingsOutline className="text-base" /> Setting
-                  </Link>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className="!p-2 font-medium bg-transparent rounded-md transitions hover:bg-green text-white text-content-color hover:text-yellow focus:text-yellow"
-                    onClick={() => {
-                      dispatch(logout());
-                    }}
-                  >
-                    <IoExitOutline className="text-base" /> Logout
-                  </button>
-                </li>
-              </ul>
+                Login
+              </Link>
+              <Link
+                className="flex items-center justify-center primary-btn px-[20px]"
+                to="/register"
+              >
+                Register
+              </Link>
             </div>
-          </div>
+          )}
 
           {/* Hamburger menu */}
           <div className="lg:hidden">

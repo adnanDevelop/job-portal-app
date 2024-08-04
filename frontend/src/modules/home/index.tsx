@@ -1,8 +1,13 @@
+// Components
+import Hero from "./component/Hero";
+import PopularCategory from "./component/PopularCategory";
+
 const Home = () => {
   return (
-    <div className="flex items-center justify-center h-[200vh] bg-light-blue">
-      Home
-    </div>
+    <>
+      <Hero />
+      <PopularCategory />
+    </>
   );
 };
 

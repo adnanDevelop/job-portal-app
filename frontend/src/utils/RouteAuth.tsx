@@ -2,7 +2,9 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 export const ProtectedRoute = ({ children }: React.PropsWithChildren) => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isAuthenticated = useSelector(
+    (state: any) => state.auth.isAuthenticated
+  );
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
@@ -11,7 +13,9 @@ export const ProtectedRoute = ({ children }: React.PropsWithChildren) => {
 };
 
 export const PublicRoute = ({ children }: React.PropsWithChildren) => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isAuthenticated = useSelector(
+    (state: any) => state.auth.isAuthenticated
+  );
 
   if (isAuthenticated) {
     return <Navigate to="/" replace />;

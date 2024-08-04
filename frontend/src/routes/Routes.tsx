@@ -21,13 +21,14 @@ export const Routes = () => {
     {
       path: "/",
       element: (
-        <ProtectedRoute>
-          <Layout />
-        </ProtectedRoute>
+        // <ProtectedRoute>
+        <Layout />
+        // </ProtectedRoute>
       ),
       children: [
         {
-          index: true,
+          // index: true,
+          path: "/",
           element: <Home />,
         },
         {
