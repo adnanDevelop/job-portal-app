@@ -14,7 +14,7 @@
   }
 
   .padding-inline {
-    @apply md:px-[80px] xl:px-[150px] sm:px-[40px] px-[20px];
+    @apply md:px-[80px] xl:px-[120px] sm:px-[40px] px-[20px];
   }
 
   .padding-block {

@@ -1,5 +1,33 @@
+import { useParams } from "react-router-dom";
+
+// Components
+import JobDescription from "./component/JobDescription";
+import JobInformation from "./component/JobInformation";
+import ExploreJob from "../home/component/ExploreJob";
+
 const JobDetail = () => {
-  return <div>JobDetail</div>;
+  const { id } = useParams();
+  console.log(id);
+
+  return (
+    <main className="">
+      <section className="padding-inline padding-block bg-light-blue md:pt-[150px] pt-[100px]">
+        <section className="grid grid-cols-12 gap-6">
+          {/* Job Detail section */}
+          <div className="lg:col-span-8 col-span-full">
+            <JobDescription />
+          </div>
+          {/* Job information */}
+          <div className="lg:col-span-4 col-span-full">
+            <JobInformation />
+          </div>
+        </section>
+      </section>
+
+      {/* Explore job section */}
+      <ExploreJob />
+    </main>
+  );
 };
 
 export default JobDetail;

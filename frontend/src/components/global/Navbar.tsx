@@ -21,7 +21,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  console.log(isAuthenticated);
   const dispatch = useDispatch();
   const [open, setOpen] = useState<boolean>(false);
   const [sideBar, showSideBar] = useState<boolean>(false);
@@ -39,7 +38,7 @@ const Navbar = () => {
   // Scroll animation
   useEffect(() => {
     const windowScroll = () => {
-      window.scrollY > 50
+      window.scrollY > 10
         ? setScrollAnimation(true)
         : setScrollAnimation(false);
     };

@@ -38,11 +38,11 @@ export const Routes = () => {
           element: <About />,
         },
         {
-          path: "jobs",
+          path: "/jobs",
           element: <JobList />,
         },
         {
-          path: "job-details/:id",
+          path: "/job-details/:id",
           element: <JobDetail />,
         },
         {

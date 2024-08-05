@@ -24,12 +24,18 @@ const ExploreJob = () => {
             <Link
               to="/jobs"
               className="flex items-center justify-center px-[20px] primary-btn"
+              onClick={() => {
+                window.scroll({ top: 0 });
+              }}
             >
               Apply Now
             </Link>
             <Link
               to="/jobs"
               className="flex items-center justify-center px-[20px] primary-btn-outline"
+              onClick={() => {
+                window.scroll({ top: 0 });
+              }}
             >
               Explore Jobs
             </Link>

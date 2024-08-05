@@ -10,6 +10,9 @@ const JobCard = ({ data }: any) => {
     <Link
       to={`job-details/${data}`}
       className="block w-full p-4 border border-gray-700 rounded-lg shadow-sm shadow-gray-600 transitions hover:shadow-lg hover:shadow-gray-700"
+      onClick={() => {
+        window.scroll({ top: 0 });
+      }}
     >
       {/* Header section */}
       <div className="flex items-center justify-between">
