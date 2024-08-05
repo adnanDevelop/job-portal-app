@@ -46,8 +46,8 @@ const Footer = () => {
       </div>
 
       {/* Second section */}
-      <div className="py-[30px] md:flex items-center justify-between">
-        <p className="mb-2 text-sm text-center text-slate md:mb-0 md:text-start">
+      <div className="sm:py-[30px] py-[20px] md:flex items-center justify-between">
+        <p className="mb-3 text-sm text-center text-slate md:mb-0 md:text-start">
           © 2024 Jobstack. All Rights Reserved.{" "}
           <a
             className="underline text-green"
@@ -65,7 +65,7 @@ const Footer = () => {
             <FaInstagram />,
             <FaLinkedinIn />,
             <FaTwitter />,
-          ].map((element: any, index: number) => {
+          ].map((element, index: number) => {
             return (
               <button
                 key={index}

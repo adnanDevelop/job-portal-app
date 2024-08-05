@@ -35,16 +35,10 @@ export default {
     themes: [
       {
         mytheme: {
-          primary: "#130185",
-          "sky-blue": "#587DBD",
-          "light-blue": "#1F73B7",
-          purple: "#110C31",
           "light-black": "#2F3941",
           "dark-gray": "#68737D",
-          "gray-300": "#CFCFCF",
-          "gray-500": "#A0A4A8",
-          "gray-700": "#535151",
           "warning-red": "#C03221",
+          success: "#059669",
         },
       },
     ],

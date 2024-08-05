@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <main className="lg:pt-[150px] xl:pt-[220px] pt-[120px] lg:pb-[150px] md:pb-[100px] pb-[70px] bg-dark-blue relative z-[1] padding-inline ">
+    <main className="lg:pt-[150px] xl:pt-[220px] pt-[120px] lg:pb-[150px] md:pb-[100px] pb-[70px] bg-dark-blue relative z-[1] padding-inline">
       <div className="absolute top-0 left-0 w-full h-full z-[-1] bg-gradient-to-b from-[#0596681e] to-[#05966814]" />
 
       {/* Image animation section */}
       <div>
-        <div className="w-[40px] h-[40px] rounded-md border border-gray-700  shadow shadow-gray-800 bg-dark-blue sm:block hidden slow-bounce absolute md:top-[18%] top-[15%] left-[50%] translate-x-[-50%] ">
+        <div className="w-[40px] h-[40px] rounded-md border border-gray-700  shadow shadow-gray-800 bg-dark-blue md:block hidden slow-bounce absolute md:top-[14%] xl:top-[22%] top-[15%] left-[50%] translate-x-[-50%] ">
           <div className="flex items-center justify-center h-[40px]">
             <img src="/image/hero/img-1.png" className="w-[22px]" alt="" />
           </div>
@@ -22,11 +22,11 @@ const Hero = () => {
         {/* 4 */}
         <div className="w-[40px] h-[40px] rounded-md border border-gray-700  shadow-gray-800 lg:block hidden shadow bg-dark-blue   absolute top-[40%] right-[10%]  ">
           <div className="flex items-center justify-center h-[40px]">
-            <img src="/image/hero/img-4.png" className="w-[22px]" alt="" />-
+            <img src="/image/hero/img-4.png" className="w-[22px]" alt="" />
           </div>
         </div>
         {/* 5 */}
-        <div className="w-[40px] h-[40px] rounded-md border border-gray-700  shadow shadow-gray-800 bg-dark-blue  xl:block hidden round-animate absolute bottom-[36%] right-[8%]  ">
+        <div className="w-[40px] h-[40px] rounded-md border border-gray-700  shadow shadow-gray-800 bg-dark-blue  xl:block hidden round-animate absolute bottom-[36%] right-[10%]  ">
           <div className="flex items-center justify-center h-[40px]">
             <img src="/image/hero/img-5.png" className="w-[22px]" alt="" />
           </div>

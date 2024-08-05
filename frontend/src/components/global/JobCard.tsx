@@ -5,10 +5,10 @@ import { FaRegBookmark } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa6";
 import { IoLocationSharp } from "react-icons/io5";
 
-const JobCard = () => {
+const JobCard = ({ data }: any) => {
   return (
     <Link
-      to="/job-detail"
+      to={`job-details/${data}`}
       className="block w-full p-4 border border-gray-700 rounded-lg shadow-sm shadow-gray-600 transitions hover:shadow-lg hover:shadow-gray-700"
     >
       {/* Header section */}

@@ -8,12 +8,13 @@
   body {
     @apply !overflow-x-hidden font-jakarta bg-dark-blue;
   }
+
   .transitions {
     @apply transition-all duration-500 ease-in-out;
   }
 
   .padding-inline {
-    @apply md:px-[80px] sm:px-[40px] px-[20px];
+    @apply md:px-[80px] xl:px-[150px] sm:px-[40px] px-[20px];
   }
 
   .padding-block {
@@ -23,6 +24,7 @@
   .primary-btn {
     @apply h-[40px] rounded-md text-white font-poppin font-medium capitalize text-[13px] transitions hover:scale-[1.05] bg-green;
   }
+
   .primary-btn-outline {
     @apply h-[40px] rounded-md text-white font-poppin font-medium capitalize text-[13px] transitions hover:scale-[1.05] bg-[#05966835] border border-green hover:bg-green;
   }

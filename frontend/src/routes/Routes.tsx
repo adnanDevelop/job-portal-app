@@ -16,6 +16,7 @@ import Service from "../modules/service";
 import Blog from "../modules/blog/Blog";
 import Contact from "../modules/contact";
 import JobList from "../modules/jobList/JobList";
+import JobDetail from "../modules/jobDetail/JobDetail";
 
 export const Routes = () => {
   return useRoutes([
@@ -39,6 +40,10 @@ export const Routes = () => {
         {
           path: "jobs",
           element: <JobList />,
+        },
+        {
+          path: "job-details/:id",
+          element: <JobDetail />,
         },
         {
           path: "service",
