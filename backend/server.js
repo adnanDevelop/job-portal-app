@@ -11,6 +11,7 @@ import userRoute from "./routes/userRoutes.js";
 import companyRoute from "./routes/companyRoutes.js";
 import jobRoute from "./routes/jobPostRoutes.js";
 import ApplicationRoute from "./routes/applicationRoutes.js";
+import GmailRoutes from "./routes/gmailRoute.js";
 
 // Configure CORS
 const corsOptions = {
@@ -29,6 +30,7 @@ app.use("/api/v1", userRoute);
 app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", ApplicationRoute);
+app.use("/api/v1/gmail", GmailRoutes);
 
 // Server running
 const PORT = process.env.PORT || 3000;
