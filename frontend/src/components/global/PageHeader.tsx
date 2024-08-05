@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FaChevronRight } from "react-icons/fa";
 
 interface IProps {
   title: string;
@@ -13,14 +14,17 @@ const PageHeader = ({ title, breadCrumb }: IProps) => {
         {title}
       </h1>
 
-      <div className="mt-4 text-sm text-white absolute bottom-10 left-[50%] translate-x-[-50%]">
+      <div className=" flex items-center mt-4 text-sm text-white absolute bottom-10 left-[50%] translate-x-[-50%]">
         <Link
           to="/"
           className="font-semibold text-white font-poppin transitions hover:text-green"
         >
           Home
         </Link>{" "}
-        <span className="mx-1"> {" > "}</span>
+        <span className="mx-1 text-[10px]">
+          {" "}
+          <FaChevronRight />
+        </span>
         <a className="font-semibold text-green font-poppin">
           {breadCrumb}
         </a>{" "}

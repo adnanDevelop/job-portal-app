@@ -119,7 +119,7 @@ const Navbar = () => {
                   {/* dropdown links */}
                   <ul
                     tabIndex={0}
-                    className="dropdown-content !top-[150%] menu  rounded-xl p-2 z-[1] w-[180px]  bg-dark-blue shadow"
+                    className="dropdown-content !top-[150%] menu  rounded-xl p-2 z-[1] w-[180px]  bg-dark-blue shadow border-b-2 border-b-green "
                   >
                     <li>
                       <Link
