@@ -22,7 +22,7 @@ const Hero = () => {
         {/* 4 */}
         <div className="w-[40px] h-[40px] rounded-md border border-gray-700  shadow-gray-800 lg:block hidden shadow bg-dark-blue   absolute top-[40%] right-[10%]  ">
           <div className="flex items-center justify-center h-[40px]">
-            <img src="/image/hero/img-4.png" className="w-[22px]" alt="" />
+            <img src="/image/hero/img-4.png" className="w-[22px]" alt="" />-
           </div>
         </div>
         {/* 5 */}

@@ -1,8 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  isAuthenticated: false,
-  token: null,
+interface IAuthState {
+  isAuthenticated: boolean;
+}
+
+const initialState: IAuthState = {
+  isAuthenticated: true,
 };
 
 const authSlice = createSlice({
@@ -11,13 +14,9 @@ const authSlice = createSlice({
   reducers: {
     login: (state) => {
       state.isAuthenticated = true;
-      // state.token = action.payload.token;
-      // localStorage.setItem("foodAppToken", action.payload.token);
     },
     logout: (state) => {
       state.isAuthenticated = false;
-      // state.token = null;
-      // localStorage.removeItem("foodAppToken");
     },
   },
 });

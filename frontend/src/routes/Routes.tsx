@@ -1,5 +1,5 @@
 import { Outlet, useRoutes } from "react-router-dom";
-import { ProtectedRoute, PublicRoute } from "../utils/RouteAuth";
+import { PublicRoute } from "../utils/RouteAuth";
 
 // Main Layout
 import Layout from "../components/layout/Layout";
@@ -15,6 +15,7 @@ import About from "../modules/about";
 import Service from "../modules/service";
 import Blog from "../modules/blog/Blog";
 import Contact from "../modules/contact";
+import JobList from "../modules/jobList/JobList";
 
 export const Routes = () => {
   return useRoutes([
@@ -34,6 +35,10 @@ export const Routes = () => {
         {
           path: "about",
           element: <About />,
+        },
+        {
+          path: "jobs",
+          element: <JobList />,
         },
         {
           path: "service",

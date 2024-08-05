@@ -19,9 +19,9 @@ interface ILinks {
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const isAuthenticated = useSelector(
-    (state: any) => state.auth.isAuthenticated
-  );
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  console.log(isAuthenticated);
   const dispatch = useDispatch();
   const [open, setOpen] = useState<boolean>(false);
   const [sideBar, showSideBar] = useState<boolean>(false);
@@ -58,7 +58,7 @@ const Navbar = () => {
     <div className="relative">
       {/* large screen navbar */}
       <nav
-        className={`flex items-center justify-between w-full sm:h-[75px] h-[55px] padding-inline transitions fixed top-0 left-0 z-[10] shadow-gray-800 shadow ${
+        className={`flex items-center justify-between w-full sm:h-[75px] h-[55px] padding-inline transitions fixed top-0 left-0 z-[10]  ${
           scrollAnimation ? "bg-dark-blue" : "lg:bg-transparent bg-dark-blue"
         }`}
       >
