@@ -37,6 +37,14 @@ const BlogSection = () => {
       time: "5 min read",
       company: "System Limited",
     },
+    {
+      image: "/image/blog/img-4.jpg",
+      badge: "Arts",
+      title: "11 Tips to Help You Get New Clients Through Cold Calling",
+      date: "20th February, 2023",
+      time: "5 min read",
+      company: "Xeven Solution",
+    },
   ];
 
   return (
@@ -55,7 +63,7 @@ const BlogSection = () => {
           return (
             <div
               key={index}
-              className="lg:col-span-4 sm:col-span-6 col-span-full"
+              className="lg:col-span-4 sm:col-span-6 col-span-full xl:col-span-3"
             >
               <BlogCard data={element} />
             </div>

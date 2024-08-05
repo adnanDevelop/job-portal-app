@@ -18,7 +18,7 @@ const Card = ({ title, jobs, icon, btnTitle }: IProps) => {
       </h3>
       <p className="mt-2 text-sm text-center text-slate font-poppin ">{jobs}</p>
       {btnTitle && (
-        <button className="flex items-center mt-3 gap-1.5 text-sm text-white font-poppin transitions hover:text-green">
+        <button className="flex items-center mt-5 gap-1.5 text-sm text-white font-poppin transitions hover:text-green">
           {btnTitle}{" "}
           <span className="ms-1">
             <FaArrowRight />

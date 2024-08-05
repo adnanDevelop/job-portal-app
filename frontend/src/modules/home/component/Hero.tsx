@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <main className="lg:pt-[150px] pt-[120px] lg:pb-[120px] md:pb-[100px] pb-[70px] bg-dark-blue relative z-[1] padding-inline ">
+    <main className="lg:pt-[150px] xl:pt-[220px] pt-[120px] lg:pb-[150px] md:pb-[100px] pb-[70px] bg-dark-blue relative z-[1] padding-inline ">
       <div className="absolute top-0 left-0 w-full h-full z-[-1] bg-gradient-to-b from-[#0596681e] to-[#05966814]" />
 
       {/* Image animation section */}

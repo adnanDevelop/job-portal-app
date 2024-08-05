@@ -9,11 +9,14 @@ const ExploreJob = () => {
         <div className="text-[120px] absolute text-white opacity-[0.1] top-0 left-0 rotate-[-40deg]">
           <FaRegEnvelope />
         </div>
+        <div className="text-[120px] absolute text-white opacity-[0.1] bottom-0 right-[-1rem] rotate-[130deg]">
+          <FaRegEnvelope />
+        </div>
         <div>
-          <h2 className="md:text-[30px] text-[25px] font-semibold text-white font-jakarta">
+          <h2 className="md:text-[30px] text-[25px] xl:text-[40px] font-semibold text-white font-jakarta">
             Explore a job now!
           </h2>
-          <p className="mt-2 mb-3 text-sm text-center text-slate max-w-[500px] mx-auto">
+          <p className="mt-2 mb-8 text-sm text-center text-slate max-w-[500px] mx-auto">
             Search all the open positions on the web. Get your own personalized
             salary estimate. Read reviews on over 30000+ companies worldwide..
           </p>

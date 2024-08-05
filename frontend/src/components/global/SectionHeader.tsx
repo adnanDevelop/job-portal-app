@@ -7,7 +7,7 @@ const SectionHeader = ({
 }) => {
   return (
     <section className="text-center">
-      <h2 className="text-white font-semibold mb-2.5 font-jakarta text-[25px]">
+      <h2 className="text-white font-semibold mb-2.5 font-jakarta text-[25px] xl:text-[30px]">
         {title}
       </h2>
       <p className="text-sm text-slate max-w-[500px] mx-auto">{content}</p>

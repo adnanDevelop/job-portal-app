@@ -56,14 +56,16 @@ const Login = () => {
         >
           <img
             src="/image/logo-light.png"
-            className="w-[120px] h-auto object-cover mx-auto"
+            className="w-[120px] xl:w-[150px] h-auto object-cover mx-auto"
             alt=""
           />
-          <h1 className="!text-white font-poppin font-medium my-2">Login</h1>
+          <h1 className="!text-white font-poppin font-medium my-2 xl:text-[25px]">
+            Login
+          </h1>
 
           {/* email input */}
           <div className="mb-2">
-            <label className="text-xs text-white font-poppin">
+            <label className="text-xs text-white xl:text-sm font-poppin">
               Your Email:
             </label>
             <input
@@ -89,7 +91,7 @@ const Login = () => {
           <div className="mb-2">
             <label
               htmlFor="password"
-              className="text-xs text-white font-poppin"
+              className="text-xs text-white xl:text-sm font-poppin"
             >
               Password:
             </label>
@@ -110,7 +112,9 @@ const Login = () => {
 
           {/* Select role */}
           <div>
-            <span className="text-xs text-white font-poppin">Select Role:</span>
+            <span className="text-xs text-white font-poppin xl:text-sm">
+              Select Role:
+            </span>
             <div className="flex mt-2 gap-x-4">
               <div className="flex items-center text-xs text-white gap-x-1">
                 <input

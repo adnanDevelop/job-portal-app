@@ -12,17 +12,17 @@ import companyRoute from "./routes/companyRoutes.js";
 import jobRoute from "./routes/jobPostRoutes.js";
 import ApplicationRoute from "./routes/applicationRoutes.js";
 
+// Configure CORS
+const corsOptions = {
+  origin: "http://localhost:5174", // replace with your frontend's origin
+  credentials: true,
+};
+
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-
-// cors policies
-const corsOptions = {
-  origin: "http://localhost:5173",
-  credentials: true,
-};
 app.use(cors(corsOptions));
+app.use(cookieParser());
 
 // All routes
 app.use("/api/v1", userRoute);
