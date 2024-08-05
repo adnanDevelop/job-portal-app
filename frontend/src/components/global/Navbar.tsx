@@ -38,9 +38,7 @@ const Navbar = () => {
   // Scroll animation
   useEffect(() => {
     const windowScroll = () => {
-      window.scrollY > 10
-        ? setScrollAnimation(true)
-        : setScrollAnimation(false);
+      window.scrollY > 1 ? setScrollAnimation(true) : setScrollAnimation(false);
     };
     window.addEventListener("scroll", windowScroll);
 
@@ -257,16 +255,16 @@ const Navbar = () => {
 
             <div className="mt-[40px] md:hidden block">
               <button
-                onClick={() => navigate("/login")}
-                className="w-full mb-2 primary-btn"
-              >
-                Sign Up
-              </button>
-              <button
                 onClick={() => navigate("/register")}
                 className="w-full primary-btn-outline"
               >
                 Login
+              </button>
+              <button
+                onClick={() => navigate("/login")}
+                className="w-full mt-2 primary-btn"
+              >
+                Sign Up
               </button>
             </div>
           </div>
