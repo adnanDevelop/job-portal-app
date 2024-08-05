@@ -28,6 +28,8 @@ const JobList = () => {
               </div>
             );
           })}
+
+          {/* Pagniation */}
           <div className="flex items-center justify-center mt-8 col-span-full">
             <div className="flex items-center justify-center">
               <button className="w-[40px] h-[40px] flex items-center justify-center rounded-tl-full rounded-bl-full border border-color text-sm text-slate  transitions hover:bg-green hover:border-green hover:text-white focus:bg-green focus:text-white focus:border-green">
