@@ -32,9 +32,11 @@ const Login = () => {
         withCredentials: true,
       });
 
+      console.log(response?.data?.data);
+
       if (response.status === 200) {
         navigate("/");
-        disptach(login());
+        disptach(login(response?.data?.data));
         toast.success(response?.data?.message);
       }
     } catch (error) {

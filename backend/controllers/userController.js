@@ -56,7 +56,7 @@ export const login = async (req, res) => {
       });
     }
 
-    let isUserExist = await User.findOne({ email });
+    const isUserExist = await User.findOne({ email });
     if (!isUserExist) {
       return res.status(400).json({
         message: "Invalid email address",
@@ -93,13 +93,6 @@ export const login = async (req, res) => {
       process.env.SECRET_KEY,
       { expiresIn: "1d" }
     );
-
-    isUserExist = {
-      _id: isUserExist._id,
-      email: isUserExist.email,
-      role: isUserExist.role,
-      fullName: isUserExist.fullName,
-    };
 
     // login user
     return res
