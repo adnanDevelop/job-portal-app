@@ -105,6 +105,9 @@ const Navbar = () => {
                         <Link
                           to={sublink.path}
                           className="p-2 font-medium text-white bg-transparent rounded-md transitions hover:bg-green text-content-color hover:text-white focus:text-white"
+                          onClick={() => {
+                            window.scrollTo({ top: 0 });
+                          }}
                         >
                           {sublink.name}
                         </Link>

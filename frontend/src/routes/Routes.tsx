@@ -20,6 +20,7 @@ import JobDetail from "../modules/jobDetail/JobDetail";
 import Candidate from "../modules/Candidate/Candidate";
 import Companies from "../modules/Companies/Companies";
 import Career from "../modules/career/Career";
+import UserProfile from "../modules/userProfile/UserProfile";
 
 export const Routes = () => {
   return useRoutes([
@@ -74,12 +75,16 @@ export const Routes = () => {
           element: <Blog />,
         },
         {
-          path: "contact",
-          element: <Contact />,
-        },
-        {
           path: "about",
           element: <About />,
+        },
+        {
+          path: "user-profile",
+          element: <UserProfile />,
+        },
+        {
+          path: "contact",
+          element: <Contact />,
         },
       ],
     },
