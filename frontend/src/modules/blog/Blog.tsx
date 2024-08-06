@@ -122,18 +122,18 @@ const Blog = () => {
       </section>
 
       {/* Blog card section */}
-      <section className="padding-inline">
-        <div className=" padding-block">
+      <section className="padding-inline padding-block">
+        <div className="">
           {/* Search bar */}
-          <div className="flex-col items-end justify-end w-full md:flex">
-            <div>
+          <div className=" items-end justify-end w-full md:flex sm:mb-[50px] mb-[40px]">
+            <div className="">
               <label className="text-sm font-medium text-start text-white font-poppin mb-1.5 block">
-                Search Blogs
+                Search Blog
               </label>
-              <div className="md:w-[350px] w-full rounded-md border-color border h-[40px] relative">
+              <div className="sm:w-[280px] w-full rounded-md border-color border h-[40px] relative">
                 <input
                   type="text"
-                  className="w-[350px] h-full text-xs text-white bg-transparent border border-transparent rounded-md placeholder:text-xs placeholder:text-white ps-3 pe-8 focus:outline-none focus:border-green"
+                  className="sm:w-[280px] w-full  h-full text-xs text-white bg-transparent border border-transparent rounded-md placeholder:text-xs placeholder:text-white ps-3 pe-8 focus:outline-none focus:border-green"
                   placeholder="Search..."
                 />
                 <span className="absolute text-white right-2 top-[50%] translate-y-[-50%] text-xl cursor-pointer">
