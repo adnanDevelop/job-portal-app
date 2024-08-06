@@ -12,11 +12,6 @@ import { GrClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/features/authSlice";
 
-interface ILinks {
-  name: string;
-  path: string;
-}
-
 const Navbar = () => {
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -26,13 +21,21 @@ const Navbar = () => {
   const [sideBar, showSideBar] = useState<boolean>(false);
   const [scrollAnimation, setScrollAnimation] = useState<boolean>(false);
   const activeLink = window.location.pathname;
-  const links: ILinks[] = [
+  const links = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Jobs", path: "/jobs" },
     { name: "Service", path: "/service" },
     { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
+    {
+      name: "More",
+      links: [
+        { name: "Companies", path: "/companies" },
+        { name: "Candidates", path: "/candidates" },
+        { name: "Career", path: "/career" },
+      ],
+    },
   ];
 
   // Scroll animation
@@ -49,6 +52,13 @@ const Navbar = () => {
   const openSidebar = () => {
     showSideBar(!sideBar);
     setOpen(!open);
+  };
+
+  const handleClick = () => {
+    const elem = document.activeElement;
+    if (elem) {
+      elem?.blur();
+    }
   };
 
   return (
@@ -72,22 +82,55 @@ const Navbar = () => {
         {/* links */}
         <div className="hidden lg:block">
           <div className="flex items-center justify-center text-sm font-medium text-white gap-x-6 ">
-            {links.map((link: ILinks, index: number) => (
-              <Link
-                className={`transitions hover:text-green ${
-                  activeLink === link?.path ? "text-green" : "text-white"
-                }`}
-                to={link?.path}
-                onClick={() => {
-                  window.scrollTo({ top: 0 });
-                }}
-                key={index}
-              >
-                {link?.name}
-              </Link>
-            ))}
+            {links.map((link: any, index: number) => {
+              return link?.links ? (
+                <div
+                  key={index}
+                  className="rounded-md dropdown dropdown-bottom dropdown-end"
+                >
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="flex items-center justify-center text-sm focus:text-green"
+                  >
+                    More
+                  </div>
+                  {/* dropdown links */}
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content !top-[200%] menu rounded-xl p-2 z-[1] w-[180px] bg-dark-blue shadow border-b-2 border-b-green"
+                  >
+                    {link.links.map((sublink: any, subIndex: number) => (
+                      <li key={subIndex} onClick={handleClick}>
+                        <Link
+                          to={sublink.path}
+                          className="p-2 font-medium text-white bg-transparent rounded-md transitions hover:bg-green text-content-color hover:text-white focus:text-white"
+                        >
+                          {sublink.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                <Link
+                  key={index}
+                  className={`transitions hover:text-green ${
+                    activeLink === link?.path ? "text-green" : "text-white"
+                  }`}
+                  to={link?.path}
+                  onClick={() => {
+                    window.scrollTo({ top: 0 });
+                  }}
+                >
+                  {link?.name}
+                </Link>
+              );
+            })}
           </div>
         </div>
+
+        {/* User Image section */}
         <div className="flex items-center justify-center gap-x-3">
           {isAuthenticated ? (
             <>
@@ -122,7 +165,7 @@ const Navbar = () => {
                     tabIndex={0}
                     className="dropdown-content !top-[150%] menu  rounded-xl p-2 z-[1] w-[180px]  bg-dark-blue shadow border-b-2 border-b-green "
                   >
-                    <li>
+                    <li onClick={handleClick}>
                       <Link
                         to="/user-profile"
                         className="p-2 font-medium text-white bg-transparent rounded-md transitions hover:bg-green text-content-color hover:text-yellow focus:text-yellow"
@@ -130,7 +173,7 @@ const Navbar = () => {
                         <FaRegUser className="text-base" /> Profile
                       </Link>
                     </li>
-                    <li>
+                    <li onClick={handleClick}>
                       <Link
                         to="/setting"
                         className="p-2 font-medium text-white bg-transparent rounded-md transitions hover:bg-green text-content-color hover:text-yellow focus:text-yellow"
@@ -138,7 +181,7 @@ const Navbar = () => {
                         <IoSettingsOutline className="text-base" /> Setting
                       </Link>
                     </li>
-                    <li>
+                    <li onClick={handleClick}>
                       <button
                         type="button"
                         className="!p-2 font-medium bg-transparent rounded-md transitions hover:bg-green text-white text-content-color hover:text-yellow focus:text-yellow"
@@ -210,7 +253,7 @@ const Navbar = () => {
             sideBar ? " left-[0%]" : "left-[-200%]"
           } `}
         >
-          {/* Nav links */}
+          {/* Logo section */}
           <div className="p-[20px]">
             <div className="flex items-center justify-between menu_header">
               <div className="logo">
@@ -237,24 +280,61 @@ const Navbar = () => {
                 <GrClose />
               </button>
             </div>
+            {/* Link */}
             <ul className="flex flex-col items-start list-none gap-y-6 mt-[50px]">
-              {links.map((link) => (
-                <li key={link.path}>
-                  <Link
-                    to={link.path}
-                    className={`transitions hover:text-green ${
-                      activeLink === link?.path ? "text-green" : "text-white"
-                    }`}
-                    onClick={() => {
-                      showSideBar(false);
-                      setOpen(false);
-                      window.scrollTo({ top: 0 });
-                    }}
+              {links.map((link, index) => {
+                return link?.links ? (
+                  <div
+                    key={index}
+                    className="rounded-md dropdown dropdown-bottom "
                   >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      className="flex items-center justify-center text-sm text-white focus:text-green"
+                    >
+                      More
+                    </div>
+                    {/* dropdown links */}
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content  menu rounded-xl p-2 z-[1] w-[200px] bg-dark-blue shadow border-b-2 border-b-green"
+                    >
+                      {link.links.map((sublink: any, subIndex: number) => (
+                        <li key={subIndex}>
+                          <Link
+                            to={sublink.path}
+                            className="p-2 font-medium text-white bg-transparent rounded-md transitions hover:bg-green text-content-color hover:text-white focus:text-green"
+                            onClick={() => {
+                              showSideBar(false);
+                              setOpen(false);
+                              window.scrollTo({ top: 0 });
+                            }}
+                          >
+                            {sublink.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : (
+                  <li key={link.path}>
+                    <Link
+                      to={link.path}
+                      className={`transitions hover:text-green ${
+                        activeLink === link?.path ? "text-green" : "text-white"
+                      }`}
+                      onClick={() => {
+                        showSideBar(false);
+                        setOpen(false);
+                        window.scrollTo({ top: 0 });
+                      }}
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
 
             <div className="mt-[40px] md:hidden block">

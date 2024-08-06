@@ -17,6 +17,9 @@ import Blog from "../modules/blog/Blog";
 import Contact from "../modules/contact";
 import JobList from "../modules/jobList/JobList";
 import JobDetail from "../modules/jobDetail/JobDetail";
+import Candidate from "../modules/Candidate/Candidate";
+import Companies from "../modules/Companies/Companies";
+import Career from "../modules/career/Career";
 
 export const Routes = () => {
   return useRoutes([
@@ -39,15 +42,32 @@ export const Routes = () => {
         },
         {
           path: "/jobs",
-          element: <JobList />,
-        },
-        {
-          path: "/job-details/:id",
-          element: <JobDetail />,
+          children: [
+            {
+              index: true,
+              element: <JobList />,
+            },
+            {
+              path: "job-detils",
+              element: <JobDetail />,
+            },
+          ],
         },
         {
           path: "service",
           element: <Service />,
+        },
+        {
+          path: "candidates",
+          element: <Candidate />,
+        },
+        {
+          path: "companies",
+          element: <Companies />,
+        },
+        {
+          path: "career",
+          element: <Career />,
         },
         {
           path: "blog",
