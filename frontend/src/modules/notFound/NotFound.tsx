@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const NotFound = () => {
   return (
-    <main className="flex flex-col items-center justify-between w-full h-screen bg-dark-blue py-[40px]">
+    <main className="flex flex-col items-center justify-between w-full h-screen bg-dark-blue sm:py-[40px] py-[20px] padding-inline">
       {/* Logo section */}
       <section>
         <img src="/image/small-logo.png" alt="" />
@@ -11,7 +11,7 @@ const NotFound = () => {
       {/* Main section */}
       <section className="text-center">
         <img src="/image/notfound-img.png" alt="" />
-        <h2 className=" mb-3 text-[40px] text-white font-semibold font-poppin">
+        <h2 className=" mb-3 md:text-[40px] text-[30px] text-white font-semibold font-poppin">
           Page Not Found?
         </h2>
         <p className="mb-1 text-sm text-slate font-jakarta ">
@@ -25,7 +25,7 @@ const NotFound = () => {
         </Link>
       </section>
       <section>
-        <p className="mb-3 text-sm text-center text-slate md:mb-0 md:text-start">
+        <p className="mb-3 text-xs text-center sm:text-sm text-slate md:mb-0 md:text-start">
           © 2024 Jobstack. All Rights Reserved By.{" "}
           <a
             className="underline text-green"
