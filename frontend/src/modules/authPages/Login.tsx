@@ -32,8 +32,6 @@ const Login = () => {
         withCredentials: true,
       });
 
-      console.log(response?.data?.data);
-
       if (response.status === 200) {
         navigate("/");
         disptach(login(response?.data?.data));
