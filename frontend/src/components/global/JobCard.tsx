@@ -9,7 +9,7 @@ const JobCard = ({ data }: any) => {
   return (
     <Link
       to={`job-details/${data}`}
-      className="block w-full p-4 border border-gray-700 rounded-lg shadow-sm shadow-gray-600 transitions hover:shadow-lg hover:shadow-gray-700"
+      className="block w-full p-4 py-5 border border-gray-700 rounded-lg shadow-sm shadow-gray-600 transitions hover:shadow-lg hover:shadow-gray-700"
       onClick={() => {
         window.scroll({ top: 0 });
       }}
@@ -30,9 +30,9 @@ const JobCard = ({ data }: any) => {
       </div>
 
       {/* Date and salary section */}
-      <div className="flex items-center justify-between mt-3">
+      <div className="flex items-center justify-between mt-4">
         <div>
-          <p className="m-1 text-[10px] mb-2 leading-none badge border-none px-2 badge-outline font-medium font-poppin  text-green transitions hover:bg-green hover:text-white focus:bg-green bg-[#05966813] focus:text-white">
+          <p className="m-1 text-[10px] mb-3 leading-none badge border-none px-2 badge-outline font-medium font-poppin  text-green transitions hover:bg-green hover:text-white focus:bg-green bg-[#05966813] focus:text-white">
             Part Time
           </p>
           <p className="flex items-center text-sm text-slate font-poppin gap-x-1">

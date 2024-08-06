@@ -78,6 +78,9 @@ const Navbar = () => {
                   activeLink === link?.path ? "text-green" : "text-white"
                 }`}
                 to={link?.path}
+                onClick={() => {
+                  window.scrollTo({ top: 0 });
+                }}
                 key={index}
               >
                 {link?.name}
@@ -245,6 +248,7 @@ const Navbar = () => {
                     onClick={() => {
                       showSideBar(false);
                       setOpen(false);
+                      window.scrollTo({ top: 0 });
                     }}
                   >
                     {link.name}

@@ -8,7 +8,7 @@ interface IProps {
 
 const PageHeader = ({ title, breadCrumb }: IProps) => {
   return (
-    <main className=" padding-inline  overflow-hidden z-[1] w-full py-[200px] relative  bg-[url('/image/header-img.jpg')] bg-no-repeat bg-center bg-cover clip-path">
+    <main className=" padding-inline  overflow-hidden z-[1] w-full sm:py-[200px] py-[140px] relative  bg-[url('/image/header-img.jpg')] bg-no-repeat bg-center bg-cover clip-path">
       <div className="absolute z-[-1] top-0 left-0 w-full h-full  bg-[#064E3BE6]" />
       <h1 className="text-3xl font-bold text-center text-white font-jakarta">
         {title}
