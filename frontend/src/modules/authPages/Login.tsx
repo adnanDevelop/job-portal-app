@@ -35,7 +35,6 @@ const Login = () => {
       if (response.status === 200) {
         navigate("/");
         disptach(login());
-        console.log(response);
         toast.success(response?.data?.message);
       }
     } catch (error) {
