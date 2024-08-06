@@ -48,7 +48,7 @@ const Footer = () => {
       {/* Second section */}
       <div className="sm:py-[30px] py-[20px] md:flex items-center justify-between">
         <p className="mb-3 text-sm text-center text-slate md:mb-0 md:text-start">
-          © 2024 Jobstack. All Rights Reserved.{" "}
+          © 2024 Jobstack. All Rights Reserved By.{" "}
           <a
             className="underline text-green"
             target="_blank"
