@@ -8,21 +8,41 @@ import { useSelector } from "react-redux";
 
 const UserUpdateForm = () => {
   const { user, loading } = useSelector((state: RootState) => state.auth);
-  console.log(user);
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<IUpdateUser>();
 
   //   Update profile function
   const onSubmit = (data: IUpdateUser) => {
-    console.log(data);
-    if (data.profilePhoto || data.resume) {
-      setValue("profilePhoto", data.profilePhoto[0]);
-      setValue("resume", data.resume[0]);
+    const formData = new FormData();
+
+    // Append string fields
+    formData.append("fullName", data.fullName);
+    formData.append("email", data.email);
+    formData.append("bio", data.bio);
+    formData.append("experience", data.experience);
+    formData.append("dateOfBirth", data.dateOfBirth);
+    formData.append("address", data.address);
+    formData.append("city", data.city);
+    formData.append("country", data.country);
+    formData.append("phoneNumber", data.phoneNumber);
+    formData.append("resumeOriginalName", data.resumeOriginalName);
+    formData.append("linkedinLink", data.linkedinLink);
+    formData.append("portfolioLink", data.portfolioLink);
+
+    formData.append("skills", JSON.stringify(data.skills));
+
+    // Append files specifically
+    if (data.profilePhoto) {
+      formData.append("profilePhoto", data.profilePhoto[0]);
     }
+    if (data.resume) {
+      formData.append("resume", data.resume[0]);
+    }
+
+    console.log([...formData]);
   };
 
   const openDeleteAccountModal = () => {
@@ -268,11 +288,12 @@ const UserUpdateForm = () => {
               </label>
               <input
                 type="file"
-                accept="application/pdf"
+                // accept="application/pdf"
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
                 {...register("resume", {
                   required: "Resume is required",
                 })}
+                // onChange={(e) => console.log(e)}
               />
               {errors.resume && (
                 <p className="mt-1 text-xs text-red-500">
@@ -292,6 +313,7 @@ const UserUpdateForm = () => {
                 {...register("profilePhoto", {
                   required: "Profile Image is required",
                 })}
+                // onChange={(e) => console.log(e.target)}
               />
               {errors.profilePhoto && (
                 <p className="mt-1 text-xs text-red-500">
