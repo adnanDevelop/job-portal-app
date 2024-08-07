@@ -20,10 +20,10 @@ const JobList = () => {
         <section className="xl:col-span-3 lg:col-span-4 col-span-full">
           <JobFilter />
         </section>
-        <section className="grid grid-cols-12 gap-4 xl:col-span-9 lg:col-span-8 col-span-full">
+        <section className="grid grid-cols-12 gap-4 mt-3 lg:mt-0 xl:col-span-9 lg:col-span-8 col-span-full">
           {[0, 1, 2, 3, 4, 5, 6, 7].map((element, index: number) => {
             return (
-              <div key={index} className="col-span-6 ">
+              <div key={index} className="sm:col-span-6 col-span-full">
                 <JobCard data={element} />
               </div>
             );

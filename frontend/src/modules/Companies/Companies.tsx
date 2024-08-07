@@ -39,7 +39,10 @@ const Companies = () => {
         <section className="grid grid-cols-12 gap-x-4 ">
           {companyData.map((data, index) => {
             return (
-              <div key={index} className="col-span-3 mb-[50px]">
+              <div
+                key={index}
+                className="lg:col-span-3 md:col-span-6 col-span-full mb-[50px]"
+              >
                 <CompanyCard data={data} />
               </div>
             );

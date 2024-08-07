@@ -102,7 +102,7 @@ const PopularCategory = () => {
           className="mySwiper"
         >
           {categoryContent.map((item, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={index} className="px-[20px]">
               <div>
                 <Card
                   key={index}

@@ -29,7 +29,7 @@ const UserUpdateForm = () => {
   };
 
   return (
-    <section className="padding-inline py-[60px]">
+    <section className="padding-inline md:py-[60px] pb-[60px]">
       {/* Update inputs */}
       <div className="p-5 border border-gray-700 rounded-md shadow shadow-gray-800">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -40,7 +40,7 @@ const UserUpdateForm = () => {
 
           <div className="grid w-full grid-cols-12 gap-5 mt-6">
             {/* FullName input */}
-            <div className="col-span-6">
+            <div className="sm:col-span-6 col-span-full">
               <label className="block mb-1 text-sm text-white font-jakarta ">
                 Name: <span className="text-red-500">*</span>
               </label>
@@ -60,7 +60,7 @@ const UserUpdateForm = () => {
             </div>
 
             {/* E-mail input */}
-            <div className="col-span-6">
+            <div className="sm:col-span-6 col-span-full">
               <label className="block mb-1 text-sm text-white font-jakarta ">
                 Email: <span className="text-red-500">*</span>
               </label>
@@ -84,7 +84,7 @@ const UserUpdateForm = () => {
             </div>
 
             {/* bio input */}
-            <div className="col-span-6">
+            <div className="sm:col-span-6 col-span-full">
               <label className="block mb-1 text-sm text-white font-jakarta ">
                 Bio: <span className="text-red-500">*</span>
               </label>
@@ -104,7 +104,7 @@ const UserUpdateForm = () => {
             </div>
 
             {/* Skills input */}
-            <div className="col-span-6">
+            <div className="sm:col-span-6 col-span-full">
               <label className="block mb-1 text-sm text-white font-jakarta ">
                 Skills: <span className="text-red-500">*</span>
               </label>
@@ -124,7 +124,7 @@ const UserUpdateForm = () => {
             </div>
 
             {/* Experience input */}
-            <div className="col-span-6">
+            <div className="sm:col-span-6 col-span-full">
               <label className="block mb-1 text-sm text-white font-jakarta ">
                 Experience: <span className="text-red-500">*</span>
               </label>
@@ -144,7 +144,7 @@ const UserUpdateForm = () => {
             </div>
 
             {/* Date of birth input */}
-            <div className="col-span-6">
+            <div className="sm:col-span-6 col-span-full">
               <label className="block mb-1 text-sm text-white font-jakarta ">
                 Date of Birth: <span className="text-red-500">*</span>
               </label>
@@ -166,7 +166,7 @@ const UserUpdateForm = () => {
             </div>
 
             {/* Address input */}
-            <div className="col-span-6">
+            <div className="sm:col-span-6 col-span-full">
               <label className="block mb-1 text-sm text-white font-jakarta ">
                 Address: <span className="text-red-500">*</span>
               </label>
@@ -186,7 +186,7 @@ const UserUpdateForm = () => {
             </div>
 
             {/* City input */}
-            <div className="col-span-6">
+            <div className="sm:col-span-6 col-span-full">
               <label className="block mb-1 text-sm text-white font-jakarta ">
                 City: <span className="text-red-500">*</span>
               </label>
@@ -206,7 +206,7 @@ const UserUpdateForm = () => {
             </div>
 
             {/* Country input */}
-            <div className="col-span-6">
+            <div className="sm:col-span-6 col-span-full">
               <label className="block mb-1 text-sm text-white font-jakarta ">
                 Country: <span className="text-red-500">*</span>
               </label>
@@ -226,7 +226,7 @@ const UserUpdateForm = () => {
             </div>
 
             {/* Phone number input */}
-            <div className="col-span-6">
+            <div className="sm:col-span-6 col-span-full">
               <label className="block mb-1 text-sm text-white font-jakarta ">
                 Phone: <span className="text-red-500">*</span>
               </label>
@@ -246,7 +246,7 @@ const UserUpdateForm = () => {
             </div>
 
             {/* Resume input */}
-            <div className="col-span-6">
+            <div className="sm:col-span-6 col-span-full">
               <label className="block mb-1 text-sm text-white font-jakarta ">
                 Upload Resume: <span className="text-red-500">*</span>
               </label>
@@ -266,7 +266,7 @@ const UserUpdateForm = () => {
             </div>
 
             {/* Profile Image input */}
-            <div className="col-span-6">
+            <div className="sm:col-span-6 col-span-full">
               <label className="block mb-1 text-sm text-white font-jakarta ">
                 Profile Image: <span className="text-red-500">*</span>
               </label>
@@ -285,7 +285,7 @@ const UserUpdateForm = () => {
             </div>
 
             {/* Linkedin profile link input */}
-            <div className="col-span-6">
+            <div className="sm:col-span-6 col-span-full">
               <label className="block mb-1 text-sm text-white font-jakarta ">
                 Linkedin Profile link:
               </label>
@@ -298,7 +298,7 @@ const UserUpdateForm = () => {
             </div>
 
             {/* Portfolio link input */}
-            <div className="col-span-6">
+            <div className="sm:col-span-6 col-span-full">
               <label className="block mb-1 text-sm text-white font-jakarta ">
                 Portfolio Link:
               </label>
@@ -318,6 +318,7 @@ const UserUpdateForm = () => {
           </div>
         </form>
       </div>
+
       {/* Delete account button */}
       <div className="p-5 mt-8 border border-gray-700 rounded-md shadow shadow-gray-800">
         <h3 className="text-red-500 font-jakarta text-[20px] leading-none">
