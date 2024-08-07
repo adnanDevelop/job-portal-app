@@ -31,6 +31,8 @@ export const register = async (req, res) => {
       role,
     });
 
+    console.log(createUser);
+
     return res.status(200).json({
       message: "Account created successfully",
       status: 200,
@@ -135,7 +137,6 @@ export const logout = async (req, res) => {
 // Update profile controller
 export const updateProfile = async (req, res) => {
   try {
-    const file = req.file;
     const {
       fullName,
       email,
@@ -166,35 +167,38 @@ export const updateProfile = async (req, res) => {
       });
     }
 
+    // Ensure the profile object exists
+    if (!user.profile) {
+      user.profile = {};
+    }
+
     if (fullName) user.fullName = fullName;
     if (email) user.email = email;
-    if (bio) user.bio = bio;
-    if (skills) user.skills = skillsArray;
-    if (experience) user.experience = experience;
-    if (dateOfBirth) user.dateOfBirth = dateOfBirth;
-    if (address) user.address = address;
-    if (city) user.city = city;
-    if (country) user.country = country;
-    if (phoneNumber) user.phoneNumber = phoneNumber;
-    if (linkedinLink) user.socialLinks.linkedinLink = linkedinLink;
-    if (portfolioLink) user.socialLinks.portfolioLink = portfolioLink;
+    if (bio) user.profile.bio = bio;
+    if (skills) user.profile.skills = skillsArray;
+    if (experience) user.profile.experience = experience;
+    if (dateOfBirth) user.profile.dateOfBirth = dateOfBirth;
+    if (address) user.profile.address = address;
+    if (city) user.profile.city = city;
+    if (country) user.profile.country = country;
+    if (phoneNumber) user.profile.phoneNumber = phoneNumber;
 
-    //   udpate user profile data
+    // Ensure the socialLinks object exists
+    if (!user.profile.socialLinks) {
+      user.profile.socialLinks = {};
+    }
+
+    if (linkedinLink) user.profile.socialLinks.linkedinLink = linkedinLink;
+    if (portfolioLink) user.profile.socialLinks.portfolioLink = portfolioLink;
+
+    // Update user profile data
     await user.save();
 
     user = {
       _id: user._id,
       fullName: user.fullName,
       email: user.email,
-      bio: user.bio,
-      skillsArray: user.skills,
-      experience: user.experience,
-      dateOfBirth: user.dateOfBirth,
-      address: user.address,
-      city: user.city,
-      country: user.country,
-      phoneNumber: user.phoneNumber,
-      socialLinks: user.socialLinks,
+      profile: user.profile,
     };
 
     res.status(200).json({
@@ -204,6 +208,39 @@ export const updateProfile = async (req, res) => {
     });
   } catch (error) {
     console.log("error while updating profile", error.message);
+    return res.status(400).json({
+      message: error.message,
+      status: 400,
+    });
+  }
+};
+
+export const deleteUserAccount = async (req, res) => {
+  try {
+    const userId = req.id;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+        status: 400,
+      });
+    }
+
+    // Delete user
+    const deleteUser = await User.deleteOne({ _id: userId });
+    if (deleteUser.deletedCount !== 1) {
+      return res.status(400).json({
+        message: "User not deleted",
+        status: 400,
+      });
+    } else {
+      return res.status(200).json({
+        message: "User deleted successfully",
+        status: 200,
+      });
+    }
+  } catch (error) {
+    console.log("error while deleting user", error.message);
     return res.status(400).json({
       message: error.message,
       status: 400,

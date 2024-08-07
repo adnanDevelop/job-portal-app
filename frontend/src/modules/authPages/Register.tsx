@@ -1,16 +1,19 @@
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../../redux/features/authSlice";
 
 // Types
 import { IRegisterUser } from "./type";
 import { userApiEndPoint } from "../../utils/apiEndPoints";
-import { useState } from "react";
+import { RootState } from "../../redux/store";
 
 const Register = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const loading = useSelector((state: RootState) => state.auth.loading);
+  console.log(loading);
   const {
     register,
     handleSubmit,
@@ -29,25 +32,28 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post(
-        `${userApiEndPoint}/register`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
-        }
-      );
+      dispatch(setLoading(true));
+      const response = await fetch(`${userApiEndPoint}/register`, {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      });
 
-      if (response.status === 200) {
+      if (response.ok) {
+        const responseData = await response.json();
         navigate("/login");
-        toast.success(response?.data?.message);
+        toast.success(responseData.message);
+      } else {
+        const errorData = await response.json();
+        toast.error(
+          errorData.message || "An error occurred during registration"
+        );
       }
     } catch (error) {
-      console.log("error while registering user", error);
+      console.log("Error while registering user", error);
+      toast.error("An error occurred. Please try again.");
     } finally {
-      setLoading(true);
+      dispatch(setLoading(false));
     }
   };
 

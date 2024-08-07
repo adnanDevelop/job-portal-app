@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  deleteUserAccount,
   login,
   logout,
   register,
@@ -16,6 +17,7 @@ const router = Router();
 router.route("/user/register").post(singleUpload, register);
 router.route("/user/login").post(login);
 router.route("/user/logout").get(logout);
+router.route("/user/delete").delete(isAuthenticated, deleteUserAccount);
 router.route("/user/profile/update").post(isAuthenticated, updateProfile);
 
 export default router;

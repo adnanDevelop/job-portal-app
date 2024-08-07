@@ -1,21 +1,21 @@
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../../redux/features/authSlice";
 
 // Types
 import { ILoginUser } from "./type";
 import { userApiEndPoint } from "../../utils/apiEndPoints";
 
 // Redux
-import { useDispatch } from "react-redux";
+import { RootState } from "../../redux/store";
 import { login } from "../../redux/features/authSlice";
-import { useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
-  const disptach = useDispatch();
-  const [loading, setLoading] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state: RootState) => state.auth);
   const {
     register,
     handleSubmit,
@@ -25,22 +25,30 @@ const Login = () => {
   // Submit data
   const submitData = async (data: ILoginUser) => {
     try {
-      const response = await axios.post(`${userApiEndPoint}/login`, data, {
+      dispatch(setLoading(true));
+
+      const response = await fetch(`${userApiEndPoint}/login`, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        withCredentials: true,
+        body: JSON.stringify(data),
+        credentials: "include",
       });
 
-      if (response.status === 200) {
+      if (response.ok) {
+        const responseData = await response.json();
         navigate("/");
-        disptach(login(response?.data?.data));
-        toast.success(response?.data?.message);
+        dispatch(login(responseData.data));
+        toast.success(responseData.message);
+      } else {
+        const errorData = await response.json();
+        toast.error(errorData.message);
       }
     } catch (error) {
-      console.log("error while login user", error);
+      toast.error("An error occurred. Please try again.");
     } finally {
-      setLoading(true);
+      dispatch(setLoading(false));
     }
   };
 

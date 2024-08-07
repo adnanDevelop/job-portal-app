@@ -1,10 +1,14 @@
 import { useForm } from "react-hook-form";
+import { RootState } from "../../../redux/store";
 
 // Types
 import { IUpdateUser } from "../type";
 import DeleteModal from "./DeleteModal";
+import { useSelector } from "react-redux";
 
 const UserUpdateForm = () => {
+  const { user, loading } = useSelector((state: RootState) => state.auth);
+  console.log(user);
   const {
     register,
     handleSubmit,
@@ -46,6 +50,7 @@ const UserUpdateForm = () => {
               </label>
               <input
                 type="text"
+                defaultValue={user?.fullName}
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
                 placeholder="Adnan Tariq"
                 {...register("fullName", {
@@ -66,6 +71,7 @@ const UserUpdateForm = () => {
               </label>
               <input
                 type="email"
+                defaultValue={user?.email}
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
                 placeholder="Adnan Tariq"
                 {...register("email", {
@@ -90,6 +96,7 @@ const UserUpdateForm = () => {
               </label>
               <input
                 type="text"
+                defaultValue={user?.profile?.bio}
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
                 placeholder="Fullstack Developer"
                 {...register("bio", {
@@ -112,6 +119,9 @@ const UserUpdateForm = () => {
                 type="text"
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
                 placeholder="Html, Css, Javascript, Typescript"
+                defaultValue={user?.profile?.skills?.map(
+                  (element: any) => element
+                )}
                 {...register("skills", {
                   required: "Skills are required",
                 })}
@@ -135,6 +145,7 @@ const UserUpdateForm = () => {
                 {...register("experience", {
                   required: "Experience is required",
                 })}
+                defaultValue={user?.profile?.experience}
               />
               {errors.experience && (
                 <p className="mt-1 text-xs text-red-500">
@@ -152,6 +163,7 @@ const UserUpdateForm = () => {
                 type="date"
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
                 placeholder="2002-07-15"
+                defaultValue={user?.profile?.dateOfBirth}
                 {...register("dateOfBirth", {
                   required: "Date of birth is required",
                 })}
@@ -174,6 +186,7 @@ const UserUpdateForm = () => {
                 type="text"
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
                 placeholder="shamshabad, Rawalpindi"
+                defaultValue={user?.profile?.address}
                 {...register("address", {
                   required: "Address is required",
                 })}
@@ -194,6 +207,7 @@ const UserUpdateForm = () => {
                 type="text"
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
                 placeholder="Islamad"
+                defaultValue={user?.profile?.city}
                 {...register("city", {
                   required: "City name is required",
                 })}
@@ -214,6 +228,7 @@ const UserUpdateForm = () => {
                 type="text"
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
                 placeholder="Pakistan"
+                defaultValue={user?.profile?.country}
                 {...register("country", {
                   required: "Country name is required",
                 })}
@@ -234,6 +249,7 @@ const UserUpdateForm = () => {
                 type="tel"
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
                 placeholder="0323-1234567"
+                defaultValue={user?.profile?.phoneNumber}
                 {...register("phoneNumber", {
                   required: "Phone number is required",
                 })}
@@ -252,7 +268,7 @@ const UserUpdateForm = () => {
               </label>
               <input
                 type="file"
-                accept=".pdf"
+                accept="application/pdf"
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
                 {...register("resume", {
                   required: "Resume is required",
@@ -294,6 +310,7 @@ const UserUpdateForm = () => {
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
                 {...register("linkedinLink")}
                 placeholder="https://www.linkedin.com/in/adnandev"
+                defaultValue={user?.profile?.socialLinks?.linkedinLink}
               />
             </div>
 
@@ -307,12 +324,21 @@ const UserUpdateForm = () => {
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
                 {...register("portfolioLink")}
                 placeholder="https://adnandev.netlify.app"
+                defaultValue={user?.profile?.socialLinks?.portfolioLink}
               />
             </div>
 
-            <div className="col-span-full">
-              <button type="submit" className="primary-btn px-[20px]">
-                Update Profile
+            <div className="flex items-center justify-center mt-5 col-span-full">
+              <button
+                type="submit"
+                className="px-[20px] primary-btn"
+                disabled={loading}
+              >
+                {loading ? (
+                  <span className="loading loading-dots loading-md"></span>
+                ) : (
+                  "Update Profile"
+                )}
               </button>
             </div>
           </div>
