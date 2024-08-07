@@ -1,5 +1,13 @@
+import UserUpdateForm from "./component/UserUpdateForm";
+import ProfileHeader from "../userProfile/component/ProfileHeader";
+
 const UserSetting = () => {
-  return <div>UserSetting</div>;
+  return (
+    <main>
+      <ProfileHeader showSettingButton={false} />
+      <UserUpdateForm />
+    </main>
+  );
 };
 
 export default UserSetting;

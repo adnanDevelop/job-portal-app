@@ -21,6 +21,7 @@ import Candidate from "../modules/Candidate/Candidate";
 import Companies from "../modules/Companies/Companies";
 import Career from "../modules/career/Career";
 import UserProfile from "../modules/userProfile/UserProfile";
+import UserSetting from "../modules/userSetting/UserSetting";
 
 export const Routes = () => {
   return useRoutes([
@@ -81,6 +82,10 @@ export const Routes = () => {
         {
           path: "user-profile",
           element: <UserProfile />,
+        },
+        {
+          path: "user-setting",
+          element: <UserSetting />,
         },
         {
           path: "contact",

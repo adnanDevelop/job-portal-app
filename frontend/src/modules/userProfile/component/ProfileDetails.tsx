@@ -39,9 +39,13 @@ const ProfileDetails = () => {
         <p className="flex items-center gap-2 mb-6 text-lg text-white">
           <FiFileText className="text-[35px]" /> My-cv.pdf
         </p>
-        <button className="w-full p-2.5 flex items-center justify-center gap-1 rounded-md bg-green hover:scale-[1.06] transitions text-white font-poppin font-semibold">
+        <a
+          href="/image/my-cv.pdf"
+          download={"/image/my-cv.pdf"}
+          className="w-full p-2.5 flex items-center justify-center gap-1 rounded-md bg-green hover:scale-[1.06] transitions text-white font-poppin font-semibold"
+        >
           <FiFileText /> Download CV
-        </button>
+        </a>
       </div>
     </div>
   );

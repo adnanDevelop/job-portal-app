@@ -26,14 +26,8 @@ const userSchema = new mongoose.Schema(
       default: "student",
     },
     profile: {
-      studentName: { type: String },
       bio: { type: String },
-      skills: [
-        {
-          name: { type: String, required: true },
-          percentage: { type: Number, required: true },
-        },
-      ],
+      skills: [{ type: String, required: true }],
       experience: [{ type: String }],
       dateOfBirth: { type: String },
       address: { type: String },
@@ -44,7 +38,6 @@ const userSchema = new mongoose.Schema(
       resumeOriginalName: { type: String },
       company: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
       profilePhoto: { type: String, default: "" },
-      profileBanner: { type: String, default: "" },
     },
   },
   { timestamps: true }

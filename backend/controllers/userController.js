@@ -139,7 +139,6 @@ export const updateProfile = async (req, res) => {
     const {
       fullName,
       email,
-      studentName,
       bio,
       skills,
       experience,
@@ -167,7 +166,6 @@ export const updateProfile = async (req, res) => {
 
     if (fullName) user.fullName = fullName;
     if (email) user.email = email;
-    if (studentName) user.studentName = studentName;
     if (bio) user.bio = bio;
     if (skills) user.skills = skillsArray;
     if (experience) user.experience = experience;
@@ -184,7 +182,6 @@ export const updateProfile = async (req, res) => {
       _id: user._id,
       fullName: user.fullName,
       email: user.email,
-      studentName: user.studentName,
       bio: user.bio,
       skillsArray: user.skills,
       experience: user.experience,
