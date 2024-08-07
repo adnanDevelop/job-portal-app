@@ -5,7 +5,6 @@ interface Props {
   showSettingButton: boolean;
 }
 const ProfileHeader = ({ showSettingButton }: Props) => {
-  console.log(showSettingButton);
   return (
     <section className="md:pt-[75px] pt-[60px] padding-inline mb-[100px]">
       <div

@@ -1,7 +1,6 @@
 export interface IUpdateUser {
   fullName: string;
   email: string;
-  studentName: string;
   bio: string;
   skills: [{ name: string; percentage: string }];
   experience: string;
@@ -13,4 +12,6 @@ export interface IUpdateUser {
   resume: string;
   resumeOriginalName: string;
   profilePhoto: string;
+  linkedinLink: string;
+  portfolioLink: string;
 }

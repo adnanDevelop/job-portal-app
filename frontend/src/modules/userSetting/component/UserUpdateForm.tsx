@@ -6,14 +6,25 @@ import { IUpdateUser } from "../type";
 const UserUpdateForm = () => {
   const {
     register,
-    // handleSubmit,
+    handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<IUpdateUser>();
 
+  //   Update profile function
+  const onSubmit = (data: IUpdateUser) => {
+    console.log(data);
+    if (data.profilePhoto || data.resume) {
+      setValue("profilePhoto", data.profilePhoto[0]);
+      setValue("resume", data.resume[0]);
+    }
+  };
+
   return (
-    <section className="padding-inline  py-[60px]">
-      <div className="p-5 border border-gray-700 rounded-md shadow shadow-gray-800 ">
-        <form>
+    <section className="padding-inline py-[60px]">
+      {/* Update inputs */}
+      <div className="p-5 border border-gray-700 rounded-md shadow shadow-gray-800">
+        <form onSubmit={handleSubmit(onSubmit)}>
           {/* Personal information */}
           <h3 className="text-white font-jakarta text-[20px]">
             Personal Detail:
@@ -43,7 +54,7 @@ const UserUpdateForm = () => {
             {/* E-mail input */}
             <div className="col-span-6">
               <label className="block mb-1 text-sm text-white font-jakarta ">
-                Name: <span className="text-red-500">*</span>
+                Email: <span className="text-red-500">*</span>
               </label>
               <input
                 type="email"
@@ -64,26 +75,6 @@ const UserUpdateForm = () => {
               )}
             </div>
 
-            {/* studentName input */}
-            <div className="col-span-6">
-              <label className="block mb-1 text-sm text-white font-jakarta ">
-                Student Name: <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
-                placeholder="Testing@gmail.com"
-                {...register("fullName", {
-                  required: "Name is required",
-                })}
-              />
-              {errors.fullName && (
-                <p className="mt-1 text-xs text-red-500">
-                  {errors.fullName.message}
-                </p>
-              )}
-            </div>
-
             {/* bio input */}
             <div className="col-span-6">
               <label className="block mb-1 text-sm text-white font-jakarta ">
@@ -92,7 +83,7 @@ const UserUpdateForm = () => {
               <input
                 type="text"
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
-                placeholder="Testing@gmail.com"
+                placeholder="Fullstack Developer"
                 {...register("bio", {
                   required: "Bio is required",
                 })}
@@ -144,38 +135,20 @@ const UserUpdateForm = () => {
               )}
             </div>
 
-            {/* Skills input */}
-            <div className="col-span-6">
-              <label className="block mb-1 text-sm text-white font-jakarta ">
-                Date of Birth: <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="birthdate"
-                className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
-                placeholder="Date of birth"
-                {...register("dateOfBirth", {
-                  required: "Date of birth is required",
-                })}
-              />
-              {errors.dateOfBirth && (
-                <p className="mt-1 text-xs text-red-500">
-                  {errors.dateOfBirth.message}
-                </p>
-              )}
-            </div>
-
             {/* Date of birth input */}
             <div className="col-span-6">
               <label className="block mb-1 text-sm text-white font-jakarta ">
                 Date of Birth: <span className="text-red-500">*</span>
               </label>
               <input
-                type="birthdate"
+                type="date"
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
-                placeholder="Date of birth"
+                placeholder="2002-07-15"
                 {...register("dateOfBirth", {
                   required: "Date of birth is required",
                 })}
+                onFocus={(e) => (e.target.type = "date")}
+                onBlur={(e) => (e.target.type = "text")}
               />
               {errors.dateOfBirth && (
                 <p className="mt-1 text-xs text-red-500">
@@ -192,7 +165,7 @@ const UserUpdateForm = () => {
               <input
                 type="text"
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
-                placeholder="Islamabad Pakistan"
+                placeholder="shamshabad, Rawalpindi"
                 {...register("address", {
                   required: "Address is required",
                 })}
@@ -302,8 +275,53 @@ const UserUpdateForm = () => {
                 </p>
               )}
             </div>
+
+            {/* Linkedin profile link input */}
+            <div className="col-span-6">
+              <label className="block mb-1 text-sm text-white font-jakarta ">
+                Linkedin Profile link:
+              </label>
+              <input
+                type="text"
+                className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
+                {...register("linkedinLink")}
+                placeholder="https://www.linkedin.com/in/adnandev"
+              />
+            </div>
+
+            {/* Portfolio link input */}
+            <div className="col-span-6">
+              <label className="block mb-1 text-sm text-white font-jakarta ">
+                Portfolio Link:
+              </label>
+              <input
+                type="text"
+                className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
+                {...register("portfolioLink")}
+                placeholder="https://adnandev.netlify.app"
+              />
+            </div>
+
+            <div className="col-span-full">
+              <button type="submit" className="primary-btn px-[20px]">
+                Update Profile
+              </button>
+            </div>
           </div>
         </form>
+      </div>
+      {/* Delete account button */}
+      <div className="p-5 mt-8 border border-gray-700 rounded-md shadow shadow-gray-800">
+        <h3 className="text-red-500 font-jakarta text-[20px]">
+          Delete Account:
+        </h3>
+        <p className="my-3 text-sm text-white font-jakarta">
+          Do you want to delete the account? Please press below "Delete" button
+        </p>
+
+        <button className="px-[20px] primary-btn bg-red-700">
+          Delete Account
+        </button>
       </div>
     </section>
   );
