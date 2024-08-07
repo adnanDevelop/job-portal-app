@@ -178,7 +178,7 @@ const Navbar = () => {
                     </li>
                     <li onClick={handleClick}>
                       <Link
-                        to="/setting"
+                        to="/user-setting"
                         className="p-2 font-medium text-white bg-transparent rounded-md transitions hover:bg-green text-content-color hover:text-yellow focus:text-yellow"
                       >
                         <IoSettingsOutline className="text-base" /> Setting

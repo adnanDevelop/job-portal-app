@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { IoSettingsOutline } from "react-icons/io5";
 
 const ProfileHeader = () => {
@@ -26,12 +27,12 @@ const ProfileHeader = () => {
         </div>
       </div>
       <div className="flex justify-end mt-2">
-        <button
-          // to="/candidate"
+        <Link
+          to="/user-setting"
           className="w-[35px] h-[35px] rounded-full round-animate-2 !duration-1000 bg-[#05966834] text-green text-[20px] transitions hover:bg-green focus:bg-green hover:text-white focus:text-white  flex items-center justify-center"
         >
           <IoSettingsOutline />
-        </button>
+        </Link>
       </div>
     </section>
   );

@@ -17,7 +17,7 @@ const Companies = () => {
 
       <section className="padding-inline md:pt-[100px] pt-[70px] ">
         {/* Search bar */}
-        <div className=" items-end justify-end w-full md:flex sm:mb-[50px] mb-[40px]">
+        <div className=" items-end justify-end w-full md:flex sm:mb-[60px] mb-[50px]">
           <div>
             <label className="text-sm font-medium text-start text-white font-poppin mb-1.5 block">
               Search Company
@@ -35,9 +35,9 @@ const Companies = () => {
           </div>
         </div>
 
-        {/* Blog card section */}
+        {/* Company card section */}
         <section className="grid grid-cols-12 gap-x-4 ">
-          {companyData.map((data: any, index) => {
+          {companyData.map((data, index) => {
             return (
               <div key={index} className="col-span-3 mb-[50px]">
                 <CompanyCard data={data} />

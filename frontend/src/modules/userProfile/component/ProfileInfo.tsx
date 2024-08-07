@@ -1,5 +1,9 @@
+interface IDetails {
+  skills: { name: string; percentage: string }[];
+  experience: { title: string; bio: string; content: string; date: string }[];
+}
 const ProfileInfo = () => {
-  const details = {
+  const details: IDetails = {
     skills: [
       { name: "Html", percentage: "90%" },
       { name: "Css", percentage: "85%" },
@@ -53,7 +57,7 @@ const ProfileInfo = () => {
           Skills:
         </h3>
         <div className="grid grid-cols-2 gap-4">
-          {details.skills.map((element: any, index: number) => {
+          {details.skills.map((element, index: number) => {
             return (
               <div key={index} className="mb-4">
                 <div className="flex items-center justify-between">
@@ -85,7 +89,7 @@ const ProfileInfo = () => {
         </h3>
 
         <div className="w-full">
-          {details.experience.map((element: any, index: number) => {
+          {details.experience.map((element, index: number) => {
             return (
               <div
                 className="flex flex-wrap items-center gap-4 mb-5"
