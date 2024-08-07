@@ -1,19 +1,7 @@
-interface ModalProps {
-  children: React.ReactNode;
-  className?: string;
-  id: string;
-}
-const Modal = ({ children, className, id }: ModalProps) => {
+const Modal = ({ children, id }: { children: React.ReactNode; id: string }) => {
   return (
-    <dialog id={id} className={`modal ${className} p-0`}>
-      <div className="w-11/12 max-w-5xl p-0 modal-box bg-light-blue">
-        {/* <form method="dialog">
-          <button className="absolute text-white btn btn-sm btn-circle btn-ghost hover:rotate-[360deg] right-2 top-2">
-            ✕
-          </button>
-        </form> */}
-        {children}
-      </div>
+    <dialog id={id} className={`modal `}>
+      {children}
     </dialog>
   );
 };

@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 
 // Types
 import { IUpdateUser } from "../type";
+import DeleteModal from "./DeleteModal";
 
 const UserUpdateForm = () => {
   const {
@@ -18,6 +19,13 @@ const UserUpdateForm = () => {
       setValue("profilePhoto", data.profilePhoto[0]);
       setValue("resume", data.resume[0]);
     }
+  };
+
+  const openDeleteAccountModal = () => {
+    const modal = document.getElementById(
+      "DeleteAccountModal"
+    ) as HTMLDialogElement | null;
+    if (modal) modal.showModal();
   };
 
   return (
@@ -312,17 +320,23 @@ const UserUpdateForm = () => {
       </div>
       {/* Delete account button */}
       <div className="p-5 mt-8 border border-gray-700 rounded-md shadow shadow-gray-800">
-        <h3 className="text-red-500 font-jakarta text-[20px]">
+        <h3 className="text-red-500 font-jakarta text-[20px] leading-none">
           Delete Account:
         </h3>
-        <p className="my-3 text-sm text-white font-jakarta">
+        <p className="my-5 text-sm text-white font-jakarta">
           Do you want to delete the account? Please press below "Delete" button
         </p>
 
-        <button className="px-[20px] primary-btn bg-red-700">
+        <button
+          className="px-[20px] primary-btn bg-red-700"
+          onClick={openDeleteAccountModal}
+        >
           Delete Account
         </button>
       </div>
+
+      {/* Modal */}
+      <DeleteModal id="DeleteAccountModal" />
     </section>
   );
 };

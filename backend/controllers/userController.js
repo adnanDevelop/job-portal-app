@@ -147,6 +147,8 @@ export const updateProfile = async (req, res) => {
       city,
       country,
       phoneNumber,
+      linkedinLink,
+      portfolioLink,
     } = req.body;
 
     const userId = req.id;
@@ -174,6 +176,8 @@ export const updateProfile = async (req, res) => {
     if (city) user.city = city;
     if (country) user.country = country;
     if (phoneNumber) user.phoneNumber = phoneNumber;
+    if (linkedinLink) user.socialLinks.linkedinLink = linkedinLink;
+    if (portfolioLink) user.socialLinks.portfolioLink = portfolioLink;
 
     //   udpate user profile data
     await user.save();
@@ -190,6 +194,7 @@ export const updateProfile = async (req, res) => {
       city: user.city,
       country: user.country,
       phoneNumber: user.phoneNumber,
+      socialLinks: user.socialLinks,
     };
 
     res.status(200).json({

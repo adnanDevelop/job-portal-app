@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema(
       resumeOriginalName: { type: String },
       company: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
       profilePhoto: { type: String, default: "" },
+      socialLinks: {
+        linkedinLink: { type: String },
+        portfolioLink: { type: String },
+      },
     },
   },
   { timestamps: true }
