@@ -7,11 +7,11 @@ const UserProfile = () => {
   return (
     <main>
       <ProfileHeader />
-      <section className="grid mt-[60px] grid-cols-12 gap-5 padding-inline">
-        <div className="col-span-8">
+      <section className="grid mt-[60px] grid-cols-12 xl:gap-20 lg:gap-8 gap-2 padding-inline">
+        <div className="lg:col-span-8 col-span-full">
           <ProfileInfo />
         </div>
-        <div className="col-span-4">
+        <div className="lg:col-span-4 col-span-full">
           <ProfileDetails />
         </div>
       </section>

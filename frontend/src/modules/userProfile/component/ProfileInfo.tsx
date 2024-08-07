@@ -56,7 +56,7 @@ const ProfileInfo = () => {
         <h3 className="text-[25px] mb-4 text-white font-medium font-jakarta">
           Skills:
         </h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid gap-4 sm:grid-cols-2 ">
           {details.skills.map((element, index: number) => {
             return (
               <div key={index} className="mb-4">
@@ -95,25 +95,34 @@ const ProfileInfo = () => {
                 className="flex flex-wrap items-center gap-4 mb-5"
                 key={index}
               >
-                <div className="w-[200px]">
-                  <img
-                    src="/image/user/company-logo.png"
-                    className="w-[70px] h-[70px] object-cover"
-                    alt=""
-                  />
-                  <p className="mt-2 text-sm text-slate font-jakarta">
-                    {element.date}
-                  </p>
+                <div className="lg:w-[200px] lg:flex-none flex items-center  gap-3">
+                  <div>
+                    <img
+                      src="/image/user/company-logo.png"
+                      className="w-[70px] h-[70px] object-cover"
+                    />
+                    <p className="mt-2 text-sm text-slate font-jakarta">
+                      {element.date}
+                    </p>
+                  </div>
+                  <div className="block lg:hidden">
+                    <h3 className="text-[20px] text-white font-jakarta">
+                      {element.title}
+                    </h3>
+                    <p className="text-sm text-slate font-jakarta">
+                      {element.bio}
+                    </p>
+                  </div>
                 </div>
-                <div className="">
-                  <h3 className="text-[20px] text-white font-jakarta">
+                <div>
+                  <h3 className="text-[20px] text-white font-jakarta lg:block hidden">
                     {element.title}
                   </h3>
-                  <p className="text-sm text-slate font-jakarta">
+                  <p className="hidden text-sm text-slate font-jakarta lg:block">
                     {element.bio}
                   </p>
 
-                  <p className="pt-3 text-base text-justify text-slate font-jakarta">
+                  <p className="text-base text-justify lg:pt-3 text-slate font-jakarta">
                     {element.content}
                   </p>
                 </div>
