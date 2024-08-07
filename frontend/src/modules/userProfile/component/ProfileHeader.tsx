@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import { IoSettingsOutline } from "react-icons/io5";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 interface Props {
   showSettingButton: boolean;
 }
 const ProfileHeader = ({ showSettingButton }: Props) => {
+  const user = useSelector((state: RootState) => state.auth.user);
+
   return (
     <section className="md:pt-[75px] pt-[60px] padding-inline mb-[100px]">
       <div
@@ -20,11 +24,11 @@ const ProfileHeader = ({ showSettingButton }: Props) => {
             alt=""
           />
           <div className="pt-14">
-            <h4 className="text-[22px] mb-0.5 font-medium leading-none text-white font-jakarta">
-              Adnan Tariq{" "}
+            <h4 className="text-[22px] mb-0.5 font-medium leading-none text-white font-jakarta capitalize ">
+              {user ? user.fullName : "Adnan Tariq"}
             </h4>
-            <p className="text-[15px] font-jakarta text-slate">
-              Frontend Developer
+            <p className="text-[15px] font-jakarta text-slate capitalize">
+              {user ? user?.profile?.bio : "Frontend Developer"}
             </p>
           </div>
         </div>

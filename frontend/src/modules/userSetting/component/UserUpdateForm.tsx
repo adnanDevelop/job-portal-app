@@ -4,10 +4,18 @@ import { RootState } from "../../../redux/store";
 // Types
 import { IUpdateUser } from "../type";
 import DeleteModal from "./DeleteModal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { userApiEndPoint } from "../../../utils/apiEndPoints";
+import { setLoading } from "../../../redux/features/authSlice";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { setUser } from "../../../redux/features/authSlice";
 
 const UserUpdateForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { user, loading } = useSelector((state: RootState) => state.auth);
+  console.log(user);
   const {
     register,
     handleSubmit,
@@ -15,7 +23,7 @@ const UserUpdateForm = () => {
   } = useForm<IUpdateUser>();
 
   //   Update profile function
-  const onSubmit = (data: IUpdateUser) => {
+  const onSubmit = async (data: IUpdateUser) => {
     const formData = new FormData();
 
     // Append string fields
@@ -42,7 +50,30 @@ const UserUpdateForm = () => {
       formData.append("resume", data.resume[0]);
     }
 
-    console.log([...formData]);
+    try {
+      dispatch(setLoading(true));
+      const response = await fetch(`${userApiEndPoint}/profile/update`, {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log(responseData?.data);
+        dispatch(setUser(responseData.data));
+        navigate("/user-profile");
+        toast.success(responseData.message);
+      } else {
+        const errorData = await response.json();
+        toast.error(`Error: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.log("Error while updating user", error);
+      toast.error("An error occurred while updating user.");
+    } finally {
+      dispatch(setLoading(false));
+    }
   };
 
   const openDeleteAccountModal = () => {

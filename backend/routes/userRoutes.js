@@ -18,6 +18,8 @@ router.route("/user/register").post(singleUpload, register);
 router.route("/user/login").post(login);
 router.route("/user/logout").get(logout);
 router.route("/user/delete").delete(isAuthenticated, deleteUserAccount);
-router.route("/user/profile/update").post(isAuthenticated, updateProfile);
+router
+  .route("/user/profile/update")
+  .post(isAuthenticated, singleUpload, updateProfile);
 
 export default router;

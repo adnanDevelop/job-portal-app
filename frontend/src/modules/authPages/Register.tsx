@@ -13,7 +13,6 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loading = useSelector((state: RootState) => state.auth.loading);
-  console.log(loading);
   const {
     register,
     handleSubmit,
