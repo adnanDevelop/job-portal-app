@@ -28,7 +28,12 @@ const userSchema = new mongoose.Schema(
     profile: {
       studentName: { type: String },
       bio: { type: String },
-      skills: [{ type: String }],
+      skills: [
+        {
+          name: { type: String, required: true },
+          percentage: { type: Number, required: true },
+        },
+      ],
       experience: [{ type: String }],
       dateOfBirth: { type: String },
       address: { type: String },

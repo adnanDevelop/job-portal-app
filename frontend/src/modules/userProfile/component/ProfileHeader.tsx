@@ -26,7 +26,7 @@ const ProfileHeader = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-end mt-2">
+      <div className="flex justify-end mt-4">
         <Link
           to="/user-setting"
           className="w-[35px] h-[35px] rounded-full round-animate-2 !duration-1000 bg-[#05966834] text-green text-[20px] transitions hover:bg-green focus:bg-green hover:text-white focus:text-white  flex items-center justify-center"
