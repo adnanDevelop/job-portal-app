@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCookie, removeCookie } from "../../utils/cookie";
+import { getCookie, removeCookie, setCookie } from "../../utils/cookie";
 
-interface IAuthState {
-  user: any;
-  loading: boolean;
-  isAuthenticated: boolean;
-}
+// interface IAuthState {
+//   user: any;
+//   loading: boolean;
+//   isAuthenticated: boolean;
+// }
 
-const initialState: IAuthState = {
-  user: null,
+const initialState = {
+  user: JSON.parse(getCookie("userData") || "{}"),
   loading: false,
   isAuthenticated: !!getCookie("token"),
 };
@@ -22,17 +22,18 @@ const authSlice = createSlice({
     },
     setUser: (state, action) => {
       state.user = action.payload;
+      setCookie("userData", JSON.stringify(action.payload));
     },
     login: (state, action) => {
       state.isAuthenticated = true;
       state.user = action.payload;
-      localStorage.setItem("userData", JSON.stringify(action.payload));
+      setCookie("userData", JSON.stringify(action.payload));
     },
     logout: (state) => {
       state.isAuthenticated = false;
       state.user = null;
       removeCookie("token");
-      localStorage.removeItem("userData");
+      removeCookie("userData");
     },
   },
 });

@@ -8,6 +8,7 @@ interface Props {
 }
 const ProfileHeader = ({ showSettingButton }: Props) => {
   const user = useSelector((state: RootState) => state.auth.user);
+  console.log(user);
 
   return (
     <section className="md:pt-[75px] pt-[60px] padding-inline mb-[100px]">
