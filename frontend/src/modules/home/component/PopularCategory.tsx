@@ -72,7 +72,7 @@ const PopularCategory = () => {
       <section className="mt-[40px] ">
         <Swiper
           slidesPerView={5}
-          spaceBetween={15}
+          spaceBetween={10}
           loop={true}
           // navigation={true}
           // grabCursor={true}
@@ -91,7 +91,7 @@ const PopularCategory = () => {
             },
             1250: {
               slidesPerView: 5,
-              spaceBetween: 15,
+              spaceBetween: 10,
             },
           }}
           autoplay={{

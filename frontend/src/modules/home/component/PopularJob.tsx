@@ -13,13 +13,13 @@ const PopularJob = () => {
 
       {/* Job card section */}
       <section className="grid grid-cols-12 gap-x-4 gap-y-5 mt-[60px]  ">
-        {[1, 2, 3, 4, 5, 6].map((_, index: number) => {
+        {[1, 2, 3, 4, 5, 6].map((element, index: number) => {
           return (
             <div
               className="sm:col-span-6 col-span-full lg:col-span-4 xl:col-span-3"
               key={index}
             >
-              <JobCard />
+              <JobCard data={element} />
             </div>
           );
         })}
