@@ -8,7 +8,7 @@ import { IoLocationSharp } from "react-icons/io5";
 const JobCard = ({ data }: any) => {
   return (
     <Link
-      to={`job-details`}
+      to={`job-details/${data}`}
       className="block w-full p-4 py-5 border border-gray-700 rounded-lg shadow-sm shadow-gray-600 transitions hover:shadow-lg hover:shadow-gray-700"
       onClick={() => {
         window.scroll({ top: 0 });

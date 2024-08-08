@@ -171,7 +171,7 @@ const UserUpdateForm = () => {
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
                 placeholder="Html, Css, Javascript, Typescript"
                 defaultValue={user?.profile?.skills?.map(
-                  (element: any) => element
+                  (element: string) => element
                 )}
                 {...register("skills", {
                   required: "Skills are required",

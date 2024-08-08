@@ -1,13 +1,39 @@
+import { useDispatch } from "react-redux";
 import Modal from "../../../components/ui/toast/Modal";
+import { logout } from "../../../redux/features/authSlice";
 
 // Icons
 import { GoAlertFill } from "react-icons/go";
+import { userApiEndPoint } from "../../../utils/apiEndPoints";
+import { toast } from "react-toastify";
 const DeleteModal = ({ id }: { id: string }) => {
+  const disptach = useDispatch();
   const closeModal = () => {
     const modal = document.getElementById(
       "DeleteAccountModal"
     ) as HTMLDialogElement | null;
     if (modal) modal.close();
+  };
+
+  const deleteAccount = async () => {
+    try {
+      const deleteUser = await fetch(`${userApiEndPoint}/profile/delete`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // credentials: "include",
+      });
+
+      if (deleteUser.ok) {
+        const response = await deleteUser.json();
+        disptach(logout());
+        closeModal();
+        toast.success(response.message);
+      }
+    } catch (error) {
+      console.log("Error while deleting account", error);
+    }
   };
 
   return (
@@ -32,6 +58,7 @@ const DeleteModal = ({ id }: { id: string }) => {
           <button
             type="submit"
             className="px-[30px] h-[40px] rounded-lg bg-red-500 text-white font-jakarta font-medium transitions hover:scale-105 text-sm"
+            onClick={deleteAccount}
           >
             Yes, Delete it!
           </button>

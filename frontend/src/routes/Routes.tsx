@@ -1,5 +1,5 @@
 import { Outlet, useRoutes } from "react-router-dom";
-import { PublicRoute } from "../utils/RouteAuth";
+import { ProtectedRoute, PublicRoute } from "../utils/RouteAuth";
 
 // Main Layout
 import Layout from "../components/layout/Layout";
@@ -28,13 +28,12 @@ export const Routes = () => {
     {
       path: "/",
       element: (
-        // <ProtectedRoute>
-        <Layout />
-        // </ProtectedRoute>
+        <ProtectedRoute>
+          <Layout />
+        </ProtectedRoute>
       ),
       children: [
         {
-          // index: true,
           path: "/",
           element: <Home />,
         },
@@ -44,16 +43,11 @@ export const Routes = () => {
         },
         {
           path: "/jobs",
-          children: [
-            {
-              index: true,
-              element: <JobList />,
-            },
-            {
-              path: "job-detils",
-              element: <JobDetail />,
-            },
-          ],
+          element: <JobList />,
+        },
+        {
+          path: "/job-details/:id",
+          element: <JobDetail />,
         },
         {
           path: "service",

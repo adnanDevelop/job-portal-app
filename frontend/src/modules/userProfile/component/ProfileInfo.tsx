@@ -38,7 +38,7 @@ const ProfileInfo = () => {
     <div>
       {/* Info section */}
       <div className="mb-8">
-        <h3 className="text-[25px] mb-3.5 text-white font-medium font-jakarta">
+        <h3 className="text-[25px] mb-3.5 text-white font-medium font-jakarta capitalize">
           {user?.fullName || "Adnan Tariq"}
         </h3>
         <p className="text-base text-justify text-slate font-jakarta mb-3.5">
