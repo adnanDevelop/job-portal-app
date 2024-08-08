@@ -319,7 +319,7 @@ const UserUpdateForm = () => {
               </label>
               <input
                 type="file"
-                // accept="application/pdf"
+                accept="application/pdf"
                 className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
                 {...register("resume", {
                   required: "Resume is required",

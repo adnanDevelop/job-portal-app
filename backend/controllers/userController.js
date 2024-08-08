@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
+import getDataUri from "../middleware/datauri.js";
+import cloudinary from "../middleware/cloudinary.js";
 
 // Register controller
 export const register = async (req, res) => {
@@ -153,15 +155,35 @@ export const updateProfile = async (req, res) => {
       portfolioLink,
     } = req.body;
 
-    const userId = req.id;
-    const file = req.file;
-    console.log(file);
+    // Cloudinary configuration
+    const files = req.files;
+    let profilePhotoUrl, resumeUrl, cloudinaryResponse;
+
+    // Upload profilePhoto to Cloudinary if it exists
+    if (files.profilePhoto && files.profilePhoto.length > 0) {
+      const profilePhotoUri = getDataUri(files.profilePhoto[0]);
+      cloudinaryResponse = await cloudinary.uploader.upload(
+        profilePhotoUri.content
+      );
+      profilePhotoUrl = cloudinaryResponse.secure_url;
+    }
+
+    // Upload resume to Cloudinary if it exists
+    if (files.resume && files.resume.length > 0) {
+      const resumeUri = getDataUri(files.resume[0]);
+      cloudinaryResponse = await cloudinary.uploader.upload(resumeUri.content, {
+        resource_type: "raw",
+      });
+      resumeUrl = cloudinaryResponse.secure_url;
+    }
 
     let skillsArray;
     if (skills) {
       skillsArray = skills.split(",");
     }
 
+    // Finding user by id
+    const userId = req.id;
     let user = await User.findById(userId);
     if (!user) {
       return res.status(400).json({
@@ -186,6 +208,11 @@ export const updateProfile = async (req, res) => {
     if (dateOfBirth) user.profile.dateOfBirth = dateOfBirth;
     if (description) user.profile.description = description;
     if (phoneNumber) user.profile.phoneNumber = phoneNumber;
+    if (cloudinaryResponse) {
+      user.profile.resume = resumeUrl;
+      // user.profile.resumeOriginalName = resume
+    }
+    if (cloudinaryResponse) user.profile.profilePhoto = profilePhotoUrl;
 
     // Ensure the socialLinks object exists
     if (!user.profile.socialLinks) {
@@ -211,7 +238,7 @@ export const updateProfile = async (req, res) => {
       data: user,
     });
   } catch (error) {
-    console.log("error while updating profile", error.message);
+    console.log("error while updating profile", error);
     return res.status(400).json({
       message: error.message,
       status: 400,
