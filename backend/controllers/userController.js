@@ -162,6 +162,7 @@ export const updateProfile = async (req, res) => {
     // Upload profilePhoto to Cloudinary if it exists
     if (files.profilePhoto && files.profilePhoto.length > 0) {
       const profilePhotoUri = getDataUri(files.profilePhoto[0]);
+
       cloudinaryResponse = await cloudinary.uploader.upload(
         profilePhotoUri.content
       );
@@ -223,7 +224,7 @@ export const updateProfile = async (req, res) => {
     if (portfolioLink) user.profile.socialLinks.portfolioLink = portfolioLink;
 
     // Update user profile data
-    // await user.save();
+    await user.save();
 
     user = {
       _id: user._id,

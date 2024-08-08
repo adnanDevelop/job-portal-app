@@ -15,7 +15,7 @@ const UserUpdateForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user, loading } = useSelector((state: RootState) => state.auth);
-  console.log(user);
+  // console.log(user);
   const {
     register,
     handleSubmit,
