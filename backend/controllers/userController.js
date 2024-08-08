@@ -154,6 +154,8 @@ export const updateProfile = async (req, res) => {
     } = req.body;
 
     const userId = req.id;
+    const file = req.file;
+    console.log(file);
 
     let skillsArray;
     if (skills) {
@@ -194,7 +196,7 @@ export const updateProfile = async (req, res) => {
     if (portfolioLink) user.profile.socialLinks.portfolioLink = portfolioLink;
 
     // Update user profile data
-    await user.save();
+    // await user.save();
 
     user = {
       _id: user._id,
@@ -217,6 +219,7 @@ export const updateProfile = async (req, res) => {
   }
 };
 
+// Delete User account
 export const deleteUserAccount = async (req, res) => {
   try {
     const userId = req.id;
