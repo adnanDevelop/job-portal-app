@@ -1,8 +1,12 @@
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+
 interface IDetails {
   skills: { name: string; percentage: string }[];
   experience: { title: string; bio: string; content: string; date: string }[];
 }
 const ProfileInfo = () => {
+  const user = useSelector((state: RootState) => state.auth.user);
   const details: IDetails = {
     skills: [
       { name: "Html", percentage: "90%" },
@@ -35,29 +39,35 @@ const ProfileInfo = () => {
       {/* Info section */}
       <div className="mb-8">
         <h3 className="text-[25px] mb-3.5 text-white font-medium font-jakarta">
-          Adnan Tariq
+          {user?.fullName || "Adnan Tariq"}
         </h3>
         <p className="text-base text-justify text-slate font-jakarta mb-3.5">
-          Obviously I'M Web Developer. Web Developer with over 3 years of
-          experience. Experienced with all stages of the development cycle for
-          dynamic web projects. The as opposed to using 'Content here, content
-          here', making it look like readable English.
-        </p>
-        <p className="text-base text-justify text-slate font-jakarta mb-3.5">
-          Data Structures and Algorithms are the heart of programming. Initially
-          most of the developers do not realize its importance but when you will
-          start your career in software development, you will find your code is
-          either taking too much time or taking too much space.
+          {`${
+            user?.profile?.description ||
+            "Obviously I'M a Web Developer. Web Developer with over 3 years of experience. Experienced with all stages of the development cycle for dynamic web projects. The as opposed to using 'Content here, content here', making it look like readable English."
+          }`}
         </p>
       </div>
 
       {/* Skills section */}
       <div>
-        <h3 className="text-[25px] mb-4 text-white font-medium font-jakarta">
+        <h3 className="text-[25px] mb-3 text-white font-medium font-jakarta">
           Skills:
         </h3>
-        <div className="grid gap-4 sm:grid-cols-2 ">
-          {details.skills.map((element, index: number) => {
+        <div className="flex items-center flex-wrap gap-2.5">
+          {user?.profile?.skills.map((element: string, index: number) => {
+            return (
+              <div key={index} className="mb-4">
+                <div className="flex items-center justify-between">
+                  <p className=" text-xs mb-3 leading-none badge border-none px-3 h-[25px] badge-outline font-medium font-poppin  text-green transitions hover:bg-green hover:text-white focus:bg-green bg-[#05966813] focus:text-white">
+                    {element}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+
+          {/* {details.skills.map((element, index: number) => {
             return (
               <div key={index} className="mb-4">
                 <div className="flex items-center justify-between">
@@ -69,7 +79,6 @@ const ProfileInfo = () => {
                   </p>
                 </div>
 
-                {/* Progressbar */}
                 <div className="w-full h-[5px] rounded-full bg-[#05966834] ">
                   <div
                     className={` h-full bg-green rounded-full`}
@@ -78,7 +87,7 @@ const ProfileInfo = () => {
                 </div>
               </div>
             );
-          })}
+          })} */}
         </div>
       </div>
 

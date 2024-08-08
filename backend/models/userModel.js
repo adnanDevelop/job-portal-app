@@ -33,6 +33,7 @@ const userSchema = new mongoose.Schema(
       address: { type: String, default: "" },
       city: { type: String, default: "" },
       country: { type: String, default: "" },
+      description: { type: String, default: "" },
       phoneNumber: { type: Number, default: "" },
       resume: { type: String, default: "" },
       resumeOriginalName: { type: String, default: "" },

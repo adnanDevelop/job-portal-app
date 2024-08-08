@@ -141,6 +141,7 @@ export const updateProfile = async (req, res) => {
       fullName,
       email,
       bio,
+      description,
       skills,
       experience,
       dateOfBirth,
@@ -172,15 +173,16 @@ export const updateProfile = async (req, res) => {
       user.profile = {};
     }
 
-    if (fullName) user.fullName = fullName;
     if (email) user.email = email;
     if (bio) user.profile.bio = bio;
+    if (city) user.profile.city = city;
+    if (fullName) user.fullName = fullName;
+    if (address) user.profile.address = address;
+    if (country) user.profile.country = country;
     if (skills) user.profile.skills = skillsArray;
     if (experience) user.profile.experience = experience;
     if (dateOfBirth) user.profile.dateOfBirth = dateOfBirth;
-    if (address) user.profile.address = address;
-    if (city) user.profile.city = city;
-    if (country) user.profile.country = country;
+    if (description) user.profile.description = description;
     if (phoneNumber) user.profile.phoneNumber = phoneNumber;
 
     // Ensure the socialLinks object exists

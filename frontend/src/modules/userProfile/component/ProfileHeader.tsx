@@ -8,7 +8,6 @@ interface Props {
 }
 const ProfileHeader = ({ showSettingButton }: Props) => {
   const user = useSelector((state: RootState) => state.auth.user);
-  console.log(user);
 
   return (
     <section className="md:pt-[75px] pt-[60px] padding-inline mb-[100px]">
@@ -20,16 +19,16 @@ const ProfileHeader = ({ showSettingButton }: Props) => {
         {/* Profile image section */}
         <div className="absolute md:bottom-[-75px] bottom-[-50px]  flex items-center gap-3 left-4">
           <img
-            src="/image/user/avator.jpg"
+            src={user?.profile?.profilePhoto || "/image/user/avator.jpg"}
             className="md:w-[150px] w-[100px] md:h-[150px] h-[100px] rounded-full border-4 border-light-blue object-cover"
             alt=""
           />
           <div className="pt-14">
             <h4 className="text-[22px] mb-0.5 font-medium leading-none text-white font-jakarta capitalize ">
-              {user ? user.fullName : "Adnan Tariq"}
+              {user?.fullName || "Adnan Tariq"}
             </h4>
             <p className="text-[15px] font-jakarta text-slate capitalize">
-              {user ? user?.profile?.bio : "Frontend Developer"}
+              {user?.profile?.bio || "Frontend Developer"}
             </p>
           </div>
         </div>
