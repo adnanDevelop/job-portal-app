@@ -344,7 +344,6 @@ const UserUpdateForm = () => {
                 {...register("profilePhoto", {
                   required: "Profile Image is required",
                 })}
-                // onChange={(e) => console.log(e.target)}
               />
               {errors.profilePhoto && (
                 <p className="mt-1 text-xs text-red-500">

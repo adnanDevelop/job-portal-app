@@ -11,7 +11,6 @@ import { RootState } from "../../../redux/store";
 
 const ProfileDetails = () => {
   const user = useSelector((state: RootState) => state.auth.user);
-  console.log(user);
 
   const data: { name: string; icon: React.ReactElement; title: string }[] = [
     {
@@ -41,6 +40,8 @@ const ProfileDetails = () => {
     },
   ];
 
+  console.log(user?.profile?.resume);
+
   return (
     <div className="p-5 rounded-lg xl:p-6 bg-light-blue">
       <h3 className="text-[20px] font-medium text-white font-poppin">
@@ -68,11 +69,12 @@ const ProfileDetails = () => {
           {`${user?.bio?.resume || "My-cv.pdf"}`}
         </p>
         <a
-          href={` ${user?.bio?.resume || "/image/my-cv.pdf"} `}
-          download={` ${user?.bio?.resume || "/image/my-cv.pdf"} `}
+          href={` ${user?.profile?.resume} `}
+          target="_blank"
+          // download={` ${user?.profile?.resume || "/image/my-cv.pdf"} `}
           className="w-full p-2.5 flex items-center justify-center gap-1 rounded-md bg-green hover:scale-[1.06] transitions text-white font-poppin font-semibold"
         >
-          <FiFileText /> Download CV
+          <FiFileText /> View Cv
         </a>
       </div>
     </div>
