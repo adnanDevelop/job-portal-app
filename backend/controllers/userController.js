@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
 import getDataUri from "../middleware/datauri.js";
 import cloudinary from "../middleware/cloudinary.js";
+import { errorHandler } from "../utils/errorHandler.js";
 
 // Register controller
 export const register = async (req, res) => {
@@ -50,22 +51,16 @@ export const register = async (req, res) => {
 };
 
 // Login controller
-export const login = async (req, res) => {
+export const login = async (req, res, next) => {
   try {
     const { email, password, role } = req.body;
     if (!email || !password || !role) {
-      return res.status(400).json({
-        message: "All fields are required",
-        status: 400,
-      });
+      return errorHandler(res, 400, "All fields are required");
     }
 
     const isUserExist = await User.findOne({ email });
     if (!isUserExist) {
-      return res.status(400).json({
-        message: "Invalid email address",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Invalid email address");
     }
 
     // if password doesn't exist
@@ -75,18 +70,12 @@ export const login = async (req, res) => {
     );
 
     if (!comparePassword) {
-      return res.status(400).json({
-        message: "Invalid password",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Invalid password");
     }
 
     // if role doesn't exist
     if (role !== isUserExist.role) {
-      return res.status(400).json({
-        message: "User doesn't exist with current role",
-        status: 400,
-      });
+      return errorHandler(res, 400, "User doesn't exist with current role");
     }
 
     // generate token
@@ -113,10 +102,7 @@ export const login = async (req, res) => {
       });
   } catch (error) {
     console.log("error while login user", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
 
