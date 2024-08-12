@@ -4,6 +4,7 @@ import { User } from "../models/userModel.js";
 import getDataUri from "../middleware/datauri.js";
 import cloudinary from "../middleware/cloudinary.js";
 import { errorHandler } from "../utils/errorHandler.js";
+import { responseHandler } from "../utils/responseHandler.js";
 
 // Register controller
 export const register = async (req, res) => {
@@ -115,6 +116,7 @@ export const logout = async (req, res) => {
       .json({ message: "Logout successfully", status: 200 });
   } catch (error) {
     console.log("error while logout user", error.message);
+
     return res.status(400).json({
       message: error.message,
       status: 400,

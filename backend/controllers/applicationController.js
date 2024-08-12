@@ -1,5 +1,10 @@
-import { Application } from "../models/applicationModel.js";
+// Models
 import { Job } from "../models/jobModel.js";
+import { Application } from "../models/applicationModel.js";
+
+// Handlers
+import { errorHandler } from "../utils/errorHandler.js";
+import { responseHandler } from "../utils/responseHandler.js";
 
 // apply on the job
 export const applyJob = async (req, res) => {
@@ -8,10 +13,7 @@ export const applyJob = async (req, res) => {
     const jobId = req.params.id;
 
     if (!jobId) {
-      return res.status(400).json({
-        message: "Job id is required.",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Job id is required");
     }
 
     // If user already apply on this job
@@ -21,19 +23,13 @@ export const applyJob = async (req, res) => {
     });
 
     if (isUserApply) {
-      return res.status(400).json({
-        message: "You have already apply for this job.",
-        status: 400,
-      });
+      return errorHandler(res, 400, "You have already apply for this job");
     }
 
     // If job exist or not
     const findJob = await Job.findById({ _id: jobId });
     if (!findJob) {
-      return res.status(400).json({
-        message: "Job not found.",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Job not found");
     }
 
     // Create application
@@ -44,18 +40,17 @@ export const applyJob = async (req, res) => {
 
     findJob.applications.push(newApplication._id);
     await findJob.save();
+    return responseHandler(200, "Job applied successfully", newApplication);
 
-    return res.status(200).json({
-      message: "Job applied successfully",
-      status: 200,
-      data: newApplication,
-    });
+    // return res.status(200).json({
+    //   message: "Job applied successfully",
+    //   status: 200,
+    //   data: newApplication,
+    // });
+    
   } catch (error) {
     console.log("error while applying for job", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, "All fields are required");
   }
 };
 
