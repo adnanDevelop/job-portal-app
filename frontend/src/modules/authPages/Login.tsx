@@ -46,6 +46,7 @@ const Login = () => {
         toast.error(errorData.message);
       }
     } catch (error) {
+      console.log(error);
       toast.error("An error occurred. Please try again.");
     } finally {
       dispatch(setLoading(false));
