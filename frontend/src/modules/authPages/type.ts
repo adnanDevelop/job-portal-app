@@ -4,7 +4,7 @@ export interface IRegisterUser {
   phoneNumber: string;
   password: string;
   role: string;
-  file?: string;
+  profilePhoto?: string;
 }
 
 export interface ILoginUser {

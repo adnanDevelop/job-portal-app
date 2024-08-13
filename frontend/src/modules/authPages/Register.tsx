@@ -26,8 +26,8 @@ const Register = () => {
     formData.append("phoneNumber", data.phoneNumber);
     formData.append("password", data.password);
     formData.append("role", data.role);
-    if (data.file?.[0]) {
-      formData.append("file", data.file[0]);
+    if (data.profilePhoto?.[0]) {
+      formData.append("profilePhoto", data.profilePhoto[0]);
     }
 
     try {
@@ -170,10 +170,12 @@ const Register = () => {
               accept="image/*"
               type="file"
               className="mt-1 w-full h-[40px] max-w-full text-xs text-white bg-transparent file-input rounded-md border border-[#94a3b857]"
-              {...register("file", { required: "Image is required" })}
+              {...register("profilePhoto", { required: "Image is required" })}
             />
-            {errors.file && (
-              <p className="mt-1 text-xs text-red-500">{errors.file.message}</p>
+            {errors.profilePhoto && (
+              <p className="mt-1 text-xs text-red-500">
+                {errors.profilePhoto.message}
+              </p>
             )}
           </div>
 
