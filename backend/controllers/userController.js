@@ -116,11 +116,7 @@ export const logout = async (req, res) => {
       .json({ message: "Logout successfully", status: 200 });
   } catch (error) {
     console.log("error while logout user", error.message);
-
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
 
@@ -241,30 +237,17 @@ export const deleteUserAccount = async (req, res) => {
     const userId = req.id;
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(400).json({
-        message: "User not found",
-        status: 400,
-      });
+      return errorHandler(res, 400, "User not found");
     }
 
-    // Delete user
     const deleteUser = await User.deleteOne({ _id: userId });
     if (deleteUser.deletedCount !== 1) {
-      return res.status(400).json({
-        message: "User not deleted",
-        status: 400,
-      });
+      return errorHandler(res, 400, "User not deleted");
     } else {
-      return res.status(200).json({
-        message: "User deleted successfully",
-        status: 200,
-      });
+      return responseHandler(res, 200, "User deleted successfully");
     }
   } catch (error) {
     console.log("error while deleting user", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
