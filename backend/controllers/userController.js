@@ -5,24 +5,32 @@ import getDataUri from "../middleware/datauri.js";
 import cloudinary from "../middleware/cloudinary.js";
 import { errorHandler } from "../utils/errorHandler.js";
 import { responseHandler } from "../utils/responseHandler.js";
+cloudinary.config();
 
 // Register controller
 export const register = async (req, res) => {
   try {
+    const files = req.files;
+    let profilePhotoUrl;
     const { fullName, email, phoneNumber, password, role } = req.body;
+
     if (!fullName || !email || !phoneNumber || !password || !role) {
-      return res.status(400).json({
-        message: "All fields are required",
-        status: 400,
-      });
+      return errorHandler(res, 400, "All fields are required");
+    }
+
+    // Upload profile photo to Cloudinary if it exists
+    if (files.profilePhoto && files.profilePhoto.length > 0) {
+      const profilePhotoUri = getDataUri(files.profilePhoto[0]);
+      const cloudinaryResponse = await cloudinary.uploader.upload(
+        profilePhotoUri.content
+      );
+      console.log(cloudinaryResponse, "response");
+      profilePhotoUrl = cloudinaryResponse.secure_url;
     }
 
     const isUserExist = await User.findOne({ email });
     if (isUserExist) {
-      return res.status(400).json({
-        message: "User already exist with this email",
-        status: 400,
-      });
+      return errorHandler(res, 400, "User already exists with this email");
     }
 
     const hashPassword = await bcrypt.hash(password, 10);
@@ -33,6 +41,9 @@ export const register = async (req, res) => {
       phoneNumber,
       password: hashPassword,
       role,
+      profile: {
+        profilePhoto: profilePhotoUrl,
+      },
     });
 
     console.log(createUser);
@@ -43,7 +54,7 @@ export const register = async (req, res) => {
       data: createUser,
     });
   } catch (error) {
-    console.log("error while registering user", error.message);
+    console.log("Error while registering user", error.message);
     return res.status(400).json({
       message: error.message,
       status: 400,
@@ -141,17 +152,7 @@ export const updateProfile = async (req, res) => {
 
     // Cloudinary configuration
     const files = req.files;
-    let profilePhotoUrl, resumeUrl, cloudinaryResponse;
-
-    // Upload profilePhoto to Cloudinary if it exists
-    if (files.profilePhoto && files.profilePhoto.length > 0) {
-      const profilePhotoUri = getDataUri(files.profilePhoto[0]);
-
-      cloudinaryResponse = await cloudinary.uploader.upload(
-        profilePhotoUri.content
-      );
-      profilePhotoUrl = cloudinaryResponse.secure_url;
-    }
+    let resumeUrl, cloudinaryResponse;
 
     // Upload resume to Cloudinary if it exists
     if (files.resume && files.resume.length > 0) {
@@ -171,10 +172,7 @@ export const updateProfile = async (req, res) => {
     const userId = req.id;
     let user = await User.findById(userId);
     if (!user) {
-      return res.status(400).json({
-        message: "User not found",
-        status: 400,
-      });
+      return errorHandler(res, 400, "User not found");
     }
 
     // Ensure the profile object exists
@@ -195,9 +193,7 @@ export const updateProfile = async (req, res) => {
     if (phoneNumber) user.profile.phoneNumber = phoneNumber;
     if (cloudinaryResponse) {
       user.profile.resume = resumeUrl;
-      // user.profile.resumeOriginalName = resume
     }
-    if (cloudinaryResponse) user.profile.profilePhoto = profilePhotoUrl;
 
     // Ensure the socialLinks object exists
     if (!user.profile.socialLinks) {
@@ -217,17 +213,10 @@ export const updateProfile = async (req, res) => {
       profile: user.profile,
     };
 
-    res.status(200).json({
-      message: "Profile updated successfully",
-      status: 200,
-      data: user,
-    });
+    return responseHandler(res, 200, "Profile updated successfully", user);
   } catch (error) {
     console.log("error while updating profile", error);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
 
