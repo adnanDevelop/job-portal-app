@@ -1,12 +1,17 @@
-import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { RootState } from "../../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../components/ui/toast/Modal";
 import { logout } from "../../../redux/features/authSlice";
 
 // Icons
 import { GoAlertFill } from "react-icons/go";
 import { userApiEndPoint } from "../../../utils/apiEndPoints";
-import { toast } from "react-toastify";
+
 const DeleteModal = ({ id }: { id: string }) => {
+  const { user } = useSelector((state: RootState) => state.auth);
+  console.log(user?._id);
+
   const disptach = useDispatch();
   const closeModal = () => {
     const modal = document.getElementById(
@@ -17,12 +22,12 @@ const DeleteModal = ({ id }: { id: string }) => {
 
   const deleteAccount = async () => {
     try {
-      const deleteUser = await fetch(`${userApiEndPoint}/profile/delete`, {
+      const deleteUser = await fetch(`${userApiEndPoint}/delete/${user._id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
-        // credentials: "include",
+        credentials: "include",
       });
 
       if (deleteUser.ok) {

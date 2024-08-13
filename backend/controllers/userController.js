@@ -234,7 +234,7 @@ export const updateProfile = async (req, res) => {
 // Delete User account
 export const deleteUserAccount = async (req, res) => {
   try {
-    const userId = req.id;
+    const userId = req.params.id;
     const user = await User.findById(userId);
     if (!user) {
       return errorHandler(res, 400, "User not found");
