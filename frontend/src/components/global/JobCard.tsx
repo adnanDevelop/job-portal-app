@@ -8,11 +8,11 @@ import { IoLocationSharp } from "react-icons/io5";
 
 const JobCard = ({ data }) => {
   const isoDate = data?.createdAt;
-  const formattedDate = format(new Date(isoDate), "dd MMM yyyy");
+  const formattedDate = format(new Date(isoDate || null), "dd MMM yyyy");
 
   return (
     <Link
-      to={`job-details/${data?._id}`}
+      to={`/job-details/${data?._id}`}
       className="block w-full p-4 py-5 border border-gray-700 rounded-lg shadow-sm shadow-gray-600 transitions hover:shadow-lg hover:shadow-gray-700"
       onClick={() => {
         window.scroll({ top: 0 });

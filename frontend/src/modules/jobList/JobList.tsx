@@ -3,11 +3,17 @@ import JobFilter from "./component/JobFilter";
 import JobStack from "../home/component/JobStack";
 import JobCard from "../../components/global/JobCard";
 import PageHeader from "../../components/global/PageHeader";
+import { IJobProp } from "../home/type";
 
 // Icons
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
+// Apis
+import { useListJobsQuery } from "../../redux/features/jobApi";
+
 const JobList = () => {
+  const { data } = useListJobsQuery({});
+
   return (
     <main className="relative">
       {/* Page header section */}
@@ -21,7 +27,7 @@ const JobList = () => {
           <JobFilter />
         </section>
         <section className="grid grid-cols-12 gap-4 mt-3 lg:mt-0 xl:col-span-9 lg:col-span-8 col-span-full">
-          {[0, 1, 2, 3, 4, 5, 6, 7].map((element, index: number) => {
+          {data?.data?.map((element: IJobProp, index: number) => {
             return (
               <div key={index} className="sm:col-span-6 col-span-full">
                 <JobCard data={element} />

@@ -11,20 +11,21 @@ import { useGetJobByIdQuery } from "../../redux/features/jobApi";
 const JobDetail = () => {
   const { id } = useParams();
 
+  console.log(id);
+
   const { data } = useGetJobByIdQuery({ id });
-  console.log(data);
 
   return (
-    <main className="">
+    <main>
       <section className="padding-inline padding-block bg-light-blue md:pt-[150px] pt-[100px]">
         <section className="grid grid-cols-12 gap-6">
           {/* Job Detail section */}
           <div className="lg:col-span-8 col-span-full">
-            <JobDescription />
+            <JobDescription data={data?.data} />
           </div>
           {/* Job information */}
           <div className="lg:col-span-4 col-span-full">
-            <JobInformation />
+            <JobInformation data={data?.data} />
           </div>
         </section>
       </section>

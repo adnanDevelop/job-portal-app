@@ -1,9 +1,14 @@
+// Redux
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+
 // Icons
 import { FaRegBuilding } from "react-icons/fa";
 import { HiArrowSmRight } from "react-icons/hi";
 import { IoLocationOutline } from "react-icons/io5";
 
-const JobDescription = () => {
+const JobDescription = ({ data }) => {
+  const { user } = useSelector((state: RootState) => state.auth);
   const keyPoints = {
     duties: [
       "Participate in requirements analysis",
@@ -26,6 +31,11 @@ const JobDescription = () => {
     ],
   };
 
+  // Verifying that loggedin user already applied or not
+  const isApplied = data?.applications.some(
+    (element: string) => element === user?._id
+  );
+
   return (
     <div>
       {/* Header section */}
@@ -39,15 +49,16 @@ const JobDescription = () => {
         {/* title */}
         <div>
           <h3 className="mb-3 text-lg font-medium leading-none text-white font-jakarta text-capitalize">
-            Frontend Developer
+            {data?.title}
           </h3>
           <div className="flex flex-wrap items-center gap-4 sm:gap-8">
             <p className="flex items-center gap-1.5 text-sm text-slate font-poppin">
-              <FaRegBuilding className="text-lg text-green" /> GoMarkho Pvt. Ltd
+              <FaRegBuilding className="text-lg text-green" />{" "}
+              {data?.company?.companyName} Pvt. Ltd
             </p>
             <p className="flex items-center gap-1.5 text-sm text-slate font-poppin">
-              <IoLocationOutline className="text-lg text-green" /> Islamabad,
-              Pakistan
+              <IoLocationOutline className="text-lg text-green" />{" "}
+              {data?.location}, Pakistan
             </p>
           </div>
         </div>
@@ -133,7 +144,16 @@ const JobDescription = () => {
 
       {/* Apply button */}
       <div className="mt-10">
-        <button className="primary-btn px-[20px]">apply now</button>
+        {isApplied ? (
+          <button
+            className="secondary-btn px-[20px] cursor-not-allowed"
+            disabled
+          >
+            Already Applied
+          </button>
+        ) : (
+          <button className="primary-btn px-[20px]">apply now</button>
+        )}
       </div>
     </div>
   );

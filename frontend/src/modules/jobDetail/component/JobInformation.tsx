@@ -1,42 +1,49 @@
 // Icons
-import {} from "react-icons/fa";
+import { formatDistanceToNow } from "date-fns";
 import { PiBagFill } from "react-icons/pi";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { FiMonitor } from "react-icons/fi";
 import { LuUser, LuBookMinus, LuDollarSign, LuClock } from "react-icons/lu";
 
-const JobInformation = () => {
+const JobInformation = ({ data }: unknown) => {
+  const isoDate = data?.createdAt;
+  const formattedDate = formatDistanceToNow(new Date(isoDate || null));
+
   const details = [
-    { icon: <LuUser />, title: "Emplyee Type", value: "Full Time" },
+    { icon: <LuUser />, title: "Emplyee Type", value: data?.jobType },
     {
       icon: <MdOutlineLocationOn />,
       title: "Location",
-      value: "Islambad, Pakistan",
+      value: data?.location,
     },
     {
       icon: <FiMonitor />,
       title: "Job Type",
-      value: "Frontend Developer",
+      value: data?.title,
     },
     {
       icon: <PiBagFill />,
       title: "Experience",
-      value: "2+ Years",
+      value: data?.experience,
     },
     {
       icon: <LuBookMinus />,
       title: "Qualifications",
-      value: "BSCS",
+      value: data?.qualification,
     },
     {
       icon: <LuDollarSign />,
       title: "Salary",
-      value: "50k -100k",
+      value: `${data?.salary} PKR`,
     },
     {
       icon: <LuClock />,
       title: "Date posted",
-      value: "28th June, 2024",
+      value: `${formattedDate} ago ,  ${
+        data?.applications.length > 0
+          ? data?.applications.length + " applications submitted"
+          : ""
+      }`,
     },
   ];
 
