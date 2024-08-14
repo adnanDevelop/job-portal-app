@@ -48,7 +48,7 @@ const JobCard = ({ data }) => {
             <FaRegClock /> {formattedDate}
           </p>
           <p className="text-sm leading-none text-white font-poppin text-end">
-            40k - 80k
+            {data?.salary} PKR
           </p>
         </div>
       </div>

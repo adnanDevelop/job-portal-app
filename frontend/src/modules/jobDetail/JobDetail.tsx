@@ -5,9 +5,14 @@ import JobDescription from "./component/JobDescription";
 import JobInformation from "./component/JobInformation";
 import ExploreJob from "../home/component/ExploreJob";
 
+// Apis
+import { useGetJobByIdQuery } from "../../redux/features/jobApi";
+
 const JobDetail = () => {
   const { id } = useParams();
-  console.log(id);
+
+  const { data } = useGetJobByIdQuery({ id });
+  console.log(data);
 
   return (
     <main className="">
