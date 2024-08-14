@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { Link } from "react-router-dom";
 
 // Icons
@@ -6,11 +7,12 @@ import { FaRegClock } from "react-icons/fa6";
 import { IoLocationSharp } from "react-icons/io5";
 
 const JobCard = ({ data }) => {
-  console.log(data);
+  const isoDate = data?.createdAt;
+  const formattedDate = format(new Date(isoDate), "dd MMM yyyy");
 
   return (
     <Link
-      to={`job-details/${data}`}
+      to={`job-details/${data?._id}`}
       className="block w-full p-4 py-5 border border-gray-700 rounded-lg shadow-sm shadow-gray-600 transitions hover:shadow-lg hover:shadow-gray-700"
       onClick={() => {
         window.scroll({ top: 0 });
@@ -23,7 +25,7 @@ const JobCard = ({ data }) => {
             <img src="/image/hero/img-1.png" className="w-[22px]" alt="" />
           </div>
           <h4 className="text-base font-medium leading-none text-white font-jakarta">
-            Fullstack Developer
+            {data?.title}
           </h4>
         </div>
         <button className="w-[30px] h-[30px] rounded-full border border-green text-green text-[13px] grid  place-content-center transitions hover:bg-green hover:text-white focus:bg-green focus:text-white bg-[#05966813]">
@@ -35,15 +37,15 @@ const JobCard = ({ data }) => {
       <div className="flex items-center justify-between mt-4">
         <div>
           <p className="m-1 text-[10px] mb-3 leading-none badge border-none px-2 badge-outline font-medium font-poppin  text-green transitions hover:bg-green hover:text-white focus:bg-green bg-[#05966813] focus:text-white">
-            Part Time
+            {data?.jobType}
           </p>
           <p className="flex items-center text-sm text-slate font-poppin gap-x-1">
-            <IoLocationSharp /> Islamabad
+            <IoLocationSharp /> {data?.location}
           </p>
         </div>
         <div>
           <p className="flex items-center mb-2 text-sm text-slate font-poppin gap-x-1">
-            <FaRegClock /> 20th Feb 2023
+            <FaRegClock /> {formattedDate}
           </p>
           <p className="text-sm leading-none text-white font-poppin text-end">
             40k - 80k
