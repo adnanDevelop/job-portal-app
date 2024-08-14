@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../../redux/features/authSlice";
+import { setLoading } from "../../redux/slices/authSlice";
 
 // Types
 import { ILoginUser } from "./type";
@@ -10,7 +10,7 @@ import { userApiEndPoint } from "../../utils/apiEndPoints";
 
 // Redux
 import { RootState } from "../../redux/store";
-import { login } from "../../redux/features/authSlice";
+import { login } from "../../redux/slices/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();

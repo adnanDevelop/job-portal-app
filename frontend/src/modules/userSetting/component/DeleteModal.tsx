@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../components/ui/toast/Modal";
-import { logout } from "../../../redux/features/authSlice";
+import { logout } from "../../../redux/slices/authSlice";
 
 // Icons
 import { GoAlertFill } from "react-icons/go";

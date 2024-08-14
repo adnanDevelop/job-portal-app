@@ -1,5 +1,9 @@
 import { Job } from "../models/jobModel.js";
 
+// Handlers
+import { errorHandler } from "../utils/errorHandler.js";
+import { responseHandler } from "../utils/responseHandler.js";
+
 // Post job
 export const postJob = async (req, res) => {
   try {
@@ -47,17 +51,10 @@ export const postJob = async (req, res) => {
     });
 
     // sending response
-    return res.status(200).json({
-      message: "New job created successfully",
-      status: 200,
-      data: createJob,
-    });
+    return responseHandler(res, 200, "Job created successfully", createJob);
   } catch (error) {
     console.log("Error while posting job:", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
 
@@ -94,10 +91,7 @@ export const updateJob = async (req, res) => {
 
     const findJob = await Job.find({ _id: jobId });
     if (!findJob) {
-      return res.status(400).json({
-        message: "Job not found.",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Job not found.");
     }
 
     // Update Job
@@ -105,26 +99,11 @@ export const updateJob = async (req, res) => {
       new: true,
     });
 
-    // If job not found
-    if (!job) {
-      return res.status(400).json({
-        message: "job not found.",
-        status: 400,
-      });
-    }
-
     // Sending response
-    return res.status(200).json({
-      message: "job updated successfully",
-      status: 200,
-      data: job,
-    });
+    return responseHandler(res, 200, "job updated successfully", job);
   } catch (error) {
     console.log("Error while updating job:", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
 
@@ -134,31 +113,19 @@ export const deleteJob = async (req, res) => {
     const jobId = req.params.id;
     const findJob = await Job.find({ _id: jobId });
     if (!findJob) {
-      return res.status(400).json({
-        message: "Job not found",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Job not found.");
     }
 
     // Delete Company
     const job = await Job.deleteOne({ _id: jobId });
     if (job.deletedCount !== 1) {
-      return res.status(400).json({
-        message: "Job not deleted",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Job not deleted.");
     } else {
-      return res.status(200).json({
-        message: "Job deleted successfully",
-        status: 200,
-      });
+      return errorHandler(res, 400, "Job deleted successfully.");
     }
   } catch (error) {
     console.log("Error while deleting job:", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
 
@@ -181,24 +148,14 @@ export const getJob = async (req, res) => {
 
     // If jobs not found
     if (!getAllJobs) {
-      return res.status(400).json({
-        message: "Jobs not found",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Job not found.");
     }
 
     // Sending response
-    return res.status(200).json({
-      message: "Data retreived successfully",
-      status: 200,
-      data: getAllJobs,
-    });
+    return responseHandler(res, 200, "Data retreived successfully", getAllJobs);
   } catch (error) {
     console.log("Error while posting job:", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
 
@@ -208,24 +165,14 @@ export const getJobById = async (req, res) => {
     const jobId = req.params.id;
     const findJob = await Job.findById(jobId).populate({ path: "company" });
     if (!findJob) {
-      return res.status(400).json({
-        message: "Job not found",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Job not found.");
     }
 
     // Sending response
-    return res.status(200).json({
-      message: "New job created successfully",
-      status: 200,
-      data: findJob,
-    });
+    return responseHandler(res, 200, "Data retreived successfully", findJob);
   } catch (error) {
     console.log("Error while getting jobs by id:", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
 
@@ -237,26 +184,16 @@ export const getJobByAdmin = async (req, res) => {
     const getJob = await Job.find({ createdBy: adminId });
     // If job not found
     if (!getJob) {
-      return res.status(400).json({
-        message: "Job not found",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Job not found.");
     }
 
     // Sending response
-    return res.status(200).json({
-      message: "New job created successfully",
-      status: 200,
-      data: getJob,
-    });
+    return responseHandler(res, 200, "Data retreived successfully", getJob);
   } catch (error) {
     console.log(
       "Error while admins getting jobs with admin id:",
       error.message
     );
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };

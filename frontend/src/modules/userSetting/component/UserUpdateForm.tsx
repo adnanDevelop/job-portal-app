@@ -6,10 +6,10 @@ import { IUpdateUser } from "../type";
 import DeleteModal from "./DeleteModal";
 import { useDispatch, useSelector } from "react-redux";
 import { userApiEndPoint } from "../../../utils/apiEndPoints";
-import { setLoading } from "../../../redux/features/authSlice";
+import { setLoading } from "../../../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { setUser } from "../../../redux/features/authSlice";
+import { setUser } from "../../../redux/slices/authSlice";
 
 const UserUpdateForm = () => {
   const navigate = useNavigate();

@@ -5,7 +5,9 @@ import { FaRegBookmark } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa6";
 import { IoLocationSharp } from "react-icons/io5";
 
-const JobCard = ({ data }: any) => {
+const JobCard = ({ data }) => {
+  console.log(data);
+
   return (
     <Link
       to={`job-details/${data}`}

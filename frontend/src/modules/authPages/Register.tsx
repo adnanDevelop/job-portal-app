@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../../redux/features/authSlice";
+import { setLoading } from "../../redux/slices/authSlice";
 
 // Types
 import { IRegisterUser } from "./type";

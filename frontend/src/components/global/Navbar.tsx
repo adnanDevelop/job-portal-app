@@ -9,12 +9,15 @@ import { useEffect, useState } from "react";
 import { GrClose } from "react-icons/gr";
 
 // Redux
+import { logout } from "../../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/features/authSlice";
+import { RootState } from "../../redux/store";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const { isAuthenticated, user } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   const dispatch = useDispatch();
   const [open, setOpen] = useState<boolean>(false);
@@ -158,7 +161,9 @@ const Navbar = () => {
                     className="flex items-center justify-center"
                   >
                     <img
-                      src={`${"/image/avator.jpg"}`}
+                      src={`${
+                        user?.profile?.profilePhoto || "/image/avator.jpg"
+                      }`}
                       className="w-[35px] h-[35px] border-2 border-green object-cover rounded-full"
                       alt=""
                     />
