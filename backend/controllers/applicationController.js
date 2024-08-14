@@ -22,6 +22,8 @@ export const applyJob = async (req, res) => {
       applicant: userId,
     });
 
+    console.log(isUserApply);
+
     if (isUserApply) {
       return errorHandler(res, 400, "You have already apply for this job");
     }
@@ -40,14 +42,18 @@ export const applyJob = async (req, res) => {
 
     findJob.applications.push(newApplication._id);
     await findJob.save();
-    return responseHandler(200, "Job applied successfully", newApplication);
+    return responseHandler(
+      res,
+      200,
+      "Job applied successfully",
+      newApplication
+    );
 
     // return res.status(200).json({
     //   message: "Job applied successfully",
     //   status: 200,
     //   data: newApplication,
     // });
-    
   } catch (error) {
     console.log("error while applying for job", error.message);
     return errorHandler(res, 400, "All fields are required");
