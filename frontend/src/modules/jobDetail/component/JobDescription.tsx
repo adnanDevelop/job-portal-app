@@ -33,8 +33,12 @@ const JobDescription = ({ data }) => {
 
   // Verifying that loggedin user already applied or not
   const isApplied = data?.applications.some(
-    (element: string) => element === user?._id
+    (element: { applicant: string }) => element.applicant === user?._id || false
   );
+
+  // Apply api
+  
+
 
   return (
     <div>

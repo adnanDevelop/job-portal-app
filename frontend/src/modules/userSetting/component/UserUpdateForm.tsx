@@ -42,10 +42,6 @@ const UserUpdateForm = () => {
 
     formData.append("skills", JSON.stringify(data.skills));
 
-    // Append files specifically
-    if (data.profilePhoto) {
-      formData.append("profilePhoto", data.profilePhoto[0]);
-    }
     if (data.resume) {
       formData.append("resume", data.resume[0]);
     }
@@ -333,25 +329,6 @@ const UserUpdateForm = () => {
               )}
             </div>
 
-            {/* Profile Image input */}
-            <div className="sm:col-span-6 col-span-full">
-              <label className="block mb-1 text-sm text-white font-jakarta ">
-                Profile Image: <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="file"
-                className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
-                {...register("profilePhoto", {
-                  required: "Profile Image is required",
-                })}
-              />
-              {errors.profilePhoto && (
-                <p className="mt-1 text-xs text-red-500">
-                  {errors.profilePhoto.message}
-                </p>
-              )}
-            </div>
-
             {/* Linkedin profile link input */}
             <div className="sm:col-span-6 col-span-full">
               <label className="block mb-1 text-sm text-white font-jakarta ">
@@ -380,7 +357,7 @@ const UserUpdateForm = () => {
               />
             </div>
 
-            <div className="flex items-center justify-center mt-5 col-span-full">
+            <div className="mt-5  col-span-full">
               <button
                 type="submit"
                 className="px-[20px] primary-btn"

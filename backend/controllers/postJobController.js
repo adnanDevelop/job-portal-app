@@ -144,7 +144,10 @@ export const getJob = async (req, res) => {
       .populate({
         path: "company",
       })
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .populate({
+        path: "applications",
+      });
 
     // If jobs not found
     if (!getAllJobs) {
