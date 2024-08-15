@@ -7,7 +7,7 @@ import { FaRegBuilding } from "react-icons/fa";
 import { HiArrowSmRight } from "react-icons/hi";
 import { IoLocationOutline } from "react-icons/io5";
 
-const JobDescription = ({ data }) => {
+const JobDescription = ({ data }: any) => {
   const { user } = useSelector((state: RootState) => state.auth);
   const keyPoints = {
     duties: [
@@ -37,8 +37,6 @@ const JobDescription = ({ data }) => {
   );
 
   // Apply api
-  
-
 
   return (
     <div>
