@@ -1,15 +1,15 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../../global/userLayoutComponents/Navbar";
-import Footer from "../../global/userLayoutComponents/Footer";
+import Footer from "../../global/recruitorLayoutComponents/Footer";
+import Sidebar from "../../global/recruitorLayoutComponents/Sidebar";
 
-const Layout = () => {
+const RecruitorLayout = () => {
   return (
     <>
-      <Navbar />
+      <Sidebar />
       <Outlet />
       <Footer />
     </>
   );
 };
 
-export default Layout;
+export default RecruitorLayout;

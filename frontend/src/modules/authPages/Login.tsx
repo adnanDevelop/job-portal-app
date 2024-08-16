@@ -38,9 +38,14 @@ const Login = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        navigate("/");
         dispatch(login(responseData.data));
         toast.success(responseData.message);
+
+        if (data.role === "recruitor") {
+          navigate("/recruitor/dashboard");
+        } else {
+          navigate("/");
+        }
       } else {
         const errorData = await response.json();
         toast.error(errorData.message);
