@@ -10,9 +10,6 @@ import { useGetJobByIdQuery } from "../../redux/features/jobApi";
 
 const JobDetail = () => {
   const { id } = useParams();
-
-  console.log(id);
-
   const { data } = useGetJobByIdQuery({ id });
 
   return (

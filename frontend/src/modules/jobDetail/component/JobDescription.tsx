@@ -7,9 +7,12 @@ import { FaRegBuilding } from "react-icons/fa";
 import { HiArrowSmRight } from "react-icons/hi";
 import { IoLocationOutline } from "react-icons/io5";
 
+// apis
+
 // Interface
 interface JobDataProp {
   data: {
+    _id: string;
     title: string;
     employmentType: string;
     requirements: string[];
@@ -17,10 +20,11 @@ interface JobDataProp {
     jobType: string;
     location: string;
     experience: string;
+    company: { companyName: string };
     qualification: string;
     salary: number;
     createdAt: string;
-    applications: string[];
+    applications: { applicant: string }[];
   };
 }
 
@@ -52,10 +56,6 @@ const JobDescription = ({ data }: JobDataProp) => {
   const isApplied = data?.applications.some(
     (element) => element.applicant === user?._id || false
   );
-
-  console.log(isApplied);
-
-  // Apply api
 
   return (
     <div>
@@ -173,7 +173,13 @@ const JobDescription = ({ data }: JobDataProp) => {
             Already Applied
           </button>
         ) : (
-          <button className="primary-btn px-[20px]">apply now</button>
+          <button
+            className="primary-btn px-[20px]"
+            // onClick={handleApply}
+            // disabled={isLoading} // Optional: Disable button while loading
+          >
+            {/* {isLoading ? "Applying..." : "Apply Now"} */}
+          </button>
         )}
       </div>
     </div>
