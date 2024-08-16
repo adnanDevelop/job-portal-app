@@ -9,9 +9,9 @@ import { useEffect, useState } from "react";
 import { GrClose } from "react-icons/gr";
 
 // Redux
-import { logout } from "../../redux/slices/authSlice";
+import { logout } from "../../../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { RootState } from "../../../redux/store";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -58,12 +58,11 @@ const Navbar = () => {
   };
 
   const handleClick = () => {
-    const elem = document.activeElement;
+    const elem = document.activeElement as HTMLElement;
     if (elem) {
-      elem?.blur();
+      elem.blur();
     }
   };
-
   return (
     <div className="relative">
       {/* large screen navbar */}
@@ -85,7 +84,7 @@ const Navbar = () => {
         {/* links */}
         <div className="hidden lg:block">
           <div className="flex items-center justify-center text-sm font-medium text-white gap-x-6 ">
-            {links.map((link: any, index: number) => {
+            {links.map((link, index: number) => {
               return link?.links ? (
                 <div
                   key={index}
@@ -103,7 +102,7 @@ const Navbar = () => {
                     tabIndex={0}
                     className="dropdown-content !top-[200%] menu rounded-xl p-2 z-[1] w-[180px] bg-dark-blue shadow border-b-2 border-b-green"
                   >
-                    {link.links.map((sublink: any, subIndex: number) => (
+                    {link.links.map((sublink, subIndex: number) => (
                       <li key={subIndex} onClick={handleClick}>
                         <Link
                           to={sublink.path}
@@ -308,7 +307,7 @@ const Navbar = () => {
                       tabIndex={0}
                       className="dropdown-content  menu rounded-xl p-2 z-[1] w-[200px] bg-dark-blue shadow border-b-2 border-b-green"
                     >
-                      {link.links.map((sublink: any, subIndex: number) => (
+                      {link.links.map((sublink, subIndex: number) => (
                         <li key={subIndex}>
                           <Link
                             to={sublink.path}

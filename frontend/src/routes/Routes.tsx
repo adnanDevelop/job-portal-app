@@ -2,7 +2,7 @@ import { Outlet, useRoutes } from "react-router-dom";
 import { ProtectedRoute, PublicRoute } from "../utils/RouteAuth";
 
 // Main Layout
-import Layout from "../components/layout/Layout";
+import Layout from "../components/layout/userLayout/Layout";
 
 // Public Routes
 import Login from "../modules/authPages/Login";
