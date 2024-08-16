@@ -75,23 +75,18 @@ export const getAppliedJobs = async (req, res) => {
       });
 
     if (!getApplications) {
-      return res.status(400).json({
-        message: "No Applications",
-        status: 400,
-      });
+      return errorHandler(res, 400, "No Applications");
     }
 
-    res.status(200).json({
-      message: "Data retreived successfully",
-      data: getApplications,
-      status: 200,
-    });
+    return responseHandler(
+      res,
+      200,
+      "Data retreived successfully",
+      getApplications
+    );
   } catch (error) {
     console.log("error while getting applications ", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
 
@@ -110,23 +105,13 @@ export const getApplicants = async (req, res) => {
     });
 
     if (!findJob) {
-      return res.status(400).json({
-        message: "Job not found",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Job not found");
     }
 
-    return res.status(200).json({
-      message: "Data retreived successfully",
-      status: 200,
-      data: findJob,
-    });
+    return responseHandler(res, 200, "Data retreived successfully", findJob);
   } catch (error) {
     console.log("error while getting application by id ", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
 
@@ -138,10 +123,7 @@ export const updateStatus = async (req, res) => {
 
     // if application not found
     if (!status) {
-      return res.status(400).json({
-        message: "Status is required",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Status is required");
     }
 
     // find application
@@ -149,26 +131,17 @@ export const updateStatus = async (req, res) => {
 
     // if application not found
     if (!application) {
-      return res.status(400).json({
-        message: "Application not found",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Application not found");
     }
 
     // update status
     application.status = status.toLowerCase();
     await application.save();
 
-    return res.status(200).json({
-      message: "Application updated successfully",
-      status: 200,
-    });
+    return responseHandler(res, 200, "Application updated successfully");
   } catch (error) {
     console.log("error while updating application status ", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
 
@@ -178,30 +151,18 @@ export const deleteApplication = async (req, res) => {
 
     const findApplication = await Application.findOne({ _id: applicationId });
     if (!findApplication) {
-      return res.status(400).json({
-        message: "Application not found",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Application not found");
     }
 
     // Delete Application
     const application = await Application.deleteOne({ _id: applicationId });
     if (application.deletedCount !== 1) {
-      return res.status(400).json({
-        message: "Application not deleted",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Application not deleted");
     } else {
-      return res.status(200).json({
-        message: "Application deleted successfully",
-        status: 200,
-      });
+      return responseHandler(res, 200, "Application deleted successfully");
     }
   } catch (error) {
     console.log("error while deleting application ", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
