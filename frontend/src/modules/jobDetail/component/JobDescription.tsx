@@ -1,6 +1,11 @@
 // Redux
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
+import { toast } from "react-toastify";
+
+// Redux
+import { useDispatch } from "react-redux";
+import { setLoading } from "../../../redux/slices/jobSlice";
 
 // Icons
 import { FaRegBuilding } from "react-icons/fa";
@@ -8,7 +13,7 @@ import { HiArrowSmRight } from "react-icons/hi";
 import { IoLocationOutline } from "react-icons/io5";
 
 // apis
-import { useListAllApplyJobsQuery } from "../../../redux/features/applyJobApi";
+import { useApplyJobMutation } from "../../../redux/features/applyJobApi";
 
 // Interface
 interface JobDataProp {
@@ -27,10 +32,12 @@ interface JobDataProp {
     createdAt: string;
     applications: { applicant: string }[];
   };
+  refetchJobData: () => void;
 }
 
-const JobDescription = ({ data }: JobDataProp) => {
-  const { user } = useSelector((state: RootState) => state.auth);
+const JobDescription = ({ data, refetchJobData }: JobDataProp) => {
+  const dispatch = useDispatch();
+  const { user, loading } = useSelector((state: RootState) => state.auth);
   const keyPoints = {
     duties: [
       "Participate in requirements analysis",
@@ -53,13 +60,30 @@ const JobDescription = ({ data }: JobDataProp) => {
     ],
   };
 
-  const { data: jobData } = useListAllApplyJobsQuery({});
-  console.log(jobData?.data);
+  const [applyJob] = useApplyJobMutation();
 
   // Verifying that loggedin user already applied or not
   const isApplied = data?.applications.some(
     (element) => element.applicant === user?._id || false
   );
+
+  const applyOnJob = async () => {
+    try {
+      dispatch(setLoading(true));
+      applyJob({ id: data?._id })
+        .unwrap()
+        .then((response) => {
+          dispatch(setLoading(false));
+          toast.success(response.message);
+          refetchJobData();
+        })
+        .catch((error) => {
+          toast.error(error.data.message);
+        });
+    } catch (error) {
+      toast.error("Something went wrong while applying on this job");
+    }
+  };
 
   return (
     <div>
@@ -73,7 +97,7 @@ const JobDescription = ({ data }: JobDataProp) => {
         </div>
         {/* title */}
         <div>
-          <h3 className="mb-3 text-lg font-medium leading-none text-white font-jakarta text-capitalize">
+          <h3 className="mb-3 text-lg font-medium leading-none text-white capitalize font-jakarta">
             {data?.title}
           </h3>
           <div className="flex flex-wrap items-center gap-4 sm:gap-8">
@@ -178,11 +202,15 @@ const JobDescription = ({ data }: JobDataProp) => {
           </button>
         ) : (
           <button
-            className="primary-btn px-[20px]"
-            // onClick={handleApply}
-            // disabled={isLoading} // Optional: Disable button while loading
+            className="primary-btn px-[20px] flex items-center justify-center"
+            onClick={applyOnJob}
+            disabled={loading}
           >
-            {/* {isLoading ? "Applying..." : "Apply Now"} */}
+            {loading ? (
+              <span className="loading loading-dots loading-md"></span>
+            ) : (
+              "Apply Now"
+            )}
           </button>
         )}
       </div>

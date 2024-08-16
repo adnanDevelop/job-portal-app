@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import { Link } from "react-router-dom";
 
 // Icons
@@ -6,9 +6,20 @@ import { FaRegBookmark } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa6";
 import { IoLocationSharp } from "react-icons/io5";
 
-const JobCard = ({ data }) => {
-  const isoDate = data?.createdAt;
-  const formattedDate = format(new Date(isoDate || null), "dd MMM yyyy");
+interface IJobProp {
+  data: {
+    _id: string;
+    title: string;
+    jobType: string;
+    location: string;
+    createdAt: string;
+    salary: number;
+  };
+}
+
+const JobCard = ({ data }: IJobProp) => {
+  const isoDate = data?.createdAt || new Date().toISOString();
+  const formattedDate = formatDistanceToNow(new Date(isoDate));
 
   return (
     <Link
@@ -24,7 +35,7 @@ const JobCard = ({ data }) => {
           <div className="flex items-center rounded-md justify-center h-[40px] w-[40px] border border-gray-700 shadow-md shadow-gray-700">
             <img src="/image/hero/img-1.png" className="w-[22px]" alt="" />
           </div>
-          <h4 className="text-base font-medium leading-none text-white font-jakarta">
+          <h4 className="text-base font-medium leading-none text-white capitalize font-jakarta">
             {data?.title}
           </h4>
         </div>

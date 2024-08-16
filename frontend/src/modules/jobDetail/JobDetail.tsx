@@ -10,7 +10,7 @@ import { useGetJobByIdQuery } from "../../redux/features/jobApi";
 
 const JobDetail = () => {
   const { id } = useParams();
-  const { data } = useGetJobByIdQuery({ id });
+  const { data: jobData, refetch } = useGetJobByIdQuery({ id });
 
   return (
     <main>
@@ -18,11 +18,11 @@ const JobDetail = () => {
         <section className="grid grid-cols-12 gap-6">
           {/* Job Detail section */}
           <div className="lg:col-span-8 col-span-full">
-            <JobDescription data={data?.data} />
+            <JobDescription data={jobData?.data} refetchJobData={refetch} />
           </div>
           {/* Job information */}
           <div className="lg:col-span-4 col-span-full">
-            <JobInformation data={data?.data} />
+            <JobInformation data={jobData?.data} />
           </div>
         </section>
       </section>

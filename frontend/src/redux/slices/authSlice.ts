@@ -1,12 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getCookie, removeCookie, setCookie } from "../../utils/cookie";
 
-// interface IAuthState {
-//   user: any;
-//   loading: boolean;
-//   isAuthenticated: boolean;
-// }
-
 const initialState = {
   user: JSON.parse(getCookie("userData") || "{}"),
   loading: false,

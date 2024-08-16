@@ -1,5 +1,6 @@
-// Icons
 import { formatDistanceToNow } from "date-fns";
+
+// Icons
 import { PiBagFill } from "react-icons/pi";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { FiMonitor } from "react-icons/fi";

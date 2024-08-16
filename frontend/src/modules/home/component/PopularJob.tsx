@@ -5,7 +5,8 @@ import { IJobProp } from "../type";
 import { useListJobsQuery } from "../../../redux/features/jobApi";
 
 const PopularJob = () => {
-  const { data } = useListJobsQuery({});
+  const { data: jobData } = useListJobsQuery({});
+  console.log(jobData?.data);
 
   return (
     <main className="padding-inline padding-block bg-light-blue">
@@ -18,7 +19,7 @@ const PopularJob = () => {
 
       {/* Job card section */}
       <section className="grid grid-cols-12 gap-x-4 gap-y-5 mt-[60px]  ">
-        {data?.data.map((element: IJobProp, index: number) => {
+        {jobData?.data.map((element: IJobProp, index: number) => {
           return (
             <div
               className="sm:col-span-6 col-span-full lg:col-span-4 xl:col-span-3"
