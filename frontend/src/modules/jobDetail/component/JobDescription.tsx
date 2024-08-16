@@ -8,6 +8,7 @@ import { HiArrowSmRight } from "react-icons/hi";
 import { IoLocationOutline } from "react-icons/io5";
 
 // apis
+import { useListAllApplyJobsQuery } from "../../../redux/features/applyJobApi";
 
 // Interface
 interface JobDataProp {
@@ -51,6 +52,9 @@ const JobDescription = ({ data }: JobDataProp) => {
       "Excellent problem solving and analytical skills",
     ],
   };
+
+  const { data: jobData } = useListAllApplyJobsQuery({});
+  console.log(jobData?.data);
 
   // Verifying that loggedin user already applied or not
   const isApplied = data?.applications.some(

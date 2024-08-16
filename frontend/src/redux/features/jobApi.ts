@@ -6,9 +6,7 @@ const jobApi = createApi({
     baseUrl: "http://localhost:3000/api/v1/job",
     credentials: "include",
   }),
-
   tagTypes: ["Job"],
-
   endpoints: (builder) => ({
     // POST /post
     createJob: builder.mutation({

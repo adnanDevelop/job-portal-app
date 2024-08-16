@@ -6,18 +6,34 @@ const applyJobApi = createApi({
     baseUrl: "http://localhost:3000/api/v1/application",
     credentials: "include",
   }),
-
   tagTypes: ["applications"],
-
-  // DELETE /delete/:id
   endpoints: (builder) => ({
-    // GET /get
-    applyJob: builder.query({
+    // Apply for job
+    applyJob: builder.mutation({
       query: (payload) => ({
         url: `/apply/${payload.id}`,
-        method: "GET",
+        method: "POST",
       }),
-      providesTags: ["applications"],
+      invalidatesTags: ["applications"],
+    }),
+
+    // Update job status
+    updateJobStatus: builder.mutation({
+      query: (payload) => ({
+        url: `/update/${payload.id}`,
+        method: "PUT",
+        body: payload.body,
+      }),
+      invalidatesTags: ["applications"],
+    }),
+
+    // Delete job application
+    deleteApplication: builder.mutation({
+      query: (payload) => ({
+        url: `/delete/${payload.id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["applications"],
     }),
 
     // GET all applied jobs
@@ -29,42 +45,23 @@ const applyJobApi = createApi({
       providesTags: ["applications"],
     }),
 
-    // GET /get/:id
+    // Get all applications
     listApplicantData: builder.query({
       query: (payload) => ({
-        url: `/${payload.id}/applicant`,
+        url: `/applicant/${payload.id}`,
         method: "GET",
       }),
       providesTags: ["applications"],
-    }),
-
-    // Update job status
-    updateJobStatus: builder.mutation({
-      query: (payload) => ({
-        url: `/${payload.id}/update`,
-        method: "PUT",
-        body: payload.body,
-      }),
-      invalidatesTags: ["applications"],
-    }),
-
-    // Delete job application
-    deleteApplication: builder.mutation({
-      query: (payload) => ({
-        url: `/${payload.id}/delete`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["applications"],
     }),
   }),
 });
 
 export const {
-  useApplyJobQuery,
-  useListAllApplyJobsQuery,
-  useListApplicantDataQuery,
+  useApplyJobMutation,
   useUpdateJobStatusMutation,
   useDeleteApplicationMutation,
+  useListAllApplyJobsQuery,
+  useListApplicantDataQuery,
 } = applyJobApi;
 
 export default applyJobApi;
