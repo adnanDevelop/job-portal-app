@@ -7,7 +7,24 @@ import { FaRegBuilding } from "react-icons/fa";
 import { HiArrowSmRight } from "react-icons/hi";
 import { IoLocationOutline } from "react-icons/io5";
 
-const JobDescription = ({ data }: any) => {
+// Interface
+interface JobDataProp {
+  data: {
+    title: string;
+    employmentType: string;
+    requirements: string[];
+    description: string;
+    jobType: string;
+    location: string;
+    experience: string;
+    qualification: string;
+    salary: number;
+    createdAt: string;
+    applications: string[];
+  };
+}
+
+const JobDescription = ({ data }: JobDataProp) => {
   const { user } = useSelector((state: RootState) => state.auth);
   const keyPoints = {
     duties: [
@@ -33,8 +50,10 @@ const JobDescription = ({ data }: any) => {
 
   // Verifying that loggedin user already applied or not
   const isApplied = data?.applications.some(
-    (element: { applicant: string }) => element.applicant === user?._id || false
+    (element) => element.applicant === user?._id || false
   );
+
+  console.log(isApplied);
 
   // Apply api
 

@@ -6,7 +6,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 // Apis
 import jobApi from "./features/jobApi";
 import authApi from "./services/authApi";
-import applyJobApi from "./features/appyJobApi";
+import applyJobApi from "./features/applyJobApi";
 
 const store = configureStore({
   reducer: {

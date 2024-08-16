@@ -5,9 +5,25 @@ import { MdOutlineLocationOn } from "react-icons/md";
 import { FiMonitor } from "react-icons/fi";
 import { LuUser, LuBookMinus, LuDollarSign, LuClock } from "react-icons/lu";
 
-const JobInformation = ({ data }: unknown) => {
-  const isoDate = data?.createdAt;
-  const formattedDate = formatDistanceToNow(new Date(isoDate || null));
+interface JobDataProp {
+  data: {
+    title: string;
+    employmentType: string;
+    requirements: string[];
+    description: string;
+    jobType: string;
+    location: string;
+    experience: string;
+    qualification: string;
+    salary: number;
+    createdAt: string;
+    applications: string[];
+  };
+}
+
+const JobInformation = ({ data }: JobDataProp) => {
+  const isoDate = data?.createdAt || new Date().toISOString();
+  const formattedDate = formatDistanceToNow(new Date(isoDate));
 
   const details = [
     { icon: <LuUser />, title: "Emplyee Type", value: data?.jobType },
