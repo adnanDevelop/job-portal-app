@@ -116,7 +116,7 @@ const Candidate = () => {
 
         {/* Blog card section */}
         <section className="grid grid-cols-12 gap-5">
-          {candidateData.map((data: any, index) => {
+          {candidateData.map((data, index) => {
             return (
               <div
                 key={index}

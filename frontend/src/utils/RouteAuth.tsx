@@ -14,26 +14,12 @@ export const ProtectedRoute = ({ children }: React.PropsWithChildren) => {
 };
 
 export const PublicRoute = ({ children }: React.PropsWithChildren) => {
-  const user = useSelector((state: RootState) => state.auth.user);
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
 
-  if (isAuthenticated && user.role === "student") {
+  if (isAuthenticated) {
     return <Navigate to="/" replace />;
-  }
-
-  return <>{children}</>;
-};
-
-export const RecruitorRoute = ({ children }: React.PropsWithChildren) => {
-  const user = useSelector((state: RootState) => state.auth.user);
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  );
-
-  if (isAuthenticated && user.role === "recruitor") {
-    return <Navigate to="/recruitor/dashboard" replace />;
   }
 
   return <>{children}</>;

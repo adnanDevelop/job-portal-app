@@ -41,11 +41,7 @@ const Login = () => {
         dispatch(login(responseData.data));
         toast.success(responseData.message);
 
-        if (data.role === "recruitor") {
-          navigate("/recruitor/dashboard");
-        } else {
-          navigate("/");
-        }
+        navigate("/");
       } else {
         const errorData = await response.json();
         toast.error(errorData.message);

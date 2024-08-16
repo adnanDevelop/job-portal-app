@@ -240,3 +240,29 @@ export const deleteUserAccount = async (req, res) => {
     return errorHandler(res, 400, error.message);
   }
 };
+
+// Get all users
+export const getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await User.find({});
+    return responseHandler(res, 200, "Data retreived successfully", allUsers);
+  } catch (error) {
+    return errorHandler(res, 400, error.message);
+  }
+};
+
+// Get User by id
+export const getUserById = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      return errorHandler(res, 400, "User not found");
+    }
+
+    return responseHandler(res, 200, "Data retreived successfully", user);
+  } catch (error) {
+    return errorHandler(res, 400, error.message);
+  }
+};
