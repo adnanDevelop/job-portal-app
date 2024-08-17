@@ -10,9 +10,10 @@ const userApi = createApi({
   endpoints: (builder) => ({
     // GET all users
     getAllUsers: builder.query({
-      query: () => ({
+      query: (payload) => ({
         url: "/all",
         method: "GET",
+        params: payload.params,
       }),
       providesTags: ["users"],
     }),

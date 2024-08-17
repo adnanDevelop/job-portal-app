@@ -9,6 +9,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 // Apis
 import { useGetAllUsersQuery } from "../../redux/features/userApi";
+import { useState } from "react";
 
 interface ICandidateCardProps {
   _id: string;
@@ -23,12 +24,17 @@ interface ICandidateCardProps {
 }
 
 const Candidate = () => {
-  const { data: getUserData } = useGetAllUsersQuery({});
+  const [queryParams, setQueryParams] = useState({ search: "" });
+  const { data: getUserData } = useGetAllUsersQuery({
+    params: queryParams,
+  });
 
   // Filter students
   const filterCandidates = getUserData?.data?.filter(
     (element: { role: string }) => element.role === "student"
   );
+
+  console.log(queryParams.search, getUserData);
 
   return (
     <main>
@@ -45,6 +51,10 @@ const Candidate = () => {
                 type="text"
                 className="sm:w-[280px] w-full  h-full text-xs text-white bg-transparent border border-transparent rounded-md placeholder:text-xs placeholder:text-white ps-3 pe-8 focus:outline-none focus:border-green"
                 placeholder="Search..."
+                value={queryParams.search}
+                onChange={(event) =>
+                  setQueryParams({ search: event.target.value })
+                }
               />
               <span className="absolute text-white right-2 top-[50%] translate-y-[-50%] text-xl cursor-pointer">
                 <IoIosSearch />

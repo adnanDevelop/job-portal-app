@@ -244,8 +244,33 @@ export const deleteUserAccount = async (req, res) => {
 // Get all users
 export const getAllUsers = async (req, res) => {
   try {
-    const allUsers = await User.find({});
-    return responseHandler(res, 200, "Data retreived successfully", allUsers);
+    const { search, page = 1, limit = 12 } = req.query;
+    let query = {};
+
+    if (search) {
+      query = {
+        $or: [
+          { name: { $regex: search, $options: "i" } },
+          { email: { $regex: search, $options: "i" } },
+        ],
+      };
+    }
+
+    const skip = (page - 1) * limit;
+    const allUsers = await User.find(query).skip(skip).limit(parseInt(limit));
+
+    const totalUsers = await User.countDocuments(query);
+
+    return res.status(200).json({
+      status: 200,
+      message: "Data retrieved successfully",
+      data: allUsers,
+      pagination: {
+        currentPage: page,
+        limit: limit,
+        totalDocuments: totalUsers,
+      },
+    });
   } catch (error) {
     return errorHandler(res, 400, error.message);
   }
