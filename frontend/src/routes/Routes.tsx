@@ -22,6 +22,7 @@ import Companies from "../modules/Companies/Companies";
 import Career from "../modules/career/Career";
 import UserProfile from "../modules/userProfile/UserProfile";
 import UserSetting from "../modules/userSetting/UserSetting";
+import CandidateProfile from "../modules/candidateProfile/CandidateProfile";
 
 // Recruitor Routes
 // import RecruitorLayout from "../components/layout/recruitorLayout/RecruitorLayout";
@@ -60,6 +61,10 @@ export const Routes = () => {
         {
           path: "candidates",
           element: <Candidate />,
+        },
+        {
+          path: "candidates/profile/:id",
+          element: <CandidateProfile />,
         },
         {
           path: "companies",

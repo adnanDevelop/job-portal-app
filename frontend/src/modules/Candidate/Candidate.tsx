@@ -7,89 +7,28 @@ import PageHeader from "../../components/global/PageHeader";
 import { IoIosSearch } from "react-icons/io";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
+// Apis
+import { useGetAllUsersQuery } from "../../redux/features/userApi";
+
+interface ICandidateCardProps {
+  _id: string;
+  fullName: string;
+  profile: {
+    profilePhoto: string;
+    salary: string;
+    experience: string;
+    bio: string;
+    skills: string[];
+  };
+}
+
 const Candidate = () => {
-  const candidateData = [
-    {
-      img: "https://randomuser.me/api/portraits/men/1.jpg",
-      name: "Steven Townsend",
-      bio: "Frontend Developer",
-      skills: ["React", "Next", "TS"],
-      salary: "50k - 100k",
-      experience: "2 Years",
-    },
-    {
-      img: "https://randomuser.me/api/portraits/women/1.jpg",
-      name: "Emily Johnson",
-      bio: "UI/UX Designer",
-      skills: ["Figma", "Sketch", "PS"],
-      salary: "60k - 90k",
-      experience: "3 Years",
-    },
-    {
-      img: "https://randomuser.me/api/portraits/men/2.jpg",
-      name: "Michael Smith",
-      bio: "Full Stack Developer",
-      skills: ["JS", "Node", "Exp"],
-      salary: "70k - 120k",
-      experience: "5 Years",
-    },
-    {
-      img: "https://randomuser.me/api/portraits/women/2.jpg",
-      name: "Sophia Williams",
-      bio: "Backend Developer",
-      skills: ["Python", "Django", "PostgreSQL"],
-      salary: "65k - 110k",
-      experience: "4 Years",
-    },
-    {
-      img: "https://randomuser.me/api/portraits/men/3.jpg",
-      name: "James Brown",
-      bio: "DevOps Engineer",
-      skills: ["AWS", "Docker", "CI/CD"],
-      salary: "80k - 130k",
-      experience: "6 Years",
-    },
-    {
-      img: "https://randomuser.me/api/portraits/women/3.jpg",
-      name: "Olivia Davis",
-      bio: "Mobile App Developer",
-      skills: ["RN", "Flutter", "Firebase"],
-      salary: "55k - 105k",
-      experience: "3 Years",
-    },
-    {
-      img: "https://randomuser.me/api/portraits/men/4.jpg",
-      name: "Daniel Martinez",
-      bio: "Data Scientist",
-      skills: ["Python", "Pandas", "ML"],
-      salary: "90k - 140k",
-      experience: "4 Years",
-    },
-    {
-      img: "https://randomuser.me/api/portraits/women/4.jpg",
-      name: "Isabella Garcia",
-      bio: "Software Engineer",
-      skills: ["Java", "Spring", "MySQL"],
-      salary: "75k - 125k",
-      experience: "5 Years",
-    },
-    {
-      img: "https://randomuser.me/api/portraits/men/5.jpg",
-      name: "Ethan Wilson",
-      bio: "Cybersecurity Analyst",
-      skills: ["NetSec", "EthHack", "SIEM"],
-      salary: "85k - 130k",
-      experience: "3 Years",
-    },
-    {
-      img: "https://randomuser.me/api/portraits/women/5.jpg",
-      name: "Ava Taylor",
-      bio: "Systems Analyst",
-      skills: ["SQL", "SysDesign", "ReqGather"],
-      salary: "70k - 115k",
-      experience: "4 Years",
-    },
-  ];
+  const { data: getUserData } = useGetAllUsersQuery({});
+
+  // Filter students
+  const filterCandidates = getUserData?.data?.filter(
+    (element: { role: string }) => element.role === "student"
+  );
 
   return (
     <main>
@@ -116,16 +55,18 @@ const Candidate = () => {
 
         {/* Blog card section */}
         <section className="grid grid-cols-12 gap-5">
-          {candidateData.map((data, index) => {
-            return (
-              <div
-                key={index}
-                className="lg:col-span-3 sm:col-span-6 col-span-full"
-              >
-                <CandidateCard data={data} />
-              </div>
-            );
-          })}
+          {filterCandidates?.map(
+            (element: ICandidateCardProps, index: number) => {
+              return (
+                <div
+                  key={index}
+                  className="lg:col-span-3 sm:col-span-6 col-span-full"
+                >
+                  <CandidateCard data={element} />
+                </div>
+              );
+            }
+          )}
         </section>
 
         {/* Pagniation */}

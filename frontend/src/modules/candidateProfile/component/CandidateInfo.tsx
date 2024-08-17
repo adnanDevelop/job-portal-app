@@ -1,14 +1,22 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
-
 interface IDetails {
   experience: { title: string; bio: string; content: string; date: string }[];
 }
 
+interface IDataProps {
+  data: {
+    fullName: string;
+    profile: {
+      profilePhoto: string;
+      salary: string;
+      experience: string;
+      bio: string;
+      skills: string[];
+      description: string;
+    };
+  };
+}
 
-
-const ProfileInfo = () => {
-  const user = useSelector((state: RootState) => state.auth.user);
+const CandidateInfo = ({ data }: IDataProps) => {
   const details: IDetails = {
     experience: [
       {
@@ -33,11 +41,11 @@ const ProfileInfo = () => {
       {/* Info section */}
       <div className="mb-8">
         <h3 className="text-[25px] mb-3.5 text-white font-medium font-jakarta capitalize">
-          {user?.fullName || "Adnan Tariq"}
+          {data?.fullName || "Adnan Tariq"}
         </h3>
         <p className="text-base text-justify text-slate font-jakarta mb-3.5">
           {`${
-            user?.profile?.description ||
+            data?.profile?.description ||
             "Obviously I'M a Web Developer. Web Developer with over 3 years of experience. Experienced with all stages of the development cycle for dynamic web projects. The as opposed to using 'Content here, content here', making it look like readable English."
           }`}
         </p>
@@ -49,7 +57,7 @@ const ProfileInfo = () => {
           Skills:
         </h3>
         <div className="flex items-center flex-wrap gap-2.5">
-          {user?.profile?.skills.map((element: string, index: number) => {
+          {data?.profile?.skills.map((element: string, index: number) => {
             return (
               <div key={index} className="mb-4">
                 <div className="flex items-center justify-between">
@@ -116,4 +124,4 @@ const ProfileInfo = () => {
   );
 };
 
-export default ProfileInfo;
+export default CandidateInfo;

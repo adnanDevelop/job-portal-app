@@ -6,7 +6,6 @@ import { useListJobsQuery } from "../../../redux/features/jobApi";
 
 const PopularJob = () => {
   const { data: jobData } = useListJobsQuery({});
-  console.log(jobData?.data);
 
   return (
     <main className="padding-inline padding-block bg-light-blue">
