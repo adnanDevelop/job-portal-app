@@ -56,20 +56,12 @@ const CandidateCard = ({ data }: ICandidateCardProps) => {
           })}
         </div>
 
-        {/* Salary and experience section */}
-        <div className="flex items-center gap-6 mt-3">
-          <div className="text-center">
-            <p className="text-base font-poppin text-slate">Salary:</p>
-            <p className="text-sm text-white font-poppin">
-              {data?.profile?.salary}
-            </p>
-          </div>
-          <div className="text-center">
-            <p className="text-base font-poppin text-slate">Experience:</p>
-            <p className="text-sm text-white font-poppin">
-              {data?.profile?.experience}
-            </p>
-          </div>
+        {/* Experience section */}
+        <div className="flex items-center mt-3 justify-center gap-1.5">
+          <p className="text-base font-poppin text-slate">Experience:</p>
+          <p className="text-sm text-white font-poppin">
+            {data?.profile?.experience}
+          </p>
         </div>
 
         {/* Profile link */}

@@ -1,8 +1,13 @@
 import { Company } from "../models/Company.js";
+import { errorHandler } from "../utils/errorHandler.js";
+import { responseHandler } from "../utils/responseHandler.js";
 
 // Create Company
 export const registerCompany = async (req, res) => {
   try {
+    const id = req.id;
+    const files = req.files;
+    let companyLogoUrl;
     const {
       companyName,
       bio,
@@ -14,15 +19,19 @@ export const registerCompany = async (req, res) => {
       websiteLink,
     } = req.body;
 
-    const id = req.id;
+    if (files.logo && files.logo.length > 0) {
+      const logoUri = getDataUri(files.profilePhoto[0]);
+      const cloudinaryResponse = await cloudinary.uploader.upload(
+        logoUri.content
+      );
+      console.log(cloudinaryResponse, "cloudinary response");
+      companyLogoUrl = cloudinaryResponse.secure_url;
+    }
 
     // If company exist
     let isCompanyExist = await Company.findOne({ companyName });
     if (isCompanyExist) {
-      return res.status(400).json({
-        message: "You can't register the same company.",
-        status: 400,
-      });
+      return errorHandler(res, 400, "You can't register the same company");
     }
 
     // Saving company
@@ -36,19 +45,18 @@ export const registerCompany = async (req, res) => {
       headQuater,
       websiteLink,
       userId: id,
+      logo: companyLogoUrl,
     });
 
-    return res.status(200).json({
-      message: "Company registered successfully",
-      data: isCompanyExist,
-      status: 200,
-    });
+    return responseHandler(
+      res,
+      200,
+      "Company registered successfully",
+      isCompanyExist
+    );
   } catch (error) {
-    console.log("error while creating company", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    console.log("error while registering company", error.message);
+    return errorHandler(res, 400, error.message);
   }
 };
 
@@ -86,23 +94,13 @@ export const updateCompany = async (req, res) => {
     );
 
     if (!company) {
-      return res.status(400).json({
-        message: "Company not found.",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Company not found");
     }
 
-    return res.status(200).json({
-      message: "Company updated successfully",
-      data: company,
-      status: 200,
-    });
+    return responseHandler(res, 200, "Company updated successfully", company);
   } catch (error) {
     console.log("error while updating company", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
 
@@ -114,31 +112,19 @@ export const deleteCompany = async (req, res) => {
     // If company not exist
     const isCompanyExist = await Company.find({ _id: companyId });
     if (!isCompanyExist) {
-      return res.status(400).json({
-        message: "Company not found",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Company not found");
     }
 
     // Delete Company
     const company = await Company.deleteOne({ _id: companyId });
     if (company.deletedCount !== 1) {
-      return res.status(400).json({
-        message: "Company not deleted",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Company not deleted");
     } else {
-      return res.status(200).json({
-        message: "Company deleted successfully",
-        status: 200,
-      });
+      return responseHandler(res, 200, "Company deleted successfully");
     }
   } catch (error) {
     console.log("error while deleting company", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
 
@@ -149,23 +135,13 @@ export const getCompany = async (req, res) => {
 
     const companies = await Company.find({ userId });
     if (!companies) {
-      return res.status(400).json({
-        message: "Companies not found.",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Companies not found");
     }
 
-    return res.status(200).json({
-      message: "Data retreived successfully",
-      data: companies,
-      status: 200,
-    });
+    return responseHandler(res, 200, "Data retreived successfully", companies);
   } catch (error) {
     console.log("error while getting companies", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
 
@@ -175,22 +151,12 @@ export const getCompanyById = async (req, res) => {
     const companyId = req.params.id;
     const getCompany = await Company.findOne({ _id: companyId });
     if (!getCompany) {
-      return res.status(400).json({
-        message: "Company not found.",
-        status: 400,
-      });
+      return errorHandler(res, 400, "Company not found");
     }
 
-    return res.status(200).json({
-      message: "Data retreived successfully",
-      data: getCompany,
-      status: 200,
-    });
+    return responseHandler(res, 200, "Data retreived successfully", getCompany);
   } catch (error) {
     console.log("error while getting  company by id", error.message);
-    return res.status(400).json({
-      message: error.message,
-      status: 400,
-    });
+    return errorHandler(res, 400, error.message);
   }
 };
