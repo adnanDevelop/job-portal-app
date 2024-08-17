@@ -19,7 +19,7 @@ interface ICandidateCardProps {
 
 const CandidateCard = ({ data }: ICandidateCardProps) => {
   return (
-    <div className="relative px-4 py-5 border border-gray-700 rounded-md shadow-sm shadow-gray-700 group transitions hover:shadow-md">
+    <div className="relative px-3.5 py-5 border border-gray-700 rounded-md shadow-sm shadow-gray-700 group transitions hover:shadow-md">
       {/* Like button */}
       <button className="absolute top-[1rem] right-[1rem] text-gray-700 text-[25px] transitions focus:text-red-500 hover:tet-red-500">
         <FaHeart />
@@ -77,12 +77,22 @@ const CandidateCard = ({ data }: ICandidateCardProps) => {
           <Link
             to={`/candidates/profile/${data?._id}`}
             className="primary-btn px-[20px] h-[35px] flex items-center text-sm font-poppin justify-center leading-none"
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+              });
+            }}
           >
             Profile
           </Link>
           <Link
             to={`/candidates/profile/${data?._id}`}
             className="w-[35px] h-[35px] rounded-full  bg-[#05966813] text-green text-[20px] transitions hover:bg-green focus:bg-green hover:text-white focus:text-white  flex items-center justify-center"
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+              });
+            }}
           >
             <BiMessageRoundedDots />
           </Link>
