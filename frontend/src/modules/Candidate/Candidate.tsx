@@ -25,7 +25,7 @@ interface ICandidateCardProps {
 
 const Candidate = () => {
   const [queryParams, setQueryParams] = useState({ search: "" });
-  const { data: getUserData } = useGetAllUsersQuery({
+  const { data: getUserData, isLoading } = useGetAllUsersQuery({
     params: queryParams,
   });
 
@@ -72,7 +72,13 @@ const Candidate = () => {
                   key={index}
                   className="lg:col-span-3 sm:col-span-6 col-span-full"
                 >
-                  <CandidateCard data={element} />
+                  {isLoading ? (
+                    <div className="flex items-center justify-center">
+                      <span className="loading loading-dots loading-md"></span>
+                    </div>
+                  ) : (
+                    <CandidateCard data={element} />
+                  )}
                 </div>
               );
             }
