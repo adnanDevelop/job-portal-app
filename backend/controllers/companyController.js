@@ -1,4 +1,6 @@
 import { Company } from "../models/Company.js";
+import getDataUri from "../middleware/datauri.js";
+import cloudinary from "../middleware/cloudinary.js";
 import { errorHandler } from "../utils/errorHandler.js";
 import { responseHandler } from "../utils/responseHandler.js";
 
@@ -19,8 +21,10 @@ export const registerCompany = async (req, res) => {
       websiteLink,
     } = req.body;
 
+    console.log(req.files.logo);
+
     if (files.logo && files.logo.length > 0) {
-      const logoUri = getDataUri(files.profilePhoto[0]);
+      const logoUri = getDataUri(files.logo[0]);
       const cloudinaryResponse = await cloudinary.uploader.upload(
         logoUri.content
       );
@@ -132,13 +136,37 @@ export const deleteCompany = async (req, res) => {
 export const getCompany = async (req, res) => {
   try {
     const userId = req.id;
+    const { search, page = 1, limit = 12 } = req.query;
+    let query = {};
 
     const companies = await Company.find({ userId });
     if (!companies) {
       return errorHandler(res, 400, "Companies not found");
     }
 
-    return responseHandler(res, 200, "Data retreived successfully", companies);
+    if (search) {
+      query = {
+        $or: [{ companyName: { $regex: search, $options: "i" } }],
+      };
+    }
+
+    const skip = (page - 1) * limit;
+    const allCompanies = await Company.find(query)
+      .skip(skip)
+      .limit(parseInt(limit));
+
+    const totalCompanies = await Company.countDocuments(query);
+
+    return res.status(200).json({
+      status: 200,
+      message: "Data retrieved successfully",
+      data: allCompanies,
+      pagination: {
+        currentPage: page,
+        limit: limit,
+        totalDocuments: totalCompanies,
+      },
+    });
   } catch (error) {
     console.log("error while getting companies", error.message);
     return errorHandler(res, 400, error.message);
