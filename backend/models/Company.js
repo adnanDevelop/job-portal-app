@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    allJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Job" }],
   },
   { timestamps: true }
 );

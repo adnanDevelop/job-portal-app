@@ -26,7 +26,14 @@ const jobSchema = new mongoose.Schema(
     },
     location: {
       type: String,
-      enum: ["Islamabad", "Lahore", "Karachi", "Peshawar", "Faisalabad"],
+      enum: [
+        "Islamabad",
+        "Lahore",
+        "Karachi",
+        "Peshawar",
+        "Faisalabad",
+        "Rawalpindi",
+      ],
       required: true,
     },
     address: { type: String, required: true },

@@ -1,3 +1,4 @@
+import { Company } from "../models/Company.js";
 import { Job } from "../models/jobModel.js";
 
 // Handlers
@@ -49,6 +50,13 @@ export const postJob = async (req, res) => {
       application,
       createdBy: userId,
     });
+
+    // Storing job in company modal
+    await Company.findByIdAndUpdate(
+      company,
+      { $push: { allJobs: createJob._id } },
+      { new: true }
+    );
 
     // sending response
     return responseHandler(res, 200, "Job created successfully", createJob);

@@ -1,4 +1,7 @@
+// Modals
+import { Job } from "../models/jobModel.js";
 import { Company } from "../models/Company.js";
+
 import getDataUri from "../middleware/datauri.js";
 import cloudinary from "../middleware/cloudinary.js";
 import { errorHandler } from "../utils/errorHandler.js";
@@ -154,7 +157,6 @@ export const getCompany = async (req, res) => {
     const allCompanies = await Company.find(query)
       .skip(skip)
       .limit(parseInt(limit));
-
     const totalCompanies = await Company.countDocuments(query);
 
     return res.status(200).json({
@@ -177,10 +179,15 @@ export const getCompany = async (req, res) => {
 export const getCompanyById = async (req, res) => {
   try {
     const companyId = req.params.id;
-    const getCompany = await Company.findOne({ _id: companyId });
+    const getCompany = await Company.findOne({ _id: companyId }).populate({
+      path: "allJobs",
+    });
     if (!getCompany) {
       return errorHandler(res, 400, "Company not found");
     }
+
+    // Fetch all jobs associated with the company ID
+    const jobs = await Job.find({ company: companyId });
 
     return responseHandler(res, 200, "Data retreived successfully", getCompany);
   } catch (error) {

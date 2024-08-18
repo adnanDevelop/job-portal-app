@@ -1,5 +1,4 @@
 // Components
-import { companyData } from "./dummy";
 import CompanyCard from "./component/CompanyCard";
 import ExploreJob from "../home/component/ExploreJob";
 import PageHeader from "../../components/global/PageHeader";
@@ -12,9 +11,17 @@ import { FaChevronRight } from "react-icons/fa6";
 // Apis
 import { useListCompaniesQuery } from "../../redux/features/companyApi";
 
+interface IDataProps {
+  companyName: string;
+  description: string;
+  logo: string;
+  location: string;
+  _id: number;
+  totalJobs: number;
+}
+
 const Companies = () => {
   const { data: getCompanyData, isLoading } = useListCompaniesQuery({});
-  console.log(getCompanyData);
 
   return (
     <main>
@@ -44,16 +51,22 @@ const Companies = () => {
 
         {/* Company card section */}
         <section className="grid grid-cols-12 gap-x-4 ">
-          {companyData.map((data, index) => {
-            return (
-              <div
-                key={index}
-                className="lg:col-span-3 md:col-span-6 col-span-full mb-[50px]"
-              >
-                <CompanyCard data={data} />
-              </div>
-            );
-          })}
+          {isLoading ? (
+            <div className="flex items-center col-span-full justify-center w-full h-[400px]">
+              <span className="text-white loading loading-dots loading-lg"></span>
+            </div>
+          ) : (
+            getCompanyData?.data.map((data: IDataProps, index: number) => {
+              return (
+                <div
+                  key={index}
+                  className="lg:col-span-3 md:col-span-6 col-span-full mb-[50px]"
+                >
+                  <CompanyCard data={data} />
+                </div>
+              );
+            })
+          )}
         </section>
 
         {/* Pagniation */}
