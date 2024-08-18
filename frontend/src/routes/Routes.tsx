@@ -6,22 +6,23 @@ import Layout from "../components/layout/userLayout/Layout";
 
 // Public Routes
 import Login from "../modules/authPages/Login";
-import Register from "../modules/authPages/Register";
 import NotFound from "../modules/notFound/NotFound";
+import Register from "../modules/authPages/Register";
 
 // Protected Routes
 import Home from "../modules/home";
 import About from "../modules/about";
-import Service from "../modules/service";
 import Blog from "../modules/blog/Blog";
 import Contact from "../modules/contact";
+import Service from "../modules/service";
+import Career from "../modules/career/Career";
 import JobList from "../modules/jobList/JobList";
 import JobDetail from "../modules/jobDetail/JobDetail";
 import Candidate from "../modules/Candidate/Candidate";
 import Companies from "../modules/Companies/Companies";
-import Career from "../modules/career/Career";
 import UserProfile from "../modules/userProfile/UserProfile";
 import UserSetting from "../modules/userSetting/UserSetting";
+import CompanyProfile from "../modules/companyProfile/CompanyProfile";
 import CandidateProfile from "../modules/candidateProfile/CandidateProfile";
 
 // Recruitor Routes
@@ -69,6 +70,10 @@ export const Routes = () => {
         {
           path: "companies",
           element: <Companies />,
+        },
+        {
+          path: "company-profile/:id",
+          element: <CompanyProfile />,
         },
         {
           path: "career",

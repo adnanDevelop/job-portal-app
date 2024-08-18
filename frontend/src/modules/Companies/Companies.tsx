@@ -1,3 +1,4 @@
+// Components
 import { companyData } from "./dummy";
 import CompanyCard from "./component/CompanyCard";
 import ExploreJob from "../home/component/ExploreJob";
@@ -8,7 +9,13 @@ import { IoIosSearch } from "react-icons/io";
 import { FaChevronLeft } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa6";
 
+// Apis
+import { useListCompaniesQuery } from "../../redux/features/companyApi";
+
 const Companies = () => {
+  const { data: getCompanyData, isLoading } = useListCompaniesQuery({});
+  console.log(getCompanyData);
+
   return (
     <main>
       <section>

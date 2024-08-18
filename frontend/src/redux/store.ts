@@ -6,6 +6,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 // Apis
 import jobApi from "./features/jobApi";
 import userApi from "./features/userApi";
+import companyApi from "./features/companyApi";
 import applyJobApi from "./features/applyJobApi";
 
 const store = configureStore({
@@ -16,13 +17,15 @@ const store = configureStore({
     [jobApi.reducerPath]: jobApi.reducer,
     [applyJobApi.reducerPath]: applyJobApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
+    [companyApi.reducerPath]: companyApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       jobApi.middleware,
       applyJobApi.middleware,
-      userApi.middleware
+      userApi.middleware,
+      companyApi.middleware
     ),
 });
 
