@@ -21,8 +21,12 @@ export const PublicRoute = ({ children }: React.PropsWithChildren) => {
     (state: RootState) => state.auth.isAuthenticated
   );
 
-  if (isAuthenticated && user.role === "student") {
-    return <Navigate to="/" replace />;
+  if (isAuthenticated) {
+    if (user.role === "student") {
+      return <Navigate to="/" replace />;
+    } else if (user.role === "recruiter") {
+      return <Navigate to="/recruiter/dashboard" replace />;
+    }
   }
 
   return <>{children}</>;
@@ -39,7 +43,7 @@ export const AdminRoute = ({ children }: React.PropsWithChildren) => {
   console.log("Is authenticated:", isAuthenticated);
 
   if (isAuthenticated && user.role === "recruitor") {
-    return <Navigate to="/recruitor/dashboard" replace />;
+    return <Navigate to="/recruiter/dashboard" replace />;
   }
 
   return <>{children}</>;

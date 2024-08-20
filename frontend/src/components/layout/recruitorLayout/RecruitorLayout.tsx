@@ -28,11 +28,7 @@ const RecruitorLayout = () => {
             setSidebarActive={setSidebarActive}
           />
         </div>
-        <div
-          className={`relative flex-1 lg:p-[40px] md:px-[40px] px-[25px] p-[20px] ${
-            isSidebarActive ? "ms-[220px]" : "ms-0"
-          }`}
-        >
+        <div className={`relative flex-1 p-[25px] bg-dark-blue`}>
           <Outlet />
         </div>
         <Footer />

@@ -44,12 +44,12 @@ const Sidebar = ({ isSidebarActive }: IProps) => {
       </div>
 
       {/* Links */}
-      <div
-        className={`${
-          isSidebarActive ? "w-full" : "w-0 "
-        } mt-[50px] transitions`}
-      >
-        <div className="flex flex-col gap-y-2 ">
+      <div className={`mt-[50px]`}>
+        <div
+          className={`${
+            isSidebarActive ? "w-full translate-x-0" : "translate-x-[-220px]"
+          } flex flex-col gap-y-2  transitions`}
+        >
           {links.map((element, index) => {
             const activeLink = window.location.pathname;
             return (
