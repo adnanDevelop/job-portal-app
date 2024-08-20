@@ -28,6 +28,11 @@ import CandidateProfile from "../modules/candidateProfile/CandidateProfile";
 // Recruitor Routes
 import RecruitorLayout from "../components/layout/recruitorLayout/RecruitorLayout";
 import RecruitorDashboard from "../modules/recruitorModules/dashboard/page/RecruitorDashboard";
+import RecruitorJobs from "../modules/recruitorModules/recruitorJobs/page/RecruitorJobs";
+import RecruitorApplications from "../modules/recruitorModules/recruitorApplications/page/RecruitorApplications";
+import RecruitorProfile from "../modules/recruitorModules/recruitorProfile/page/RecruitorProfile";
+import RecruitorCompanies from "../modules/recruitorModules/recruitorCompany/page/RecruitorCompanies";
+import RecruitorCandidates from "../modules/recruitorModules/recruitorCandidate/page/RecruitorCandidate";
 
 export const Routes = () => {
   return useRoutes([
@@ -116,6 +121,26 @@ export const Routes = () => {
         {
           path: "/recruitor/dashboard",
           element: <RecruitorDashboard />,
+        },
+        {
+          path: "/recruitor/jobs",
+          element: <RecruitorJobs />,
+        },
+        {
+          path: "/recruitor/applications",
+          element: <RecruitorApplications />,
+        },
+        {
+          path: "/recruitor/profile",
+          element: <RecruitorProfile />,
+        },
+        {
+          path: "/recruitor/companies",
+          element: <RecruitorCompanies />,
+        },
+        {
+          path: "/recruitor/candidates",
+          element: <RecruitorCandidates />,
         },
       ],
     },
