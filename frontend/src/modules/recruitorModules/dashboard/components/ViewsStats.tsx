@@ -1,60 +1,50 @@
+import { BiDotsVerticalRounded } from "react-icons/bi";
 const ViewsStats = () => {
+  const content = [
+    { title: "Total Applications", value: 1250, progressValue: 70 },
+    { title: "Shortlisted Candidates", value: 200, progressValue: 60 },
+    { title: "Rejected Candidates", value: 450, progressValue: 35 },
+  ];
+
   return (
-    <section className="grid w-full grid-cols-2 p-4 rounded-md gap- bg-light-blue">
-      {/* Interview section */}
-      <div className="flex items-center justify-between pb-3 border-b border-r border-gray-700 ">
-        {/* Graph */}
-        <div>
-          <h3 className="text-white font-poppin text-[30px] font-semibold flex items-center gap-x-4">
-            342{" "}
-            <span className="px-2 py-1 text-[10px] rounded-lg bg-[#2adb7a79]">
-              +0.5%
-            </span>
-          </h3>
-          <p className="text-sm font-poppin text-slate">Interview Schedules</p>
-        </div>
-        {/* Graph */}
-        <div></div>
-      </div>
-
-      {/* Application section */}
-      <div className="flex items-center justify-between pb-3 border-b border-gray-700 ps-3 ">
-        {/* Graph */}
-        <div>
-          <h3 className="text-white font-poppin text-[30px] font-semibold">
-            984{" "}
-          </h3>
-          <p className="text-sm font-poppin text-slate">Application Received</p>
-        </div>
-        {/* Graph */}
-        <div></div>
-      </div>
-
-      {/* Profile viewd section */}
-      <div className="flex items-center justify-between pt-3 border-r border-gray-700 ">
-        {/* Graph */}
-        <div>
-          <h3 className="text-white font-poppin text-[30px] font-semibold">
-            2000k{" "}
-          </h3>
-          <p className="text-sm font-poppin text-slate">Profile viewed</p>
-        </div>
-        {/* Graph */}
-        <div></div>
-      </div>
-
-      {/* Unread section */}
-      <div className="flex items-center justify-between pt-3 ps-3">
-        {/* Graph */}
-        <div>
-          <h3 className="text-white font-poppin text-[30px] font-semibold">
-            437
-          </h3>
-          <p className="text-sm font-poppin text-slate">Unread Messages</p>
-        </div>
-        {/* Graph */}
-        <div></div>
-      </div>
+    <section className="grid w-full grid-cols-12 gap-6">
+      {content?.map((element, index) => {
+        return (
+          <div
+            key={index}
+            className="p-4 rounded-md md:col-span-6 col-span-full lg:col-span-4 bg-light-blue"
+          >
+            <div className="flex justify-end text-[20px] text-slate cursor-pointer">
+              <BiDotsVerticalRounded />
+            </div>
+            <div className="flex items-center justify-between mt-3">
+              {/* Content */}
+              <div>
+                <p className="text-sm text-slate font-jakarta">
+                  {element?.title}
+                </p>
+                <h3 className="text-white text-[30px] font-bold font-jakarta">
+                  {element.value}
+                </h3>
+              </div>
+              {/* Progress bar */}
+              <div
+                className={`radial-progress text-green ${
+                  element.progressValue > 60
+                    ? "text-green"
+                    : element.progressValue > 50
+                    ? "text-yellow-500"
+                    : "text-red-500"
+                }`}
+                style={{ "--value": element.progressValue } as never}
+                role="progressbar"
+              >
+                {element.progressValue}%
+              </div>
+            </div>
+          </div>
+        );
+      })}
     </section>
   );
 };
