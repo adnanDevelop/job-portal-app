@@ -1,5 +1,5 @@
-import { Outlet, useRoutes } from "react-router-dom";
-import { ProtectedRoute, PublicRoute } from "../utils/RouteAuth";
+import { Navigate, Outlet, useRoutes } from "react-router-dom";
+import { AdminRoute, ProtectedRoute, PublicRoute } from "../utils/RouteAuth";
 
 // Main Layout
 import Layout from "../components/layout/userLayout/Layout";
@@ -26,8 +26,8 @@ import CompanyProfile from "../modules/companyProfile/CompanyProfile";
 import CandidateProfile from "../modules/candidateProfile/CandidateProfile";
 
 // Recruitor Routes
-// import RecruitorLayout from "../components/layout/recruitorLayout/RecruitorLayout";
-// import RecruitorDashboard from "../modules/recruitorModules/dashboard/page/RecruitorDashboard";
+import RecruitorLayout from "../components/layout/recruitorLayout/RecruitorLayout";
+import RecruitorDashboard from "../modules/recruitorModules/dashboard/page/RecruitorDashboard";
 
 export const Routes = () => {
   return useRoutes([
@@ -101,7 +101,24 @@ export const Routes = () => {
         },
       ],
     },
-
+    {
+      path: "/",
+      element: (
+        <AdminRoute>
+          <RecruitorLayout />
+        </AdminRoute>
+      ),
+      children: [
+        {
+          element: <Navigate to="/recruitor/dashboard" replace />,
+          index: true,
+        },
+        {
+          path: "/recruitor/dashboard",
+          element: <RecruitorDashboard />,
+        },
+      ],
+    },
     {
       element: (
         <PublicRoute>
