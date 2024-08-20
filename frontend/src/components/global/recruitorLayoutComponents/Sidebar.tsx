@@ -32,40 +32,90 @@ const links = [
   },
 ];
 
-const Sidebar = ({ isSidebarActive }: IProps) => {
+const Sidebar = ({ isSidebarActive, setSidebarActive }: IProps) => {
   return (
-    <div
-      className={`${
-        isSidebarActive ? "w-[220px] p-[15px] " : "w-0 p-[0px]"
-      } fixed top-0 left-0 h-full bg-light-blue py-[20px] border-r border-r-gray-700 transitions  `}
-    >
-      <div className={`${isSidebarActive ? "w-full" : "w-0 hidden"}`}>
-        <img src={`/image/logo-light.png`} alt="" />
+    <div>
+      {/* Large screen sidebar */}
+      <div
+        className={`${
+          isSidebarActive
+            ? "lg:w-[220px] p-[15px] lg:translate-x-0  "
+            : "w-0 p-[0px]"
+        } h-full fixed top-0 left-0 bg-light-blue py-[20px] border-r border-r-gray-700 transitions lg:block hidden  `}
+      >
+        <div className={`${isSidebarActive ? "w-full" : "w-0 hidden"}`}>
+          <img src={`/image/logo-light.png`} alt="" />
+        </div>
+
+        <button
+          className="lg:hidden block absolute right-[-20px] top-[50px] w-[40px] h-[30px] rounded-md bg-green "
+          onClick={() => setSidebarActive(!isSidebarActive)}
+        ></button>
+
+        {/* Links */}
+        <div className={`mt-[50px]`}>
+          <div
+            className={`${
+              isSidebarActive ? "w-full translate-x-0" : "translate-x-[-220px]"
+            } flex flex-col gap-y-2  transitions`}
+          >
+            {links.map((element, index) => {
+              const activeLink = window.location.pathname;
+              return (
+                <Link
+                  key={index}
+                  to={element.path}
+                  className={`${
+                    activeLink === element?.path
+                      ? "bg-green text-white"
+                      : "text-slate bg-transparent"
+                  } text-sm transitions flex items-center gap-x-2.5 p-[15px] rounded-lg text-[15px] transitions hover:bg-green hover:text-white`}
+                >
+                  <span className="text-lg">{element.icons}</span>{" "}
+                  {element.name}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       </div>
 
-      {/* Links */}
-      <div className={`mt-[50px]`}>
-        <div
-          className={`${
-            isSidebarActive ? "w-full translate-x-0" : "translate-x-[-220px]"
-          } flex flex-col gap-y-2  transitions`}
-        >
-          {links.map((element, index) => {
-            const activeLink = window.location.pathname;
-            return (
-              <Link
-                key={index}
-                to={element.path}
-                className={`${
-                  activeLink === element?.path
-                    ? "bg-green text-white"
-                    : "text-slate bg-transparent"
-                } text-sm transitions flex items-center gap-x-2.5 p-[15px] rounded-lg text-[15px] transitions hover:bg-green hover:text-white`}
-              >
-                <span className="text-lg">{element.icons}</span> {element.name}
-              </Link>
-            );
-          })}
+      {/* Small screen Sidebar */}
+      <div
+        className={`${
+          isSidebarActive ? "translate-x-0" : "translate-x-[-300px]"
+        } h-screen fixed top-0 left-0 w-[220px] p-[15px] z-[10] bg-light-blue py-[20px] border-r border-r-gray-700 transitions lg:hidden block  `}
+      >
+        <div>
+          <img src={`/image/logo-light.png`} alt="" />
+        </div>
+
+        <button
+          className="lg:hidden block absolute right-[-20px] top-[50px] w-[40px] h-[30px] rounded-md bg-green "
+          onClick={() => setSidebarActive(!isSidebarActive)}
+        ></button>
+
+        {/* Links */}
+        <div className={`mt-[50px]`}>
+          <div className={`flex flex-col gap-y-2  transitions`}>
+            {links.map((element, index) => {
+              const activeLink = window.location.pathname;
+              return (
+                <Link
+                  key={index}
+                  to={element.path}
+                  className={`${
+                    activeLink === element?.path
+                      ? "bg-green text-white"
+                      : "text-slate bg-transparent"
+                  } text-sm transitions flex items-center gap-x-2.5 p-[15px] rounded-lg text-[15px] transitions hover:bg-green hover:text-white`}
+                >
+                  <span className="text-lg">{element.icons}</span>{" "}
+                  {element.name}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

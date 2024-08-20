@@ -1,47 +1,34 @@
-import { BiDotsVerticalRounded } from "react-icons/bi";
+import { BiChat, BiDotsVerticalRounded } from "react-icons/bi";
+import { BsEye } from "react-icons/bs";
+import { FaPhone, FaRegFileAlt } from "react-icons/fa";
+import { MdOutlineDateRange } from "react-icons/md";
+import { ImStopwatch } from "react-icons/im";
+
 const ViewsStats = () => {
   const content = [
-    { title: "Total Applications", value: 1250, progressValue: 70 },
-    { title: "Shortlisted Candidates", value: 200, progressValue: 60 },
-    { title: "Rejected Candidates", value: 450, progressValue: 35 },
+    { title: "Profile Viewed", value: 1250, icon: <BsEye /> },
+    { title: "Unread Message", value: 70, icon: <BiChat /> },
+    { title: "Application Submitted", value: 250, icon: <FaRegFileAlt /> },
+    { title: "Answered", value: 20, icon: <MdOutlineDateRange /> },
+    { title: "On Hold", value: 10, icon: <ImStopwatch /> },
+    { title: "Accepted", value: 4, icon: <FaPhone /> },
   ];
 
   return (
-    <section className="grid w-full grid-cols-12 gap-6">
+    <section className="grid w-full grid-cols-12 gap-4">
       {content?.map((element, index) => {
         return (
           <div
             key={index}
-            className="p-4 rounded-md md:col-span-6 col-span-full lg:col-span-4 bg-light-blue"
+            className="flex flex-col items-center justify-center p-4 rounded-md md:col-span-6 col-span-full xl:col-span-2 bg-light-blue"
           >
-            <div className="flex justify-end text-[20px] text-slate cursor-pointer">
-              <BiDotsVerticalRounded />
+            <div className="w-[50px] h-[50px] flex items-center justify-center mb-3 mx-auto rounded-full bg-[#0596683e] text-green text-[20px]">
+              {element?.icon}
             </div>
-            <div className="flex items-center justify-between mt-3">
-              {/* Content */}
-              <div>
-                <p className="text-sm text-slate font-jakarta">
-                  {element?.title}
-                </p>
-                <h3 className="text-white text-[30px] font-bold font-jakarta">
-                  {element.value}
-                </h3>
-              </div>
-              {/* Progress bar */}
-              <div
-                className={`radial-progress text-green ${
-                  element.progressValue > 60
-                    ? "text-green"
-                    : element.progressValue > 50
-                    ? "text-yellow-500"
-                    : "text-red-500"
-                }`}
-                style={{ "--value": element.progressValue } as never}
-                role="progressbar"
-              >
-                {element.progressValue}%
-              </div>
-            </div>
+            <h3 className="text-white text-[25px] font-bold font-jakarta leading-none mb-1">
+              {element.value}
+            </h3>
+            <p className="text-sm text-slate font-jakarta">{element?.title}</p>
           </div>
         );
       })}

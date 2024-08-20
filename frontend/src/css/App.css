@@ -1,3 +1,8 @@
+* {
+  scrollbar-width: none !important;
+
+}
+
 .file-input {
   font-size: 12px !important;
 }

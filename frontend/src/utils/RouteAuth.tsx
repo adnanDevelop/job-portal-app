@@ -39,9 +39,6 @@ export const AdminRoute = ({ children }: React.PropsWithChildren) => {
     (state: RootState) => state.auth.isAuthenticated
   );
 
-  console.log("User role:", user?.role);
-  console.log("Is authenticated:", isAuthenticated);
-
   if (isAuthenticated && user.role === "recruitor") {
     return <Navigate to="/recruiter/dashboard" replace />;
   }
