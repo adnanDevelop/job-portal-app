@@ -1,4 +1,3 @@
-import React from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
@@ -37,7 +36,7 @@ const CandidateGender = () => {
       </h3>
 
       {/* Pie chart */}
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center ">
         <Pie data={data} options={options} />
       </div>
     </section>

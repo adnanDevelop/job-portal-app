@@ -42,10 +42,12 @@ const RecruitorDashboard = () => {
         <div className="col-span-full">
           <ViewsStats />
         </div>
-        <div className="col-span-7">
+        <div className="col-span-8">
           <ApplicationStat />
         </div>
-        <div className="col-span-5"></div>
+        <div className="col-span-4">
+          <CandidateGender />
+        </div>
       </section>
     </main>
   );

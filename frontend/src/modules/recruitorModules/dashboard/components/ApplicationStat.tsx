@@ -1,74 +1,98 @@
-import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
-  ChartOptions,
 } from "chart.js";
 
-// Register components to ChartJS
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend
 );
 
-const ApplicationStat = () => {
-  const data = {
-    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    datasets: [
-      {
-        label: "Applications",
-        data: [65, 59, 80, 41, 56, 55, 90],
-        backgroundColor: (context: { dataset: { data: number[] } }) => {
-          const values = context.dataset.data as number[];
-          return values.map((value) => {
-            let color;
-            switch (true) {
-              case value > 60:
-                color = "#059669"; // Green
-                break;
-              case value > 50:
-                color = "#FFD700"; // Yellow
-                break;
-              default:
-                color = "#ef4444"; // Red
-            }
-            return color;
-          });
-        },
-        barThickness: 40,
-      },
-    ],
-  };
-
-  // Define your chart options
-  const options: ChartOptions<"bar"> = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
+const options = {
+  responsive: true,
+  maintainAspectRatio: false, // Ensure full width
+  plugins: {
+    legend: {
+      display: false, // Correct way to hide legend
+    },
+    title: {
+      display: false,
+      text: "Chart.js Line Chart",
+    },
+  },
+  scales: {
+    x: {
+      display: true,
       title: {
-        display: true,
-        text: "Statistics of Active Applications",
+        display: false,
+        text: "Date",
       },
     },
-  };
+  },
+};
 
+const labels = [
+  "01/01/2024",
+  "01/02/2024",
+  "01/03/2024",
+  "01/04/2024",
+  "01/05/2024",
+  "01/06/2024",
+  "01/07/2024",
+];
+
+const data = {
+  labels,
+  datasets: [
+    {
+      data: [42, 85, 5, 30, 65, 50, 25],
+      borderColor: "#71D875",
+      backgroundColor: "#22c55e",
+      tension: 0.4,
+    },
+    {
+      data: [24, 65, 24, 55, 40, 5, 2],
+      borderColor: "#130185",
+      backgroundColor: "#ef4444",
+      tension: 0.4,
+    },
+    {
+      data: [0, 45, 55, 40, 35, 44, 82],
+      borderColor: "#F4933C",
+      backgroundColor: "#64748b",
+      tension: 0.4,
+    },
+  ],
+};
+
+// Legend circle
+// const legendCircle = [
+//   { value: "-10%", color: "#22c55e", label: "Rate of missing information" },
+//   { value: "-20%", color: "#ef4444", label: "Acceptance rate" },
+//   { value: "+40%", color: "#64748b", label: "Processing time" },
+// ];
+
+const ApplicationStat = () => {
   return (
-    <section className="p-4 rounded-md bg-light-blue h-[450px] w-full">
+    <section className="w-full p-4 rounded-md bg-light-blue">
       <h3 className="text-lg font-medium text-white font-poppin">
         Acquistions
       </h3>
-      <Bar data={data} options={options} />
+      <div className="h-[400px]">
+        <Line options={options} data={data} />
+      </div>
     </section>
   );
 };

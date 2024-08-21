@@ -1,4 +1,4 @@
-import { BiChat, BiDotsVerticalRounded } from "react-icons/bi";
+import { BiChat } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import { FaPhone, FaRegFileAlt } from "react-icons/fa";
 import { MdOutlineDateRange } from "react-icons/md";

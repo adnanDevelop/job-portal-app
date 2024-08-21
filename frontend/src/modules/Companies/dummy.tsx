@@ -7,7 +7,6 @@ import {
   FaApple,
   FaMicrosoft,
   FaSalesforce,
-  FaUber,
 } from "react-icons/fa";
 import React from "react";
 
