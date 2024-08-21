@@ -19,6 +19,7 @@ const Register = () => {
     formState: { errors },
   } = useForm<IRegisterUser>();
 
+  // Submit function
   const submitData = async (data: IRegisterUser) => {
     const formData = new FormData();
     formData.append("fullName", data.fullName);
@@ -57,7 +58,7 @@ const Register = () => {
   };
 
   return (
-    <main className="w-full relaive z-[1] py-[20px] bg-[url('/image/auth-bg.jpg')] bg-no-repeat bg-center bg-cover bg-fixed">
+    <main className="w-full relaive z-[1] md:h-screen py-[20px] bg-[url('/image/auth-bg.jpg')] bg-no-repeat bg-center bg-cover bg-fixed">
       <div className="fixed top-0  left-0 w-full h-full bg-gradient-to-b from-transparent to-[#161c2d]" />
       <div className="relative z-[1] flex items-center justify-center w-full h-full  px-[20px]">
         {/* Form section */}
