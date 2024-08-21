@@ -33,15 +33,15 @@ export const PublicRoute = ({ children }: React.PropsWithChildren) => {
 };
 
 // Admin routes
-// export const AdminRoute = ({ children }: React.PropsWithChildren) => {
-//   const { user } = useSelector((state: RootState) => state.auth);
-//   const isAuthenticated = useSelector(
-//     (state: RootState) => state.auth.isAuthenticated
-//   );
+export const AdminRoute = ({ children }: React.PropsWithChildren) => {
+  const { user } = useSelector((state: RootState) => state.auth);
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
 
-//   if (isAuthenticated && user.role === "recruitor") {
-//     return <Navigate to="/recruiter/dashboard" replace />;
-//   }
+  if (isAuthenticated && user.role === "recruitor") {
+    return <Navigate to="/recruiter/dashboard" replace />;
+  }
 
-//   return <>{children}</>;
-// };
+  return <>{children}</>;
+};

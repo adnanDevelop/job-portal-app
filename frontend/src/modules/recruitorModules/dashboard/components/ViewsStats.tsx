@@ -20,7 +20,7 @@ const ViewsStats = () => {
         return (
           <div
             key={index}
-            className="flex flex-col items-center justify-center p-4 rounded-md md:col-span-6 col-span-full xl:col-span-2 bg-light-blue"
+            className="flex flex-col items-center justify-center p-4 rounded-md md:col-span-4 sm:col-span-6 col-span-full xl:col-span-2 bg-light-blue"
           >
             <div className="w-[50px] h-[50px] flex items-center justify-center mb-3 mx-auto rounded-full bg-[#0596683e] text-green text-[20px]">
               {element?.icon}

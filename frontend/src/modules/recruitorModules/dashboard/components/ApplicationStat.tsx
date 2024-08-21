@@ -90,7 +90,7 @@ const ApplicationStat = () => {
       <h3 className="text-lg font-medium text-white font-poppin">
         Acquistions
       </h3>
-      <div className="h-[400px]">
+      <div className="lg:h-[450px] h-[350px]">
         <Line options={options} data={data} />
       </div>
     </section>
