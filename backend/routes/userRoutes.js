@@ -23,7 +23,7 @@ router
   .route("/user/profile/update")
   .post(isAuthenticated, singleUpload, updateProfile);
 router.route("/user/delete/:id").delete(isAuthenticated, deleteUserAccount);
-router.route("/user/all").get(isAuthenticated, getAllUsers);
+router.route("/user/all").get(getAllUsers);
 router.route("/user/single-user/:id").get(isAuthenticated, getUserById);
 
 export default router;
