@@ -15,7 +15,7 @@ import GmailRoutes from "./routes/gmailRoute.js";
 
 // Configure CORS
 const corsOptions = {
-  origin: "http://localhost:5173", // replace with your frontend's origin
+  origin: "http://localhost:5175", // replace with your frontend's origin
   credentials: true,
 };
 
