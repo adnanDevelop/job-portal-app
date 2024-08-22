@@ -122,7 +122,7 @@ const AvailableJobs = () => {
               <SwiperSlide key={index}>
                 <div
                   key={index}
-                  className="flex flex-col items-center justify-center gap-3 p-4 border border-gray-700 rounded-md basis-1/4"
+                  className="flex flex-col items-center justify-center gap-3 p-4 border border-gray-700 rounded-md py-7 basis-1/4"
                 >
                   <div>
                     <div className="w-[40px] h-[40px] rounded-md bg-dark-blue text-white text-[16px] flex items-center justify-center">

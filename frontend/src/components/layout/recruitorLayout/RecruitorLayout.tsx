@@ -10,7 +10,7 @@ const RecruitorLayout = () => {
   const [isSidebarActive, setSidebarActive] = useState(true);
 
   return (
-    <div className="relative lg:flex ">
+    <div className="relative lg:flex  pt-[50px]">
       <div
         className={`flex-none transitions ${
           isSidebarActive ? "lg:w-[220px]" : "w-0"

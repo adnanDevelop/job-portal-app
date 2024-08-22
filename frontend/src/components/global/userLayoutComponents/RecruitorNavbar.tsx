@@ -27,7 +27,9 @@ const RecruitorNavbar = ({ isSidebarActive, setSidebarActive }: IProps) => {
 
   return (
     <nav
-      className={`w-full h-[60px] bg-light-blue flex items-center border-b border-b-gray-700 justify-between px-[25px]`}
+      className={`h-[60px] fixed top-0 ${
+        isSidebarActive ? "lg:w-[calc(100%-220px)] w-full" : "w-full"
+      }  z-[5] bg-light-blue flex items-center border-b transitions  border-b-gray-700 justify-between px-[25px]`}
     >
       <button
         className="w-[40px] h-[40px] flex items-center justify-center border border-gray-700 rounded-lg focus:border-green text-[30px] text-white"
