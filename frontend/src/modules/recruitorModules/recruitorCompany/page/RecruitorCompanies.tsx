@@ -104,7 +104,7 @@ const RecruitorCompanies = () => {
           {content.map((element, index) => {
             return (
               <div
-                className="flex items-center justify-between px-4 py-6 rounded-md bg-light-blue lg:col-span-6"
+                className="flex flex-col justify-between px-4 py-6 rounded-md sm:items-center sm:flex-row col-span-full md:col-span-6 bg-light-blue"
                 key={index}
               >
                 <div className="flex items-center gap-3">
@@ -120,7 +120,7 @@ const RecruitorCompanies = () => {
                     </p>
                   </div>
                 </div>
-                <button className="px-[20px] py-[8px] text-xs font-poppin border border-green rounded-full transitions bg-transparent text-green hover:bg-green hover:text-white">
+                <button className="px-[20px] py-[8px] text-xs font-poppin border border-green rounded-full transitions bg-transparent text-green hover:bg-green hover:text-white sm:mt-0 mt-4">
                   {element.totalJobs} Jobs Available
                 </button>
               </div>
