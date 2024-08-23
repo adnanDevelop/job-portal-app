@@ -61,7 +61,7 @@ const Candidate = () => {
           </div>
         </div>
 
-        {/* Blog card section */}
+        {/* Candidate card section */}
         <section className="grid grid-cols-12 gap-5">
           <p className="text-lg text-white col-span-full font-poppin">
             Total {filterCandidates?.length} candidates
