@@ -1,5 +1,5 @@
-import { Navigate, Outlet, useRoutes } from "react-router-dom";
-import { AdminRoute, ProtectedRoute, PublicRoute } from "../utils/RouteAuth";
+import { Outlet, useRoutes } from "react-router-dom";
+import { ProtectedRoute, PublicRoute } from "../utils/RouteAuth";
 
 // Main Layout
 import Layout from "../components/layout/userLayout/Layout";
@@ -26,13 +26,13 @@ import CompanyProfile from "../modules/companyProfile/CompanyProfile";
 import CandidateProfile from "../modules/candidateProfile/CandidateProfile";
 
 // Recruitor Routes
-import RecruitorLayout from "../components/layout/recruitorLayout/RecruitorLayout";
-import RecruitorJobs from "../modules/recruitorModules/recruitorJobs/page/RecruitorJobs";
-import RecruitorDashboard from "../modules/recruitorModules/dashboard/page/RecruitorDashboard";
-import RecruitorProfile from "../modules/recruitorModules/recruitorProfile/page/RecruitorProfile";
-import RecruitorCompanies from "../modules/recruitorModules/recruitorCompany/page/RecruitorCompanies";
-import RecruitorCandidates from "../modules/recruitorModules/recruitorCandidate/page/RecruitorCandidate";
-import RecruitorApplications from "../modules/recruitorModules/recruitorApplications/page/RecruitorApplications";
+// import RecruitorLayout from "../components/layout/recruitorLayout/RecruitorLayout";
+// import RecruitorJobs from "../modules/recruitorModules/recruitorJobs/page/RecruitorJobs";
+// import RecruitorDashboard from "../modules/recruitorModules/dashboard/page/RecruitorDashboard";
+// import RecruitorProfile from "../modules/recruitorModules/recruitorProfile/page/RecruitorProfile";
+// import RecruitorCompanies from "../modules/recruitorModules/recruitorCompany/page/RecruitorCompanies";
+// import RecruitorCandidates from "../modules/recruitorModules/recruitorCandidate/page/RecruitorCandidate";
+// import RecruitorApplications from "../modules/recruitorModules/recruitorApplications/page/RecruitorApplications";
 
 export const Routes = () => {
   return useRoutes([
@@ -106,44 +106,44 @@ export const Routes = () => {
         },
       ],
     },
-    {
-      path: "/",
-      element: (
-        <AdminRoute>
-          <RecruitorLayout />
-        </AdminRoute>
-      ),
-      children: [
-        {
-          element: <Navigate to="/recruitor/dashboard" replace />,
-          index: true,
-        },
-        {
-          path: "/recruitor/dashboard",
-          element: <RecruitorDashboard />,
-        },
-        {
-          path: "/recruitor/jobs",
-          element: <RecruitorJobs />,
-        },
-        {
-          path: "/recruitor/applications",
-          element: <RecruitorApplications />,
-        },
-        {
-          path: "/recruitor/profile",
-          element: <RecruitorProfile />,
-        },
-        {
-          path: "/recruitor/companies",
-          element: <RecruitorCompanies />,
-        },
-        {
-          path: "/recruitor/candidates",
-          element: <RecruitorCandidates />,
-        },
-      ],
-    },
+    // {
+    //   path: "/",
+    //   element: (
+    //     <AdminRoute>
+    //       <RecruitorLayout />
+    //     </AdminRoute>
+    //   ),
+    //   children: [
+    //     {
+    //       element: <Navigate to="/recruitor/dashboard" replace />,
+    //       index: true,
+    //     },
+    //     {
+    //       path: "/recruitor/dashboard",
+    //       element: <RecruitorDashboard />,
+    //     },
+    //     {
+    //       path: "/recruitor/jobs",
+    //       element: <RecruitorJobs />,
+    //     },
+    //     {
+    //       path: "/recruitor/applications",
+    //       element: <RecruitorApplications />,
+    //     },
+    //     {
+    //       path: "/recruitor/profile",
+    //       element: <RecruitorProfile />,
+    //     },
+    //     {
+    //       path: "/recruitor/companies",
+    //       element: <RecruitorCompanies />,
+    //     },
+    //     {
+    //       path: "/recruitor/candidates",
+    //       element: <RecruitorCandidates />,
+    //     },
+    //   ],
+    // },
     {
       element: (
         <PublicRoute>
