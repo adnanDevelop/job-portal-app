@@ -82,6 +82,23 @@ export const getAppliedJobs = async (req, res) => {
   }
 };
 
+export const getAllApplications = async (req, res) => {
+  try {
+    const getData = await Application.find({})
+      .populate({
+        path: "job",
+        options: { sort: { createdAt: -1 } },
+        populate: { path: "company", options: { sort: { createdAt: -1 } } },
+      })
+      .populate({ path: "applicant" });
+
+    return responseHandler(res, 200, "Data retreived successfully", getData);
+  } catch (error) {
+    console.log("error while getting all applications", error.message);
+    return errorHandler(res, 400, error.message);
+  }
+};
+
 // Get applicants
 export const getApplicants = async (req, res) => {
   try {
