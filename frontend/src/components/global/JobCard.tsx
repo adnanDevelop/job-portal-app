@@ -1,5 +1,5 @@
-import { formatDistanceToNow } from "date-fns";
 import { Link } from "react-router-dom";
+import { formatDistanceToNow } from "date-fns";
 
 // Icons
 import { FaRegBookmark } from "react-icons/fa";

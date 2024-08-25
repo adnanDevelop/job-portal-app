@@ -1,11 +1,12 @@
+import { format } from "date-fns";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 
+// Apis
+import { useListAllApplyJobsQuery } from "../../../redux/features/applyJobApi";
 interface IDetails {
   experience: { title: string; bio: string; content: string; date: string }[];
 }
-
-
 
 const ProfileInfo = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -27,6 +28,8 @@ const ProfileInfo = () => {
       },
     ],
   };
+
+  const { data: applicationData } = useListAllApplyJobsQuery({});
 
   return (
     <div>
@@ -111,6 +114,80 @@ const ProfileInfo = () => {
             );
           })}
         </div>
+      </div>
+
+      {/* Applied jobs table section
+       */}
+      <div className="my-8 overflow-x-auto">
+        <h2 className="mb-4 text-lg font-semibold text-white capitalize font-jakarta">
+          Applied Jobs:
+        </h2>
+        <table className="table">
+          {/* head */}
+          <thead>
+            <tr className="border-b-slate">
+              <th className="text-base font-semibold text-white font-jakarta">
+                Date
+              </th>
+              <th className="text-base font-semibold text-white font-jakarta">
+                Job Role
+              </th>
+              <th className="text-base font-semibold text-white font-jakarta">
+                Company
+              </th>
+              <th className="text-base font-semibold text-white font-jakarta">
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {applicationData?.data?.map(
+              (
+                element: {
+                  job: { title: string; company: { companyName: string } };
+                  status: string;
+                  createdAt: string;
+                },
+                index: string
+              ) => {
+                if (element?.job === null) return null;
+                let badgeColor = "";
+                switch (element?.status) {
+                  case "pending":
+                    badgeColor = "bg-slate text-gray-800";
+                    break;
+                  case "accepted":
+                    badgeColor = "bg-green text-white";
+                    break;
+                  case "rejected":
+                    badgeColor = "bg-red-500 text-white";
+                    break;
+                }
+
+                return (
+                  <tr key={index} className="border-b-slate">
+                    <th className="text-sm font-light text-slate">
+                      {format(new Date(element?.createdAt), "dd-M-yyyy")}
+                    </th>
+                    <td className="text-sm font-light text-slate">
+                      {element?.job?.title}
+                    </td>
+                    <td className="text-sm font-light text-slate">
+                      {element?.job?.company?.companyName}
+                    </td>
+                    <td>
+                      <p
+                        className={`text-xs capitalize  rounded-full w-[90px] h-[30px] flex items-center justify-center font-medium ${badgeColor}`}
+                      >
+                        {element?.status}
+                      </p>
+                    </td>
+                  </tr>
+                );
+              }
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
