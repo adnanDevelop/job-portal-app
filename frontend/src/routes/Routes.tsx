@@ -1,5 +1,5 @@
-import { Navigate, Outlet, useRoutes } from "react-router-dom";
-import { AdminRoute, ProtectedRoute, PublicRoute } from "../utils/RouteAuth";
+import { Outlet, useRoutes } from "react-router-dom";
+import { ProtectedRoute, PublicRoute } from "../utils/RouteAuth";
 
 // Main Layout
 import Layout from "../components/layout/userLayout/Layout";
