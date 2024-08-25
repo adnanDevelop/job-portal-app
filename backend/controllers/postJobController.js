@@ -140,32 +140,63 @@ export const deleteJob = async (req, res) => {
 // Get job using queries
 export const getJob = async (req, res) => {
   try {
-    const keyword = req.query.keyword || "";
+    const {
+      search = "",
+      category = "",
+      location = "",
+      jobType = "",
+      salaryMin = 0,
+      salaryMax = 0,
+      page = 1, // Current page
+      limit = 10, // Number of results per page
+    } = req.query;
+
+    // Convert page and limit to numbers
+    const currentPage = parseInt(page, 10);
+    const pageSize = parseInt(limit, 10);
+
+    // Build the query object
     const query = {
-      $or: [
-        { title: { $regex: keyword, $options: "i" } },
-        { description: { $regex: keyword, $options: "i" } },
+      $and: [
+        {
+          $or: [
+            { title: { $regex: search, $options: "i" } },
+            { description: { $regex: search, $options: "i" } },
+          ],
+        },
+        category ? { category: { $regex: category, $options: "i" } } : {},
+        location ? { location: { $regex: location, $options: "i" } } : {},
+        jobType ? { jobType: { $regex: jobType, $options: "i" } } : {},
+        salaryMin && salaryMax
+          ? { salary: { $gte: Number(salaryMin), $lte: Number(salaryMax) } }
+          : {},
       ],
     };
 
+    // Get total count of jobs matching the query
+    const totalJobs = await Job.countDocuments(query);
+
+    // Fetch jobs with pagination
     const getAllJobs = await Job.find(query)
-      .populate({
-        path: "company",
-      })
+      .populate({ path: "company" })
       .sort({ createdAt: -1 })
-      .populate({
-        path: "applications",
-      });
+      .populate({ path: "applications" })
+      .skip((currentPage - 1) * pageSize)
+      .limit(pageSize);
 
-    // If jobs not found
-    if (!getAllJobs) {
-      return errorHandler(res, 400, "Job not found.");
-    }
-
-    // Sending response
-    return responseHandler(res, 200, "Data retreived successfully", getAllJobs);
+    // Send response
+    return res.status(200).json({
+      status: 200,
+      message: "Data retrieved successfully",
+      data: getAllJobs,
+      pageDetails: {
+        totalResults: totalJobs,
+        currentPage,
+        totalPages: Math.ceil(totalJobs / pageSize),
+      },
+    });
   } catch (error) {
-    console.log("Error while posting job:", error.message);
+    console.log("Error while fetching jobs:", error.message);
     return errorHandler(res, 400, error.message);
   }
 };
