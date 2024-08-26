@@ -1,39 +1,12 @@
 import { motion } from "framer-motion";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-import {
-  FaFacebook,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedin,
-  FaYoutube,
-  FaPinterest,
-  FaSnapchat,
-  FaTiktok,
-  FaReddit,
-  FaGithub,
-} from "react-icons/fa";
+
+// Apis
+import { useListCompaniesQuery } from "../../../../redux/features/companyApi";
 
 const FeaturedCompanies = () => {
-  const content = [
-    { icon: <FaFacebook />, title: "Facebook", content: "Design Team Agency" },
-    { icon: <FaTwitter />, title: "Twitter", content: "Design Team Agency" },
-    {
-      icon: <FaInstagram />,
-      title: "Instagram",
-      content: "Design Team Agency",
-    },
-    { icon: <FaLinkedin />, title: "LinkedIn", content: "Design Team Agency" },
-    { icon: <FaYoutube />, title: "YouTube", content: "Design Team Agency" },
-    {
-      icon: <FaPinterest />,
-      title: "Pinterest",
-      content: "Design Team Agency",
-    },
-    { icon: <FaSnapchat />, title: "Snapchat", content: "Design Team Agency" },
-    { icon: <FaTiktok />, title: "TikTok", content: "Design Team Agency" },
-    { icon: <FaReddit />, title: "Reddit", content: "Design Team Agency" },
-    { icon: <FaGithub />, title: "GitHub", content: "Design Team Agency" },
-  ];
+  const { data: getData } = useListCompaniesQuery({});
+  console.log(getData?.data);
 
   return (
     <section className="p-4 rounded-md bg-light-blue">
@@ -45,29 +18,33 @@ const FeaturedCompanies = () => {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        {content.map((element, index) => {
-          return (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 1 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              key={index}
-              className="flex items-center gap-2 pb-4 border-b border-b-gray-700"
-            >
-              <div className="w-[50px] h-[50px] rounded-md bg-dark-blue text-white text-[20px] flex items-center justify-center">
-                {element.icon}
-              </div>
-              <div>
-                <h4 className="text-lg font-medium text-white capitalize font-jakarta">
-                  {element.title}
-                </h4>
-                <p className="text-xs text-slate font-jakarta">
-                  {element.content}
-                </p>
-              </div>
-            </motion.div>
-          );
-        })}
+        {getData?.data?.map(
+          (element: { companyName: string; logo: string }, index: number) => {
+            return (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 1 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                key={index}
+                className="flex items-center gap-2 pb-4 border-b border-b-gray-700"
+              >
+                <div className="w-[50px] h-[50px] rounded-md bg-dark-blue text-white text-[20px] flex items-center justify-center">
+                  <img
+                    src={element.logo}
+                    className="w-[35px] rounded-full"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <h4 className="text-base font-medium text-white capitalize font-jakarta">
+                    {element?.companyName}
+                  </h4>
+                  {/* <p className="text-xs text-slate font-jakarta">{element.bio}</p> */}
+                </div>
+              </motion.div>
+            );
+          }
+        )}
       </div>
     </section>
   );

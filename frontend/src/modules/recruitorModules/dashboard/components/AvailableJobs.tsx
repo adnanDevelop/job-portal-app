@@ -10,7 +10,6 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 
 const AvailableJobs = () => {
   const { data: jobData } = useListJobsByAdminQuery({});
-  console.log(jobData?.data);
 
   return (
     <section className="p-4 rounded-md bg-light-blue">
