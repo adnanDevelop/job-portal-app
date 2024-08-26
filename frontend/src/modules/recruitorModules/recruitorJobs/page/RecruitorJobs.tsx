@@ -1,109 +1,19 @@
-import {
-  FaBullhorn,
-  FaChartLine,
-  FaChevronLeft,
-  FaChevronRight,
-  FaCode,
-  FaDatabase,
-  FaMobileAlt,
-  FaNetworkWired,
-  FaPaintBrush,
-  FaPencilRuler,
-  FaProjectDiagram,
-  FaSearch,
-  FaServer,
-  FaUserShield,
-} from "react-icons/fa";
 import { IoLocation } from "react-icons/io5";
 
-const jobs = [
-  {
-    icon: <FaPencilRuler />,
-    title: "UI/UX Designer",
-    companyName: "DesignHub",
-    location: "New York, NY",
-    salary: "$70,000 - $90,000",
-  },
-  {
-    icon: <FaCode />,
-    title: "Backend Developer",
-    companyName: "TechWave",
-    location: "San Francisco, CA",
-    salary: "$80,000 - $110,000",
-  },
-  {
-    icon: <FaBullhorn />,
-    title: "Marketing Manager",
-    companyName: "Adverto",
-    location: "Los Angeles, CA",
-    salary: "$75,000 - $95,000",
-  },
-  {
-    icon: <FaChartLine />,
-    title: "Data Analyst",
-    companyName: "DataMetrics",
-    location: "Chicago, IL",
-    salary: "$65,000 - $85,000",
-  },
-  {
-    icon: <FaNetworkWired />,
-    title: "Network Engineer",
-    companyName: "NetSolutions",
-    location: "Seattle, WA",
-    salary: "$90,000 - $120,000",
-  },
-  {
-    icon: <FaServer />,
-    title: "Backend Developer",
-    companyName: "DevBackend",
-    location: "Boston, MA",
-    salary: "$85,000 - $115,000",
-  },
-  {
-    icon: <FaUserShield />,
-    title: "Frontend Developer",
-    companyName: "SecureTech",
-    location: "Washington, D.C.",
-    salary: "$95,000 - $125,000",
-  },
-  {
-    icon: <FaMobileAlt />,
-    title: "App Developer",
-    companyName: "AppGen",
-    location: "Denver, CO",
-    salary: "$80,000 - $100,000",
-  },
-  {
-    icon: <FaSearch />,
-    title: "SEO Specialist",
-    companyName: "WebOptimize",
-    location: "Miami, FL",
-    salary: "$60,000 - $80,000",
-  },
-  {
-    icon: <FaPaintBrush />,
-    title: "Graphic Designer",
-    companyName: "Creative Minds",
-    location: "Austin, TX",
-    salary: "$55,000 - $75,000",
-  },
-  {
-    icon: <FaDatabase />,
-    title: "Database Administrator",
-    companyName: "DataSecure",
-    location: "Atlanta, GA",
-    salary: "$85,000 - $105,000",
-  },
-  {
-    icon: <FaProjectDiagram />,
-    title: "Project Manager",
-    companyName: "BuildTech",
-    location: "Dallas, TX",
-    salary: "$90,000 - $120,000",
-  },
-];
+import { useListJobsByAdminQuery } from "../../../../redux/features/jobApi";
+import { FaSearch, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
+interface jobType {
+  title: string;
+  company: { companyName: string; logo: string };
+  location: string;
+  salary: string;
+}
 
 const RecruitorJobs = () => {
+  const { data: jobData } = useListJobsByAdminQuery({});
+  console.log(jobData?.data);
+
   return (
     <main>
       {/* Job Search section */}
@@ -127,7 +37,7 @@ const RecruitorJobs = () => {
           Showing 12 of 124 Jobs Results
         </h3>
         <div className="grid grid-cols-12 gap-4 lg:gap-6">
-          {jobs.map((element, index) => {
+          {jobData?.data?.map((element: jobType, index: number) => {
             return (
               <div
                 key={index}
@@ -135,7 +45,11 @@ const RecruitorJobs = () => {
               >
                 <div>
                   <div className="w-[60px] h-[60px] rounded-md bg-dark-blue text-white text-[20px] flex items-center justify-center">
-                    {element.icon}
+                    <img
+                      src={element.company.logo}
+                      className="w-[35px] rounded-full"
+                      alt=""
+                    />
                   </div>
                 </div>
                 <div className="text-center">
@@ -143,14 +57,14 @@ const RecruitorJobs = () => {
                     {element.title}
                   </h4>
                   <p className="text-xs text-red-500 font-jakarta">
-                    {element.companyName}
+                    {element.company.companyName}
                   </p>
-                  <div className="flex flex-col items-center justify-center gap-1 mt-3">
+                  <div className="flex flex-col items-center justify-center gap-1 mt-2">
                     <p className="flex items-center gap-1 text-xs text-slate font-jakarta">
                       <IoLocation /> {element.location}
                     </p>
                     <p className="flex items-center gap-1 text-xs text-slate font-jakarta">
-                      {element.salary}
+                      {element.salary} PKR
                     </p>
                   </div>
                 </div>

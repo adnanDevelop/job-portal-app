@@ -6,7 +6,6 @@ import { useListCompaniesQuery } from "../../../../redux/features/companyApi";
 
 const FeaturedCompanies = () => {
   const { data: getData } = useListCompaniesQuery({});
-  console.log(getData?.data);
 
   return (
     <section className="p-4 rounded-md bg-light-blue">
