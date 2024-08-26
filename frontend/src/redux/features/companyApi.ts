@@ -39,9 +39,10 @@ const companyApi = createApi({
 
     // List companies
     listCompanies: builder.query({
-      query: () => ({
+      query: (payload) => ({
         url: "/get",
         method: "GET",
+        params: payload.params,
       }),
       providesTags: ["company"],
     }),

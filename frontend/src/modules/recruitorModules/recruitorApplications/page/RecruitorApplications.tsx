@@ -4,6 +4,10 @@ import Table from "../../../../components/global/Table";
 
 import { FaSearch } from "react-icons/fa";
 import { MdEdit, MdDelete } from "react-icons/md";
+
+// Apis
+import { useListAllApplicationDataQuery } from "../../../../redux/features/applyJobApi";
+
 const RecruitorApplications = () => {
   const navigate = useNavigate();
   const appDlicationData = [
@@ -69,6 +73,8 @@ const RecruitorApplications = () => {
     },
   ];
 
+  const { data: appData, isLoading } = useListAllApplicationDataQuery({});
+
   // actions
   const actions = [
     {
@@ -101,10 +107,8 @@ const RecruitorApplications = () => {
       </div>
       <div>
         <Table
-          data={appDlicationData}
-          rowCount={0}
-          selection={true}
-          isLoading={false}
+          isLoading={isLoading}
+          data={appData?.data}
           columns={columnDef(actions)}
         />
       </div>

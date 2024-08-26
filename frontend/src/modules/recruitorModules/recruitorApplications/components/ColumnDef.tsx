@@ -9,56 +9,70 @@ export const columnDef = (actions: Action[]) => {
     {
       accessorKey: "date",
       header: "Date",
-      cell: (row: { row: { original: { date: string } } }) => {
-        return <p>{row?.row?.original?.date}</p>;
+      cell: ({ row }: { row: { original: { createdAt: string } } }) => {
+        return <p>{row?.original?.createdAt}</p>;
       },
     },
     {
       accessorKey: "position",
       header: "Position",
-      cell: (row: { row: { original: { position: string } } }) => {
-        return <p>{row?.row?.original?.position}</p>;
+      cell: ({ row }: { row: { original: { job: { title: string } } } }) => {
+        return <p>{row?.original?.job?.title}</p>;
       },
     },
     {
       accessorKey: "fullName",
       header: "Full Name",
-      cell: (row: { row: { original: { fullName: string } } }) => {
-        return <p>{row?.row?.original?.fullName}</p>;
+      cell: ({
+        row,
+      }: {
+        row: { row: { original: { applicant: { fullName: string } } } };
+      }) => {
+        return <p>{row?.row?.original?.applicant?.fullName}</p>;
       },
     },
     {
       accessorKey: "email",
       header: "Email",
-      cell: (row: { row: { original: { email: string } } }) => {
-        return <p>{row?.row?.original?.email}</p>;
+      cell: (row: {
+        row: { row: { original: { applicant: { email: string } } } };
+      }) => {
+        return <p>{row?.row?.original?.applicant?.email}</p>;
       },
     },
     {
       accessorKey: "resume",
       header: "Resume",
-      cell: (row: { row: { original: { resume: string } } }) => {
-        return <p>{row?.row?.original?.resume}</p>;
+      cell: (row: {
+        row: {
+          original: { applicant: { profile: { resumeOriginalName: string } } };
+        };
+      }) => {
+        return (
+          <p>{row?.row?.original?.applicant?.profile?.resumeOriginalName}</p>
+        );
       },
     },
     {
       accessorKey: "jobType",
       header: "Job Type",
-      cell: (row: { row: { original: { jobType: string } } }) => {
-        return <p>{row?.row?.original?.jobType}</p>;
+      cell: (row: { row: { original: { job: { jobType: string } } } }) => {
+        return <p>{row?.row?.original?.job?.jobType}</p>;
       },
     },
     {
       accessorKey: "status",
       header: "Status",
-      cell: (row: { row: { original: { jobStatus: string } } }) => {
-        return <p>{row?.row?.original?.jobStatus}</p>;
+      cell: (row: { row: { original: { status: string } } }) => {
+        console.log(row?.row?.original?.status);
+
+        return <p>{row?.row?.original?.status}</p>;
       },
     },
     {
       id: "actions",
       header: "Actions",
-      cell: (row: { original: any }) => {
+      cell: (row: { original: never }) => {
         return (
           <div className="flex gap-1">
             {actions?.map(

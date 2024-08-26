@@ -82,8 +82,10 @@ export const getAppliedJobs = async (req, res) => {
   }
 };
 
+// Get all applications
 export const getAllApplications = async (req, res) => {
   try {
+    const userId = req.id;
     const getData = await Application.find({})
       .populate({
         path: "job",

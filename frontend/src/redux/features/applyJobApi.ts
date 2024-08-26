@@ -53,15 +53,26 @@ const applyJobApi = createApi({
       }),
       providesTags: ["applications"],
     }),
+
+    // Get all applications data
+    listAllApplicationData: builder.query({
+      query: (payload) => ({
+        url: `/get-all-jobs`,
+        method: "GET",
+        params: payload.params,
+      }),
+      providesTags: ["applications"],
+    }),
   }),
 });
 
 export const {
   useApplyJobMutation,
-  useUpdateJobStatusMutation,
-  useDeleteApplicationMutation,
   useListAllApplyJobsQuery,
   useListApplicantDataQuery,
+  useUpdateJobStatusMutation,
+  useDeleteApplicationMutation,
+  useListAllApplicationDataQuery,
 } = applyJobApi;
 
 export default applyJobApi;

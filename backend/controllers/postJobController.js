@@ -224,17 +224,39 @@ export const getJobById = async (req, res) => {
 export const getJobByAdmin = async (req, res) => {
   try {
     const adminId = req.id;
-
-    const getJob = await Job.find({ createdBy: adminId }).populate({
-      path: "company",
-    });
+    const { search, page = 1, limit = 12 } = req.query;
+    let query = {};
+    const getJob = await Job.find({ createdBy: adminId });
     // If job not found
     if (!getJob) {
       return errorHandler(res, 400, "Job not found.");
     }
 
-    // Sending response
-    return responseHandler(res, 200, "Data retreived successfully", getJob);
+    if (search) {
+      query = {
+        $or: [{ title: { $regex: search, $options: "i" } }],
+      };
+    }
+
+    const skip = (page - 1) * limit;
+    const allJobs = await Job.find(query)
+      .skip(skip)
+      .limit(parseInt(limit))
+      .populate({
+        path: "company",
+      });
+    const totalJobs = await Job.countDocuments(query);
+
+    return res.status(200).json({
+      status: 200,
+      message: "Data retrieved successfully",
+      data: allJobs,
+      pagination: {
+        currentPage: page,
+        limit: limit,
+        totalDocuments: totalJobs,
+      },
+    });
   } catch (error) {
     console.log(
       "Error while admins getting jobs with admin id:",
