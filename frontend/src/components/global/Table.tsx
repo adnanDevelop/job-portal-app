@@ -9,19 +9,14 @@ import {
 interface Props<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  rowSelection: any;
   isLoading?: boolean;
   rowCount?: number;
   selection: boolean;
-  setRowSelection: (rowSelection: any) => void;
 }
 
 function DataTable<TData, TValue>({
   columns,
   data,
-  rowSelection,
-  setRowSelection,
-  selection = true,
   isLoading,
   rowCount,
 }: Props<TData, TValue>) {
@@ -30,12 +25,6 @@ function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
     rowCount: rowCount,
-    getRowId: (row) =>
-      `id: ${(row as any).id || ""},name: ${(row as any).name || ""}`,
-    onRowSelectionChange: setRowSelection,
-    state: {
-      rowSelection,
-    },
   });
 
   return (
@@ -44,30 +33,18 @@ function DataTable<TData, TValue>({
       <table
         className={`table border-separate border-spacing-x-0 border-spacing-y-3 ${
           data?.length < 0 || !isLoading
-            ? "[&>thead>tr>*:first-child]:px-5 [&>tbody>tr>*:first-child]:border-l-4 [&>tbody>tr>*:first-child]:border-primary"
+            ? "[&>thead>tr>*:first-child]:px-5 [&>tbody>tr>*:first-child]:border-l-2 [&>tbody>tr>*:first-child]:border-green"
             : ""
         }`}
       >
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id} className="px-1 h-[41px]">
-              {selection && (
-                <th className="border-b border-[#CFCFCF] py-0">
-                  <input
-                    checked={table.getIsAllPageRowsSelected()}
-                    onChange={(event) =>
-                      table.toggleAllPageRowsSelected(event.target.checked)
-                    }
-                    type="checkbox"
-                    className="checkbox checkbox-sm border-[2px] border-[#424147] rounded-[6px] bg-white checked:[--chkbg:white] [--chkfg:#424147]"
-                  />
-                </th>
-              )}
               {headerGroup.headers.map((header) => {
                 return (
                   <th
                     key={header.id}
-                    className="font-bold font-poppins text-[#424147] text-base border-b border-[#CFCFCF] py-0"
+                    className="py-4 text-base font-semibold text-white border-b-2 font-poppins border-green bg-light-blue "
                   >
                     {header.isPlaceholder
                       ? null
@@ -86,7 +63,7 @@ function DataTable<TData, TValue>({
             <tr className="border-none">
               <td colSpan={12}>
                 <div className="w-full h-[35vh] flex flex-col items-center justify-center">
-                  <span className="loading loading-dots loading-lg bg-primary"></span>
+                  <span className="loading loading-dots loading-lg bg-green"></span>
                 </div>
               </td>
             </tr>
@@ -95,24 +72,12 @@ function DataTable<TData, TValue>({
               <tr
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
-                className="px-1 bg-white h-[76px]"
+                className="px-1 transitions hover:bg-light-blue cursor-pointer h-[60px]"
               >
-                {selection && (
-                  <td className="">
-                    <input
-                      checked={row.getIsSelected()}
-                      onChange={(event) =>
-                        row.toggleSelected(event.target.checked)
-                      }
-                      type="checkbox"
-                      className="checkbox checkbox-sm border-[2px] rounded-[6px] checked:[--chkbg:white] [--chkfg:#ADA7A7] border-[#ADA7A7]"
-                    />
-                  </td>
-                )}
                 {row.getVisibleCells().map((cell) => (
                   <td
                     key={cell.id}
-                    className="text-black text-[15px] font-medium"
+                    className="text-slate text-[15px] font-jakarta font-medium"
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
