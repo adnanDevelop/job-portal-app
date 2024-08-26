@@ -10,7 +10,7 @@ const RecruitorLayout = () => {
   const [isSidebarActive, setSidebarActive] = useState(true);
 
   return (
-    <div className="relative lg:flex  pt-[50px]">
+    <div className="relative lg:flex pt-[50px]">
       <div
         className={`flex-none transitions ${
           isSidebarActive ? "lg:w-[220px]" : "w-0"
@@ -28,10 +28,12 @@ const RecruitorLayout = () => {
             setSidebarActive={setSidebarActive}
           />
         </div>
-        <div className={`relative flex-1 md:p-[25px] p-[20px] bg-dark-blue`}>
+        <div
+          className={`relative flex-1 md:p-[25px] p-[20px] bg-dark-blue md:pb-[80px]`}
+        >
           <Outlet />
         </div>
-        <Footer />
+        <Footer isSidebarActive={isSidebarActive} />
       </div>
     </div>
   );

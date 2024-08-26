@@ -37,6 +37,36 @@ const RecruitorApplications = () => {
       date: "15-7-2002",
       jobStatus: "Accepted",
     },
+    {
+      id: 3,
+      position: "Frontend Developer",
+      jobType: "Full Time",
+      fullName: "Adnan Tariq",
+      email: "adnan@goMarkho.com",
+      resume: "Adnan Resume.pdf",
+      date: "15-7-2002",
+      jobStatus: "Accepted",
+    },
+    {
+      id: 3,
+      position: "Frontend Developer",
+      jobType: "Full Time",
+      fullName: "Adnan Tariq",
+      email: "adnan@goMarkho.com",
+      resume: "Adnan Resume.pdf",
+      date: "15-7-2002",
+      jobStatus: "Accepted",
+    },
+    {
+      id: 3,
+      position: "Frontend Developer",
+      jobType: "Full Time",
+      fullName: "Adnan Tariq",
+      email: "adnan@goMarkho.com",
+      resume: "Adnan Resume.pdf",
+      date: "15-7-2002",
+      jobStatus: "Accepted",
+    },
   ];
 
   // actions
