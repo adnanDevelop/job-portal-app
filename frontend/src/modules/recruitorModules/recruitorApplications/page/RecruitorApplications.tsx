@@ -73,21 +73,14 @@ const RecruitorApplications = () => {
   const actions = [
     {
       label: "Edit",
-      icon: (
-        <MdEdit size={24} className="text-slate transitions hover:text-green" />
-      ),
+      icon: <MdEdit size={24} className="text-green" />,
       onClick: (row: { id: string }) => {
         navigate(`${row.id}`);
       },
     },
     {
       label: "Delete",
-      icon: (
-        <MdDelete
-          size={24}
-          className="text-slate transitions hover:text-green"
-        />
-      ),
+      icon: <MdDelete size={24} className="text-red-500" />,
       onClick: () => {},
     },
   ];

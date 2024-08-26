@@ -58,7 +58,7 @@ export const columnDef = (actions: Action[]) => {
     {
       id: "actions",
       header: "Actions",
-      cell: (row: any) => {
+      cell: (row: { original: any }) => {
         return (
           <div className="flex gap-1">
             {actions?.map(
