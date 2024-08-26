@@ -44,6 +44,7 @@ const userSchema = new mongoose.Schema(
         portfolioLink: { type: String, default: "" },
       },
     },
+    totalViews: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

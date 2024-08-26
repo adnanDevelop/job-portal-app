@@ -46,8 +46,6 @@ export const register = async (req, res) => {
       },
     });
 
-    console.log(createUser);
-
     return res.status(200).json({
       message: "Account created successfully",
       status: 200,
@@ -288,6 +286,21 @@ export const getUserById = async (req, res) => {
 
     return responseHandler(res, 200, "Data retreived successfully", user);
   } catch (error) {
+    return errorHandler(res, 400, error.message);
+  }
+};
+
+// update user views
+
+export const updateUserViews = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findByIdAndUpdate(id, { $inc: { totalViews: 1 } });
+
+    return responseHandler(res, 200, "Data updated successfully", user);
+  } catch (error) {
+    console.log("error while updating user views", error.message);
     return errorHandler(res, 400, error.message);
   }
 };

@@ -7,6 +7,7 @@ import {
   logout,
   register,
   updateProfile,
+  updateUserViews,
 } from "../controllers/userController.js";
 
 // Middlewares
@@ -22,8 +23,11 @@ router.route("/user/logout").get(logout);
 router
   .route("/user/profile/update")
   .post(isAuthenticated, singleUpload, updateProfile);
-router.route("/user/delete/:id").delete(isAuthenticated, deleteUserAccount);
 router.route("/user/all").get(isAuthenticated, getAllUsers);
+router
+  .route("/user/update-views/:id")
+  .post(isAuthenticated, updateUserViews);
 router.route("/user/single-user/:id").get(isAuthenticated, getUserById);
+router.route("/user/delete/:id").delete(isAuthenticated, deleteUserAccount);
 
 export default router;
