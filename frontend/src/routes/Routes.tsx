@@ -4,12 +4,12 @@ import { AdminRoute, ProtectedRoute, PublicRoute } from "../utils/RouteAuth";
 // Main Layout
 import Layout from "../components/layout/userLayout/Layout";
 
-// Public Routes
+// Auth Routes
 import Login from "../modules/authPages/Login";
 import NotFound from "../modules/notFound/NotFound";
 import Register from "../modules/authPages/Register";
 
-// Protected Routes
+// User Routes
 import Home from "../modules/home";
 import About from "../modules/about";
 import Blog from "../modules/blog/Blog";
@@ -46,6 +46,7 @@ export const Routes = () => {
       children: [
         {
           path: "/",
+          index: true,
           element: <Home />,
         },
         {
@@ -114,34 +115,13 @@ export const Routes = () => {
         </AdminRoute>
       ),
       children: [
-        {
-          element: <Navigate to="/recruitor/dashboard" replace />,
-          index: true,
-        },
-        {
-          path: "/recruitor/dashboard",
-          element: <RecruitorDashboard />,
-        },
-        {
-          path: "/recruitor/jobs",
-          element: <RecruitorJobs />,
-        },
-        {
-          path: "/recruitor/applications",
-          element: <RecruitorApplications />,
-        },
-        {
-          path: "/recruitor/profile",
-          element: <RecruitorProfile />,
-        },
-        {
-          path: "/recruitor/companies",
-          element: <RecruitorCompanies />,
-        },
-        {
-          path: "/recruitor/candidates",
-          element: <RecruitorCandidates />,
-        },
+        { index: true, element: <Navigate to="recruiter/dashboard" replace /> }, // Index route simplified
+        { path: "recruiter/dashboard", element: <RecruitorDashboard /> },
+        { path: "recruiter/jobs", element: <RecruitorJobs /> },
+        { path: "recruiter/applications", element: <RecruitorApplications /> },
+        { path: "recruiter/profile", element: <RecruitorProfile /> },
+        { path: "recruiter/companies", element: <RecruitorCompanies /> },
+        { path: "recruiter/candidates", element: <RecruitorCandidates /> },
       ],
     },
     {

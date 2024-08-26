@@ -14,20 +14,20 @@ interface IProps {
 const links = [
   {
     name: "Dashboard",
-    path: "/recruitor/dashboard",
+    path: "/recruiter/dashboard",
     icons: <MdOutlineDashboard />,
   },
-  { name: "Jobs", path: "/recruitor/jobs", icons: <PiFlagPennantBold /> },
+  { name: "Jobs", path: "/recruiter/jobs", icons: <PiFlagPennantBold /> },
   {
     name: "Applications",
-    path: "/recruitor/applications",
+    path: "/recruiter/applications",
     icons: <SlPaperPlane />,
   },
-  { name: "Profile", path: "/recruitor/profile", icons: <FaUser /> },
-  { name: "Companies", path: "/recruitor/companies", icons: <FaRegBuilding /> },
+  { name: "Profile", path: "/recruiter/profile", icons: <FaUser /> },
+  { name: "Companies", path: "/recruiter/companies", icons: <FaRegBuilding /> },
   {
     name: "Candidates",
-    path: "/recruitor/candidates",
+    path: "/recruiter/candidates",
     icons: <PiUsersThree />,
   },
 ];

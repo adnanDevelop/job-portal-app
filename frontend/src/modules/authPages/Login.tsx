@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../redux/slices/authSlice";
 
@@ -13,7 +13,7 @@ import { RootState } from "../../redux/store";
 import { login } from "../../redux/slices/authSlice";
 
 const Login = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading } = useSelector((state: RootState) => state.auth);
   const {
@@ -41,7 +41,7 @@ const Login = () => {
         dispatch(login(responseData.data));
         toast.success(responseData.message);
 
-        navigate("/");
+        // navigate("/");
       } else {
         const errorData = await response.json();
         toast.error(errorData.message);
