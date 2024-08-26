@@ -1,5 +1,4 @@
 import {
-  FaSearch,
   FaChevronLeft,
   FaChevronRight,
   FaFacebook,
@@ -13,6 +12,7 @@ import {
   FaTwitter,
   FaYoutube,
 } from "react-icons/fa";
+import CompanyHeader from "./component/CompanyHeader";
 
 const content = [
   {
@@ -82,24 +82,11 @@ const RecruitorCompanies = () => {
     <main>
       {/* Company Search section */}
       <section className="mt-[20px]">
-        <div className="max-w-[300px] h-[40px] relative rounded-full bg-light-blue text-slate ms-auto">
-          <input
-            type="text"
-            className="w-full h-[40px] placeholder:text-xs focus:outline-none rounded-full bg-light-blue ps-4 pe-11 text-xs"
-            placeholder="Search here..."
-          />
-
-          <button className="w-[30px] h-[30px] rounded-full bg-green absolute top-[50%] translate-y-[-50%] right-1.5 flex items-center justify-center text-[13px] text-white">
-            <FaSearch />
-          </button>
-        </div>
+        <CompanyHeader />
       </section>
 
       {/* Job Card section */}
       <section className="mt-5">
-        <h3 className="mb-6 text-base font-medium text-white font-poppin">
-          Showing 12 of 124 Companies Results
-        </h3>
         <div className="grid grid-cols-12 gap-4 lg:gap-6">
           {content.map((element, index) => {
             return (
