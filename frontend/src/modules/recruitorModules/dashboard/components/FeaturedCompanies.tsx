@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import {
   FaFacebook,
@@ -46,7 +47,10 @@ const FeaturedCompanies = () => {
       <div className="grid grid-cols-2 gap-4">
         {content.map((element, index) => {
           return (
-            <div
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 1 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               key={index}
               className="flex items-center gap-2 pb-4 border-b border-b-gray-700"
             >
@@ -61,7 +65,7 @@ const FeaturedCompanies = () => {
                   {element.content}
                 </p>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>

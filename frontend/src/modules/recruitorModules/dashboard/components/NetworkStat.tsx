@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 
 const NetworkStat = () => {
@@ -49,7 +50,13 @@ const NetworkStat = () => {
       <div className="flex items-center w-full gap-6 overflow-x-auto">
         {content?.map((element, index) => {
           return (
-            <div key={index} className="flex flex-col items-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 1 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              key={index}
+              className="flex flex-col items-center"
+            >
               <div
                 className={`radial-progress text-green mb-2 `}
                 style={{ "--value": element.percentage } as never}
@@ -64,7 +71,7 @@ const NetworkStat = () => {
               <p className="text-xs text-slate text-nowrap">
                 {element.vacancy} vacancies
               </p>
-            </div>
+            </motion.div>
           );
         })}
       </div>
