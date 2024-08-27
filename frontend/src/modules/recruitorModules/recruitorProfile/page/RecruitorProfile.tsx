@@ -1,6 +1,26 @@
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
+// Redux
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store";
+
+// Apis
+import { useGetUserByIdQuery } from "../../../../redux/features/userApi";
 
 const RecruitorProfile = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const { user } = useSelector((state: RootState) => state.auth);
+  const { data: userData } = useGetUserByIdQuery({ id: user?._id });
+
+  const updateProfileData = (data: any) => {
+    console.log(data);
+  };
+
   return (
     <main className="">
       {/* BreadCrumbs */}
@@ -22,16 +42,17 @@ const RecruitorProfile = () => {
         <div className="px-4 py-10 rounded-md col-span-full lg:col-span-4 xl:col-span-3 bg-light-blue">
           <div className="flex flex-col items-center justify-center">
             <img
-              src="/image/avator.jpg"
+              src={userData?.data?.profile?.profilePhoto || "/image/avator.jpg"}
+              // src="/image/avator.jpg"
               className="sm:w-[130px] w-[100px] rounded-full border-2 border-green"
               alt=""
             />
-            <h3 className="mt-3 text-xl font-medium leading-none text-white font-poppin">
-              Adnan Tariq
+            <h3 className="mt-3 text-xl font-medium leading-none text-white capitalize font-poppin">
+              {userData?.data?.fullName}
             </h3>
             <p className="text-sm text-slate font-jakarta">Recruitor</p>
           </div>
-          <div className="mt-4">
+          {/* <div className="mt-4">
             <div className="flex items-center justify-center gap-4 lg:justify-between">
               <p className="text-sm text-white font-jakarta">
                 Total Jobs Posted:{" "}
@@ -42,7 +63,7 @@ const RecruitorProfile = () => {
               <p className="text-sm text-white font-jakarta">Website Link:</p>
               <p className="text-sm text-slate font-jakarta">GoMarkho.com</p>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Profile update section */}
@@ -51,15 +72,24 @@ const RecruitorProfile = () => {
             Profile Setup
           </h3>
 
-          <div className="grid grid-cols-12 gap-4 pb-4 mt-6">
+          <form
+            className="grid w-full grid-cols-12 gap-4 pb-4 mt-6"
+            onSubmit={handleSubmit(updateProfileData)}
+          >
             {/* Name input */}
             <div className="sm:col-span-6 col-span-full">
               <p className="mb-1.5 text-xs text-white font-jakarta">Name</p>
               <input
                 type="text"
-                className="w-full border border-gray-700 rounded-md h-[40px] bg-transparent focus:outline-none focus:border-green placeholder:text-xs flex items-center px-2 text-xs text-slate"
-                placeholder="Name..."
+                className="w-full capitalize border border-gray-700 rounded-md h-[40px] bg-transparent focus:outline-none focus:border-green placeholder:text-xs flex items-center px-2 text-xs text-slate"
+                placeholder={userData?.data?.fullName}
+                {...register("fullName", { required: "Name is required" })}
               />
+              {errors.fullName && (
+                <p className="mt-1 text-xs text-red-500">
+                  {errors.fullName.message}
+                </p>
+              )}
             </div>
 
             {/* Email */}
@@ -68,7 +98,8 @@ const RecruitorProfile = () => {
               <input
                 type="text"
                 className="w-full border border-gray-700 rounded-md h-[40px] bg-transparent focus:outline-none focus:border-green placeholder:text-xs flex items-center px-2 text-xs text-slate"
-                placeholder="Name..."
+                placeholder={userData?.data?.email}
+                {...register("email", { required: "Email is required" })}
               />
             </div>
 
@@ -78,8 +109,14 @@ const RecruitorProfile = () => {
               <input
                 type="tel"
                 className="w-full border border-gray-700 rounded-md h-[40px] bg-transparent focus:outline-none focus:border-green placeholder:text-xs flex items-center px-2 text-xs text-slate"
-                placeholder="Number..."
+                placeholder={userData?.data?.phoneNumber}
+                {...register("phoneNumber", { required: "Name is required" })}
               />
+              {errors.phoneNumber && (
+                <p className="mt-1 text-xs text-red-500">
+                  {errors.phoneNumber.message}
+                </p>
+              )}
             </div>
 
             {/* Address input */}
@@ -88,8 +125,14 @@ const RecruitorProfile = () => {
               <input
                 type="text"
                 className="w-full border border-gray-700 rounded-md h-[40px] bg-transparent focus:outline-none focus:border-green placeholder:text-xs flex items-center px-2 text-xs text-slate"
-                placeholder="Address..."
+                placeholder={userData?.data?.profile?.address}
+                {...register("address", { required: "Name is required" })}
               />
+              {errors.address && (
+                <p className="mt-1 text-xs text-red-500">
+                  {errors.address.message}
+                </p>
+              )}
             </div>
 
             {/* Country input */}
@@ -98,8 +141,14 @@ const RecruitorProfile = () => {
               <input
                 type="text"
                 className="w-full border border-gray-700 rounded-md h-[40px] bg-transparent focus:outline-none focus:border-green placeholder:text-xs flex items-center px-2 text-xs text-slate"
-                placeholder="Country..."
+                placeholder={userData?.data?.profile?.country}
+                {...register("country", { required: "Country is required" })}
               />
+              {errors.country && (
+                <p className="mt-1 text-xs text-red-500">
+                  {errors.country.message}
+                </p>
+              )}
             </div>
 
             {/* City input */}
@@ -108,38 +157,23 @@ const RecruitorProfile = () => {
               <input
                 type="text"
                 className="w-full border border-gray-700 rounded-md h-[40px] bg-transparent focus:outline-none focus:border-green placeholder:text-xs flex items-center px-2 text-xs text-slate"
-                placeholder="City..."
+                placeholder={userData?.data?.profile?.city}
+                {...register("city", { required: "Name is required" })}
               />
+              {errors.city && (
+                <p className="mt-1 text-xs text-red-500">
+                  {errors.city.message}
+                </p>
+              )}
             </div>
 
-            {/* CompanyName input */}
-            <div className="mt-2 sm:col-span-6 col-span-full">
-              <p className="mb-1.5 text-xs text-white font-jakarta">
-                Company Name
-              </p>
-              <input
-                type="text"
-                className="w-full border border-gray-700 rounded-md h-[40px] bg-transparent focus:outline-none focus:border-green placeholder:text-xs flex items-center px-2 text-xs text-slate"
-                placeholder="Company name..."
-              />
-            </div>
-
-            {/* Website input */}
-            <div className="mt-2 sm:col-span-6 col-span-full">
-              <p className="mb-1.5 text-xs text-white font-jakarta">
-                Website link
-              </p>
-              <input
-                type="text"
-                className="w-full border border-gray-700 rounded-md h-[40px] bg-transparent focus:outline-none focus:border-green placeholder:text-xs flex items-center px-2 text-xs text-slate"
-                placeholder="Website link..."
-              />
-            </div>
-
-            <div className="pt-4 mt-4 border-t md:pt-8 md:mt-8 col-span-full border-t-gray-700">
+            <div className="flex gap-2 pt-4 mt-4 border-t md:pt-8 md:mt-8 col-span-full border-t-gray-700">
               <button className="primary-btn px-[20px]">Update</button>
+              <button className="primary-btn bg-red-500 px-[20px]">
+                Delete Account
+              </button>
             </div>
-          </div>
+          </form>
         </div>
       </section>
     </main>
