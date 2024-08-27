@@ -129,7 +129,7 @@ export const deleteJob = async (req, res) => {
     if (job.deletedCount !== 1) {
       return errorHandler(res, 400, "Job not deleted.");
     } else {
-      return errorHandler(res, 400, "Job deleted successfully.");
+      return errorHandler(res, 200, "Job deleted successfully.");
     }
   } catch (error) {
     console.log("Error while deleting job:", error.message);

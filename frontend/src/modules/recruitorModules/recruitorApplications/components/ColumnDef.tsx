@@ -77,7 +77,7 @@ export const columnDef = (actions: Action[]) => {
                 action: {
                   label: string;
                   icon: React.ReactNode;
-                  onClick: (row: { id: string }) => void;
+                  onClick: (row: any) => void;
                 },
                 index
               ) => {

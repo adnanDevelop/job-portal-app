@@ -25,7 +25,9 @@ const RecruitorApplications = () => {
     {
       label: "Delete",
       icon: <MdDelete size={24} className="text-red-500" />,
-      onClick: () => {},
+      onClick: () => {
+        console.log("delete button click");
+      },
     },
   ];
 
@@ -34,9 +36,7 @@ const RecruitorApplications = () => {
   );
 
   return (
-    <div
-      className={`${filterNullApplicants?.length <= 8 ? "pb-[200px]" : null}`}
-    >
+    <div className={`${filterNullApplicants?.length <= 8 ? "h-[80vh]" : null}`}>
       {/* Search bar */}
       <div className="max-w-[300px] h-[40px] relative rounded-full bg-light-blue text-slate ms-auto my-[30px]">
         <input
@@ -50,11 +50,11 @@ const RecruitorApplications = () => {
         </button>
       </div>
       <div>
-        <Table
+        {/* <Table
           isLoading={isLoading}
           data={filterNullApplicants || []}
           columns={columnDef(actions)}
-        />
+        /> */}
       </div>
     </div>
   );
