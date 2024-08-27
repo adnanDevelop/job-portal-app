@@ -1,24 +1,55 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 // Redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { IUpdateUserProps } from "../type";
 import { RootState } from "../../../../redux/store";
+import { logout } from "../../../../redux/slices/authSlice";
 
 // Apis
+import { useUpdateUserMutation } from "../../../../redux/features/userApi";
 import { useGetUserByIdQuery } from "../../../../redux/features/userApi";
 
 const RecruitorProfile = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<IUpdateUserProps>();
+
+  // Calling Apis
+  const [updateUser] = useUpdateUserMutation();
   const { user } = useSelector((state: RootState) => state.auth);
   const { data: userData } = useGetUserByIdQuery({ id: user?._id });
 
-  const updateProfileData = (data: any) => {
-    console.log(data);
+  // Update profile function
+  const updateProfileData = async (data: IUpdateUserProps) => {
+    try {
+      const formData = new FormData();
+
+      formData.append("fullName", data.fullName);
+      formData.append("email", data.email);
+      formData.append("phoneNumber", data.phoneNumber);
+      formData.append("address", data.address);
+      formData.append("city", data.city);
+      formData.append("country", data.country);
+
+      await updateUser({ body: formData })
+        .unwrap()
+        .then((response) => {
+          toast.success(response.message);
+          dispatch(logout());
+        })
+        .catch((e) => {
+          console.log(e, "error at Updating profile data");
+          toast.error(e.data.message);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -168,9 +199,8 @@ const RecruitorProfile = () => {
             </div>
 
             <div className="flex gap-2 pt-4 mt-4 border-t md:pt-8 md:mt-8 col-span-full border-t-gray-700">
-              <button className="primary-btn px-[20px]">Update</button>
-              <button className="primary-btn bg-red-500 px-[20px]">
-                Delete Account
+              <button type="submit" className="primary-btn px-[20px]">
+                Update
               </button>
             </div>
           </form>

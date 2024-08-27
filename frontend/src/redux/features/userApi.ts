@@ -26,9 +26,33 @@ const userApi = createApi({
       }),
       providesTags: ["users"],
     }),
+
+    // Update User
+    updateUser: builder.mutation({
+      query: (payload) => ({
+        url: `/profile/update`,
+        method: "POST",
+        body: payload.body,
+      }),
+      invalidatesTags: ["users"],
+    }),
+
+    // Delete User
+    deleteUser: builder.mutation({
+      query: (payload) => ({
+        url: `/delete/${payload.id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["users"],
+    }),
   }),
 });
 
-export const { useGetAllUsersQuery, useGetUserByIdQuery } = userApi;
+export const {
+  useGetAllUsersQuery,
+  useGetUserByIdQuery,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
+} = userApi;
 
 export default userApi;
