@@ -10,68 +10,6 @@ import { useListAllApplicationDataQuery } from "../../../../redux/features/apply
 
 const RecruitorApplications = () => {
   const navigate = useNavigate();
-  const appDlicationData = [
-    {
-      id: 0,
-      position: "Frontend Developer",
-      jobType: "Full Time",
-      fullName: "Adnan Tariq",
-      email: "adnan@goMarkho.com",
-      resume: "Adnan Resume.pdf",
-      date: "15-7-2002",
-      jobStatus: "Pending",
-    },
-    {
-      id: 2,
-      position: "Frontend Developer",
-      jobType: "Full Time",
-      fullName: "Adnan Tariq",
-      email: "adnan@goMarkho.com",
-      resume: "Adnan Resume.pdf",
-      date: "15-7-2002",
-      jobStatus: "Rejected",
-    },
-    {
-      id: 3,
-      position: "Frontend Developer",
-      jobType: "Full Time",
-      fullName: "Adnan Tariq",
-      email: "adnan@goMarkho.com",
-      resume: "Adnan Resume.pdf",
-      date: "15-7-2002",
-      jobStatus: "Accepted",
-    },
-    {
-      id: 3,
-      position: "Frontend Developer",
-      jobType: "Full Time",
-      fullName: "Adnan Tariq",
-      email: "adnan@goMarkho.com",
-      resume: "Adnan Resume.pdf",
-      date: "15-7-2002",
-      jobStatus: "Accepted",
-    },
-    {
-      id: 3,
-      position: "Frontend Developer",
-      jobType: "Full Time",
-      fullName: "Adnan Tariq",
-      email: "adnan@goMarkho.com",
-      resume: "Adnan Resume.pdf",
-      date: "15-7-2002",
-      jobStatus: "Accepted",
-    },
-    {
-      id: 3,
-      position: "Frontend Developer",
-      jobType: "Full Time",
-      fullName: "Adnan Tariq",
-      email: "adnan@goMarkho.com",
-      resume: "Adnan Resume.pdf",
-      date: "15-7-2002",
-      jobStatus: "Accepted",
-    },
-  ];
 
   const { data: appData, isLoading } = useListAllApplicationDataQuery({});
 
@@ -91,8 +29,14 @@ const RecruitorApplications = () => {
     },
   ];
 
+  const filterNullApplicants = appData?.data?.filter(
+    (element: { job: never }) => element.job !== null
+  );
+
   return (
-    <div>
+    <div
+      className={`${filterNullApplicants?.length <= 8 ? "pb-[200px]" : null}`}
+    >
       {/* Search bar */}
       <div className="max-w-[300px] h-[40px] relative rounded-full bg-light-blue text-slate ms-auto my-[30px]">
         <input
@@ -108,7 +52,7 @@ const RecruitorApplications = () => {
       <div>
         <Table
           isLoading={isLoading}
-          data={appData?.data}
+          data={filterNullApplicants || []}
           columns={columnDef(actions)}
         />
       </div>

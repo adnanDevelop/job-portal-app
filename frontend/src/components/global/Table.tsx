@@ -127,5 +127,3 @@ function DataTable<TData, TValue>({
   );
 }
 export default DataTable;
-
-// lg:w-[calc(100%-250px)]

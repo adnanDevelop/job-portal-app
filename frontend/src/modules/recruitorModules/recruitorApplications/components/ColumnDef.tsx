@@ -1,7 +1,7 @@
 interface Action {
   label: string;
   icon: React.ReactNode;
-  onClick: (row: any) => void;
+  onClick: (row: { id: string }) => void;
 }
 
 export const columnDef = (actions: Action[]) => {
@@ -9,12 +9,12 @@ export const columnDef = (actions: Action[]) => {
     {
       accessorKey: "date",
       header: "Date",
-      cell: ({ row }: { row: { original: { createdAt: string } } }) => {
+      cell: ({ row }: any) => {
         return <p>{row?.original?.createdAt}</p>;
       },
     },
     {
-      accessorKey: "position",
+      accessorKey: "title",
       header: "Position",
       cell: ({ row }: { row: { original: { job: { title: string } } } }) => {
         return <p>{row?.original?.job?.title}</p>;
@@ -23,50 +23,47 @@ export const columnDef = (actions: Action[]) => {
     {
       accessorKey: "fullName",
       header: "Full Name",
-      cell: ({
-        row,
-      }: {
-        row: { row: { original: { applicant: { fullName: string } } } };
-      }) => {
-        return <p>{row?.row?.original?.applicant?.fullName}</p>;
+      cell: ({ row }: any) => {
+        return (
+          <p className="capitalize">{row?.original?.applicant?.fullName}</p>
+        );
       },
     },
     {
       accessorKey: "email",
       header: "Email",
-      cell: (row: {
-        row: { row: { original: { applicant: { email: string } } } };
-      }) => {
-        return <p>{row?.row?.original?.applicant?.email}</p>;
+      cell: ({ row }: any) => {
+        return <p>{row?.original?.applicant?.email}</p>;
       },
     },
     {
-      accessorKey: "resume",
+      accessorKey: "resumeOriginalName",
       header: "Resume",
-      cell: (row: {
-        row: {
-          original: { applicant: { profile: { resumeOriginalName: string } } };
-        };
-      }) => {
+      cell: ({ row }: any) => {
+        console.log(
+          row?.original?.applicant?.profile?.resumeOriginalName === "" &&
+            "adnan"
+        );
         return (
-          <p>{row?.row?.original?.applicant?.profile?.resumeOriginalName}</p>
+          <p>
+            {row?.original?.applicant?.profile?.resumeOriginalName ||
+              "Resume Link"}
+          </p>
         );
       },
     },
     {
       accessorKey: "jobType",
       header: "Job Type",
-      cell: (row: { row: { original: { job: { jobType: string } } } }) => {
-        return <p>{row?.row?.original?.job?.jobType}</p>;
+      cell: ({ row }: any) => {
+        return <p>{row?.original?.job?.jobType}</p>;
       },
     },
     {
       accessorKey: "status",
       header: "Status",
-      cell: (row: { row: { original: { status: string } } }) => {
-        console.log(row?.row?.original?.status);
-
-        return <p>{row?.row?.original?.status}</p>;
+      cell: ({ row }: any) => {
+        return <p className="capitalize">{row?.original?.status}</p>;
       },
     },
     {
@@ -80,7 +77,7 @@ export const columnDef = (actions: Action[]) => {
                 action: {
                   label: string;
                   icon: React.ReactNode;
-                  onClick: (row: any) => void;
+                  onClick: (row: { id: string }) => void;
                 },
                 index
               ) => {
