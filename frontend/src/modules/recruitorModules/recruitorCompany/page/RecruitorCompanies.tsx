@@ -1,83 +1,26 @@
-import {
-  FaChevronLeft,
-  FaChevronRight,
-  FaFacebook,
-  FaGithub,
-  FaInstagram,
-  FaLinkedin,
-  FaPinterest,
-  FaReddit,
-  FaSnapchat,
-  FaTiktok,
-  FaTwitter,
-  FaYoutube,
-} from "react-icons/fa";
 import CompanyHeader from "./component/CompanyHeader";
 
-const content = [
-  {
-    icon: <FaFacebook />,
-    title: "Facebook",
-    content: "Design Team Agency",
-    totalJobs: 15,
-  },
-  {
-    icon: <FaTwitter />,
-    title: "Twitter",
-    content: "Design Team Agency",
-    totalJobs: 22,
-  },
-  {
-    icon: <FaInstagram />,
-    title: "Instagram",
-    content: "Design Team Agency",
-    totalJobs: 18,
-  },
-  {
-    icon: <FaLinkedin />,
-    title: "LinkedIn",
-    content: "Design Team Agency",
-    totalJobs: 12,
-  },
-  {
-    icon: <FaYoutube />,
-    title: "YouTube",
-    content: "Design Team Agency",
-    totalJobs: 8,
-  },
-  {
-    icon: <FaPinterest />,
-    title: "Pinterest",
-    content: "Design Team Agency",
-    totalJobs: 5,
-  },
-  {
-    icon: <FaSnapchat />,
-    title: "Snapchat",
-    content: "Design Team Agency",
-    totalJobs: 10,
-  },
-  {
-    icon: <FaTiktok />,
-    title: "TikTok",
-    content: "Design Team Agency",
-    totalJobs: 14,
-  },
-  {
-    icon: <FaReddit />,
-    title: "Reddit",
-    content: "Design Team Agency",
-    totalJobs: 7,
-  },
-  {
-    icon: <FaGithub />,
-    title: "GitHub",
-    content: "Design Team Agency",
-    totalJobs: 20,
-  },
-];
+// Redux
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store";
+import { useListCompaniesQuery } from "../../../../redux/features/companyApi";
+
+// Icons
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const RecruitorCompanies = () => {
+  const { user } = useSelector((state: RootState) => state.auth);
+
+  // Calling apis
+  const { data: companiesData } = useListCompaniesQuery({});
+
+  // Filtering companies based on user id
+  const filterCompanies = companiesData?.data?.filter(
+    (element: { userId: string }) => {
+      return element.userId === user?._id;
+    }
+  );
+
   return (
     <main>
       {/* Company Search section */}
@@ -88,31 +31,46 @@ const RecruitorCompanies = () => {
       {/* Job Card section */}
       <section className="mt-5">
         <div className="grid grid-cols-12 gap-4 lg:gap-6">
-          {content.map((element, index) => {
-            return (
-              <div
-                className="flex flex-col justify-between px-4 py-6 rounded-md sm:items-center sm:flex-row col-span-full md:col-span-6 bg-light-blue"
-                key={index}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-[60px] h-[60px] rounded-md bg-dark-blue flex items-center justify-center text-[25px] text-white">
-                    {element.icon}
+          {filterCompanies?.map(
+            (
+              element: {
+                icon: string;
+                logo: string;
+                companyName: string;
+                bio: string;
+                allJobs: string;
+              },
+              index: number
+            ) => {
+              return (
+                <div
+                  className="flex flex-col justify-between px-4 py-6 rounded-md sm:items-center sm:flex-row col-span-full md:col-span-6 bg-light-blue"
+                  key={index}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-[60px] h-[60px] rounded-md bg-dark-blue flex items-center justify-center text-[25px] text-white">
+                      {element.icon}
+                      <img src={element.logo} className="w-[40px]" alt="" />
+                    </div>
+                    <div>
+                      <h4 className="text-base font-medium text-white font-poppin">
+                        {element.companyName}
+                      </h4>
+                      <p className="text-xs text-slate font-poppin">
+                        {element.bio.length > 50
+                          ? element.bio.slice(0, 50) + "..."
+                          : element.bio}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="text-base font-medium text-white font-poppin">
-                      {element.title}
-                    </h4>
-                    <p className="text-xs text-slate font-poppin">
-                      {element.content}
-                    </p>
-                  </div>
+                  <button className="px-[20px] py-[8px] text-xs font-poppin border border-green rounded-full transitions bg-transparent text-green hover:bg-green hover:text-white sm:mt-0 mt-4">
+                    {element.allJobs?.length < 1 ? 0 : element.allJobs?.length}{" "}
+                    Jobs Available
+                  </button>
                 </div>
-                <button className="px-[20px] py-[8px] text-xs font-poppin border border-green rounded-full transitions bg-transparent text-green hover:bg-green hover:text-white sm:mt-0 mt-4">
-                  {element.totalJobs} Jobs Available
-                </button>
-              </div>
-            );
-          })}
+              );
+            }
+          )}
         </div>
       </section>
 

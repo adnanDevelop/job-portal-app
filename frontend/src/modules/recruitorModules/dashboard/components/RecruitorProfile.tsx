@@ -69,18 +69,20 @@ const RecruitorProfile = () => {
             </div>
           </div>
         </div>
-        <div className="flex items-start justify-between hidden px-2 py-3 bg-red-500 rounded-md lg:block">
-          <div className="flex items-center gap-3">
-            <h3 className="w-[50px] h-[50px] bg-[#ffffff53] text-[22px] font-semibold text-white rounded-md flex items-center justify-center">
-              24
-            </h3>
-            <div>
-              <p className="text-base font-medium text-white font-poppin">
-                Android Developer
-              </p>
-              <p className="text-sm text-white font-poppin">
-                Islamabad, Pakistan
-              </p>
+        <div className="hidden lg:block">
+          <div className="flex items-start justify-between px-2 py-3 bg-red-500 rounded-md ">
+            <div className="flex items-center gap-3">
+              <h3 className="w-[50px] h-[50px] bg-[#ffffff53] text-[22px] font-semibold text-white rounded-md flex items-center justify-center">
+                24
+              </h3>
+              <div>
+                <p className="text-base font-medium text-white font-poppin">
+                  Android Developer
+                </p>
+                <p className="text-sm text-white font-poppin">
+                  Islamabad, Pakistan
+                </p>
+              </div>
             </div>
           </div>
         </div>
