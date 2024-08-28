@@ -1,6 +1,6 @@
 const Modal = ({ children, id }: { children: React.ReactNode; id: string }) => {
   return (
-    <dialog id={id} className={`modal `}>
+    <dialog id={id} className={`modal  `}>
       {children}
     </dialog>
   );
