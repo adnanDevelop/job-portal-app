@@ -6,7 +6,7 @@ const blogSchema = new mongoose.Schema(
     subTitle: { type: String, required: true },
     content: { type: String, required: true },
     image: { type: String, required: true },
-    createBy: {
+    createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,

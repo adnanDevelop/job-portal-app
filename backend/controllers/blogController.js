@@ -1,5 +1,6 @@
 import { Blog } from "../models/blogModal.js";
 import getDataUri from "../middleware/datauri.js";
+import cloudinary from "../middleware/cloudinary.js";
 import { errorHandler } from "../utils/errorHandler.js";
 import { responseHandler } from "../utils/responseHandler.js";
 
@@ -8,7 +9,6 @@ export const createBlog = async (req, res) => {
     const userId = req.id;
     const files = req.files;
     const { title, subTitle, content } = req.body;
-    console.log(files);
 
     if (!userId) {
       return errorHandler(res, 400, "User not found");
@@ -45,9 +45,10 @@ export const createBlog = async (req, res) => {
 export const updateBlog = async (req, res) => {
   try {
     let imgUrl;
-    const files = req.files;
     const { id } = req.params;
+    const files = req.files;
     const { title, subTitle, content } = req.body;
+    console.log(req.body);
 
     const findBlog = await Blog.findOne({ _id: id });
 
@@ -55,8 +56,8 @@ export const updateBlog = async (req, res) => {
       return errorHandler(res, 400, "Blog not found");
     }
 
-    if (files.image && files.image.length > 0) {
-      const imageUri = getDataUri(files.image[0]);
+    if (files?.image && files?.image?.length > 0) {
+      const imageUri = getDataUri(files?.image[0]);
       const cloudinaryResponse = await cloudinary.uploader.upload(
         imageUri.content
       );
@@ -119,8 +120,8 @@ export const getBlog = async (req, res) => {
       $and: [
         {
           $or: [
-            { title: { $regex: search, $options: "i" } },
-            { description: { $regex: search, $options: "i" } },
+            { title: { $regex: search || "", $options: "i" } },
+            { content: { $regex: search || "", $options: "i" } },
           ],
         },
         category ? { category: { $regex: category, $options: "i" } } : {},
