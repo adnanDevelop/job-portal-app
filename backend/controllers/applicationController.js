@@ -52,6 +52,59 @@ export const applyJob = async (req, res) => {
   }
 };
 
+// update status
+export const updateStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const applicationId = req.params.id;
+
+    // if application not found
+    if (!status) {
+      return errorHandler(res, 400, "Status is required");
+    }
+
+    // find application
+    const application = await Application.findOne({ _id: applicationId });
+
+    // if application not found
+    if (!application) {
+      return errorHandler(res, 400, "Application not found");
+    }
+
+    // update status
+    application.status = status.toLowerCase();
+    await application.save();
+
+    return responseHandler(res, 200, "Application updated successfully");
+  } catch (error) {
+    console.log("error while updating application status ", error.message);
+    return errorHandler(res, 400, error.message);
+  }
+};
+
+// Delete applications
+export const deleteApplication = async (req, res) => {
+  try {
+    const applicationId = req.params.id;
+
+    const findApplication = await Application.findOne({ _id: applicationId });
+    if (!findApplication) {
+      return errorHandler(res, 400, "Application not found");
+    }
+
+    // Delete Application
+    const application = await Application.deleteOne({ _id: applicationId });
+    if (application.deletedCount !== 1) {
+      return errorHandler(res, 400, "Application not deleted");
+    } else {
+      return responseHandler(res, 200, "Application deleted successfully");
+    }
+  } catch (error) {
+    console.log("error while deleting application ", error.message);
+    return errorHandler(res, 400, error.message);
+  }
+};
+
 // Get applied jobs
 export const getAppliedJobs = async (req, res) => {
   try {
@@ -82,10 +135,32 @@ export const getAppliedJobs = async (req, res) => {
   }
 };
 
+// Get applicant by Id
+export const getApplicantById = async (req, res) => {
+  try {
+    const applicationId = req.params.id;
+    const findApplication = await Application.findOne({
+      _id: applicationId,
+    }).populate({ path: "applicant" });
+    if (!findApplication) {
+      return errorHandler(res, 400, "Application not found");
+    }
+
+    return responseHandler(
+      res,
+      200,
+      "Data retreived successfully",
+      findApplication
+    );
+  } catch (error) {
+    console.log("error while getting application by id", error.message);
+    return errorHandler(res, 400, error.message);
+  }
+};
+
 // Get all applications
 export const getAllApplications = async (req, res) => {
   try {
-    const userId = req.id;
     const getData = await Application.find({})
       .populate({
         path: "job",
@@ -122,58 +197,6 @@ export const getApplicants = async (req, res) => {
     return responseHandler(res, 200, "Data retreived successfully", findJob);
   } catch (error) {
     console.log("error while getting application by id ", error.message);
-    return errorHandler(res, 400, error.message);
-  }
-};
-
-// update status
-export const updateStatus = async (req, res) => {
-  try {
-    const { status } = req.body;
-    const applicationId = req.params.id;
-
-    // if application not found
-    if (!status) {
-      return errorHandler(res, 400, "Status is required");
-    }
-
-    // find application
-    const application = await Application.findOne({ _id: applicationId });
-
-    // if application not found
-    if (!application) {
-      return errorHandler(res, 400, "Application not found");
-    }
-
-    // update status
-    application.status = status.toLowerCase();
-    await application.save();
-
-    return responseHandler(res, 200, "Application updated successfully");
-  } catch (error) {
-    console.log("error while updating application status ", error.message);
-    return errorHandler(res, 400, error.message);
-  }
-};
-
-export const deleteApplication = async (req, res) => {
-  try {
-    const applicationId = req.params.id;
-
-    const findApplication = await Application.findOne({ _id: applicationId });
-    if (!findApplication) {
-      return errorHandler(res, 400, "Application not found");
-    }
-
-    // Delete Application
-    const application = await Application.deleteOne({ _id: applicationId });
-    if (application.deletedCount !== 1) {
-      return errorHandler(res, 400, "Application not deleted");
-    } else {
-      return responseHandler(res, 200, "Application deleted successfully");
-    }
-  } catch (error) {
-    console.log("error while deleting application ", error.message);
     return errorHandler(res, 400, error.message);
   }
 };

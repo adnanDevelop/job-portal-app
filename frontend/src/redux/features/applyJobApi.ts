@@ -48,7 +48,7 @@ const applyJobApi = createApi({
     // Get all applications
     listApplicationById: builder.query({
       query: (payload) => ({
-        url: `/applicant/${payload.id}`,
+        url: `/get-applicant/${payload.id}`,
         method: "GET",
       }),
       providesTags: ["applications"],

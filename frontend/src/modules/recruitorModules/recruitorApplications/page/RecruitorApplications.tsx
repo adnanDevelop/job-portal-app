@@ -55,6 +55,22 @@ const RecruitorApplications = () => {
       <div className="grid grid-cols-12 gap-4">
         {filterNullApplicants?.map(
           (element: applicationType, index: number) => {
+            let badgeColor = "";
+
+            // Use a switch statement to set the badgeColor based on the application status
+            switch (element.status) {
+              case "accepted":
+                badgeColor = "bg-green text-white";
+                break;
+              case "rejected":
+                badgeColor = "bg-red-500 text-white";
+                break;
+              case "pending":
+                badgeColor = "bg-gray-700 text-slate";
+                break;
+              default:
+                badgeColor = "bg-gray-700 text-slate"; // Default color if status doesn't match any case
+            }
             return (
               <div
                 key={index}
@@ -113,7 +129,9 @@ const RecruitorApplications = () => {
                       </p>
                       <p className="flex flex-col text-xs text-red-500 font-jakarta">
                         <span>Status:</span>{" "}
-                        <span className="capitalize text-slate">
+                        <span
+                          className={`capitalize w-[90px] mt-1 mx-auto leading-none px-[10px] h-[25px] flex items-center justify-center rounded-full  ${badgeColor}`}
+                        >
                           {element?.status}
                         </span>
                       </p>
