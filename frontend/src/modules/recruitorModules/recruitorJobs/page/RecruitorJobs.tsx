@@ -139,7 +139,7 @@ const RecruitorJobs = () => {
                       <div>
                         <div className="w-[60px] h-[60px] rounded-md bg-dark-blue text-white text-[20px] flex items-center justify-center">
                           <img
-                            src={element.company.logo}
+                            src={element?.company?.logo}
                             className="w-[35px] rounded-full"
                             alt=""
                           />
@@ -150,14 +150,14 @@ const RecruitorJobs = () => {
                           {element.title}
                         </h4>
                         <p className="text-xs text-red-500 font-jakarta">
-                          {element.company.companyName}
+                          {element?.company?.companyName}
                         </p>
                         <div className="flex flex-col items-center justify-center gap-1 mt-2">
                           <p className="flex items-center gap-1 text-xs text-slate font-jakarta">
-                            <IoLocation /> {element.location}
+                            <IoLocation /> {element?.location}
                           </p>
                           <p className="flex items-center gap-1 text-xs text-slate font-jakarta">
-                            {element.salary} PKR
+                            {element?.salary} PKR
                           </p>
                         </div>
                       </div>

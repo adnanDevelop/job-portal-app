@@ -3,6 +3,7 @@ import { CiSettings } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa";
 import { FaRegCircleQuestion } from "react-icons/fa6";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const RecruitorProfile = () => {
   return (
@@ -46,10 +47,13 @@ const RecruitorProfile = () => {
         <p className="text-lg font-semibold leading-none text-slate font-jakarta">
           Job Posted
         </p>
-        <button className="primary-btn flex items-center justify-center gap-x-1 px-[20px] h-[35px]">
+        <Link
+          to="/recruiter/jobs"
+          className="primary-btn flex items-center justify-center gap-x-1 px-[20px] h-[35px]"
+        >
           {" "}
           <FaPlus /> Add
-        </button>
+        </Link>
       </div>
 
       {/* Jobs */}
