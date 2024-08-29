@@ -7,6 +7,7 @@ import DeleteApplicationModal from "../components/DeleteApplicationModal";
 import { useState } from "react";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { RiDeleteBinLine } from "react-icons/ri";
+import UpdateApplicationModal from "../components/UpdateApplicationModal";
 
 // types
 interface applicationType {
@@ -34,8 +35,6 @@ const RecruitorApplications = () => {
       (deleteModalElement as HTMLDialogElement).showModal();
     }
   };
-
-  console.log(filterNullApplicants, "filterNullApplicants");
 
   return (
     <div className={`${filterNullApplicants?.length <= 8 ? "h-[80vh]" : null}`}>
@@ -129,6 +128,7 @@ const RecruitorApplications = () => {
 
       {/* Modals */}
       <DeleteApplicationModal id={cardId} />
+      <UpdateApplicationModal id={updateCardId} />
     </div>
   );
 };

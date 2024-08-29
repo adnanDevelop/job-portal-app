@@ -11,7 +11,7 @@ const DeleteApplicationModal = ({ id }: { id: string }) => {
 
   const deleteJobFunction = async (id: string) => {
     try {
-      await deleteApplication(id)
+      await deleteApplication({ id })
         .unwrap()
         .then((response) => {
           toast.success(response.message);
@@ -37,10 +37,10 @@ const DeleteApplicationModal = ({ id }: { id: string }) => {
           <GoAlertFill className="text-[30px] text-red-500" />
         </div>
         <h3 className="text-lg font-bold text-center text-[30px] text-white mt-4">
-          Delete Job
+          Delete Application
         </h3>
         <p className="mt-3 leading-5 text-slate">
-          Are you sure, you want to delete this job?
+          Are you sure, you want to delete this Application?
         </p>
         <div className="flex items-center justify-center w-full modal-action">
           <button

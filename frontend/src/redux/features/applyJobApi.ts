@@ -18,7 +18,7 @@ const applyJobApi = createApi({
     }),
 
     // Update job status
-    updateJobStatus: builder.mutation({
+    updateApplicationStatus: builder.mutation({
       query: (payload) => ({
         url: `/update/${payload.id}`,
         method: "PUT",
@@ -46,7 +46,7 @@ const applyJobApi = createApi({
     }),
 
     // Get all applications
-    listApplicantData: builder.query({
+    listApplicationById: builder.query({
       query: (payload) => ({
         url: `/applicant/${payload.id}`,
         method: "GET",
@@ -69,10 +69,10 @@ const applyJobApi = createApi({
 export const {
   useApplyJobMutation,
   useListAllApplyJobsQuery,
-  useListApplicantDataQuery,
-  useUpdateJobStatusMutation,
+  useListApplicationByIdQuery,
   useDeleteApplicationMutation,
   useListAllApplicationDataQuery,
+  useUpdateApplicationStatusMutation,
 } = applyJobApi;
 
 export default applyJobApi;
