@@ -1,0 +1,193 @@
+import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+
+import { ICreateBlogProp } from "../type";
+import Modal from "../../../../components/ui/toast/Modal";
+
+// Redux
+
+// Apis
+import { useCreateBlogMutation } from "../../../../redux/features/blogApi";
+
+const CreateBlogModal = ({ id }: { id: string }) => {
+  const {
+    reset,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ICreateBlogProp>();
+
+  const [createBlog, loading] = useCreateBlogMutation();
+
+  const submitData = async (data: ICreateBlogProp) => {
+    try {
+      // Create a new FormData object
+      const formData = new FormData();
+
+      formData.append("title", data.title);
+      formData.append("subTitle", data.subTitle);
+      formData.append("content", data.content);
+
+      if (data.blogImage?.[0]) {
+        formData.append("blogImage", data.blogImage[0]);
+      }
+
+      // Send formData to the registerCompany function
+      await createBlog({ body: formData })
+        .unwrap()
+        .then((response) => {
+          toast.success(response.message);
+          reset();
+          const element = document.getElementById(id) as HTMLDialogElement;
+          if (element) {
+            element.close();
+          }
+        })
+        .catch((e) => {
+          console.log(e, "error while creating blog");
+          toast.error(e.data.message);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <Modal id={id}>
+      <div className="modal-box max-w-[600px] bg-light-blue">
+        <h3 className="font-jakarta text-white font-bold text-center text-[25px] text-heading-color ">
+          Create <span className="text-green">Blog</span>
+        </h3>
+
+        <form
+          className="grid w-full sm:grid-cols-2 grid-cols-1 gap-2.5 mt-4"
+          onSubmit={handleSubmit(submitData)}
+        >
+          {/* title input */}
+          <div className="mb-2">
+            <label className="text-xs text-white xl:text-sm font-poppin">
+              Title:
+            </label>
+            <input
+              type="text"
+              className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
+              placeholder="Company name"
+              {...register("title", {
+                required: "Company name is required",
+              })}
+            />
+            {errors.title && (
+              <p className="mt-1 text-xs text-red-500">
+                {errors.title.message}
+              </p>
+            )}
+          </div>
+
+          {/* SubTitle input */}
+          <div className="mb-2">
+            <label className="text-xs text-white xl:text-sm font-poppin">
+              SubTitle:
+            </label>
+            <input
+              type="text"
+              className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
+              placeholder="SubTitle.."
+              {...register("subTitle", {
+                required: "SubTitle is required",
+              })}
+            />
+            {errors.subTitle && (
+              <p className="mt-1 text-xs text-red-500">
+                {errors.subTitle.message}
+              </p>
+            )}
+          </div>
+
+          {/* Category input */}
+          <div className="mb-2">
+            <label className="text-xs text-white xl:text-sm font-poppin">
+              Category:
+            </label>
+            <select
+              className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
+              {...register("category", {
+                required: "Category is required",
+              })}
+            >
+              {[
+                "Graphic Design",
+                "Web Developer",
+                "App Developer",
+                "UI / UX Designer",
+                "Video Editor",
+                "Content Creator",
+                "Blockchain Developer",
+              ].map((element: string, index: number) => (
+                <option key={index} className="text-black" value={element}>
+                  {element}
+                </option>
+              ))}
+            </select>
+            {errors.category && (
+              <p className="mt-1 text-xs text-red-500">
+                {errors.category.message}
+              </p>
+            )}
+          </div>
+
+          {/* Content section */}
+          <div className="mb-2"></div>
+
+          {/* Image input */}
+          <div className="mb-2 col-span-full">
+            <label className="text-xs text-white xl:text-sm font-poppin">
+              Image:
+            </label>
+            <input
+              type="file"
+              className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
+              placeholder="Image"
+              {...register("blogImage", {
+                required: "Image is required",
+              })}
+            />
+            {errors.blogImage && (
+              <p className="mt-1 text-xs text-red-500">
+                {errors.blogImage.message}
+              </p>
+            )}
+          </div>
+
+          {/* Submit button */}
+          <div className="flex items-center justify-center w-full modal-action col-span-full">
+            <button
+              className="px-[30px] h-[40px] rounded-lg bg-gray-200 text-content-color font-medium transitions hover:scale-105 text-sm"
+              onClick={() => {
+                const element = document.getElementById(
+                  id
+                ) as HTMLDialogElement;
+                if (element) {
+                  element.close();
+                }
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-[30px] h-[40px] rounded-lg bg-green text-white font-medium transitions hover:scale-105 text-sm"
+            >
+              {loading.isLoading ? (
+                <span className="loading loading-dots loading-md"></span>
+              ) : (
+                "Register"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
+    </Modal>
+  );
+};
+
+export default CreateBlogModal;

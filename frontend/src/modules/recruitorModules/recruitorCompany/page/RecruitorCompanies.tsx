@@ -30,6 +30,7 @@ const RecruitorCompanies = () => {
     }
   );
 
+
   const deleteCompanyFun = (id: string) => {
     setCardId(id);
     const deleteModalElement = document.getElementById(id);
