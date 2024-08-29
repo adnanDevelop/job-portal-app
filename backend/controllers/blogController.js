@@ -14,7 +14,7 @@ export const createBlog = async (req, res) => {
       return errorHandler(res, 400, "User not found");
     }
 
-    if (!title || !subTitle || !content || !files?.image) {
+    if (!title || !subTitle || !content) {
       return errorHandler(res, 400, "All fields are required");
     }
 
