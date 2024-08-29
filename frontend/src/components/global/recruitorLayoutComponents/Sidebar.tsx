@@ -5,6 +5,7 @@ import { SlPaperPlane } from "react-icons/sl";
 import { MdOutlineDashboard } from "react-icons/md";
 import { FaRegBuilding, FaUser } from "react-icons/fa";
 import { PiFlagPennantBold, PiUsersThree } from "react-icons/pi";
+import { ImBlog } from "react-icons/im";
 
 interface IProps {
   isSidebarActive: boolean;
@@ -29,6 +30,11 @@ const links = [
     name: "Candidates",
     path: "/recruiter/candidates",
     icons: <PiUsersThree />,
+  },
+  {
+    name: "Blogs",
+    path: "/recruiter/blogs",
+    icons: <ImBlog />,
   },
 ];
 

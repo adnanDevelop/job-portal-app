@@ -1,13 +1,13 @@
 import { Router } from "express";
 import {
-  deleteUserAccount,
-  getAllUsers,
-  getUserById,
   login,
   logout,
   register,
+  getAllUsers,
+  getUserById,
   updateProfile,
   updateUserViews,
+  deleteUserAccount,
 } from "../controllers/userController.js";
 
 // Middlewares
@@ -24,9 +24,7 @@ router
   .route("/user/profile/update")
   .post(isAuthenticated, singleUpload, updateProfile);
 router.route("/user/all").get(isAuthenticated, getAllUsers);
-router
-  .route("/user/update-views/:id")
-  .post(isAuthenticated, updateUserViews);
+router.route("/user/update-views/:id").post(isAuthenticated, updateUserViews);
 router.route("/user/single-user/:id").get(isAuthenticated, getUserById);
 router.route("/user/delete/:id").delete(isAuthenticated, deleteUserAccount);
 

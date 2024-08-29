@@ -1,13 +1,13 @@
 import { Router } from "express";
 import {
-  deleteCompany,
   getCompany,
+  updateCompany,
+  deleteCompany,
   getCompanyById,
   registerCompany,
-  updateCompany,
 } from "../controllers/companyController.js";
-import isAuthenticated from "../middleware/isAuthenticated.js";
 import { singleUpload } from "../middleware/multer.js";
+import isAuthenticated from "../middleware/isAuthenticated.js";
 
 const router = Router();
 

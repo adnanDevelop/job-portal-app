@@ -1,12 +1,12 @@
 import { Router } from "express";
 import {
   applyJob,
-  deleteApplication,
-  getAllApplications,
-  getApplicantById,
+  updateStatus,
   getApplicants,
   getAppliedJobs,
-  updateStatus,
+  getApplicantById,
+  deleteApplication,
+  getAllApplications,
 } from "../controllers/applicationController.js";
 import isAuthenticated from "../middleware/isAuthenticated.js";
 

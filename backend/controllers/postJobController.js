@@ -1,5 +1,5 @@
-import { Company } from "../models/Company.js";
 import { Job } from "../models/jobModel.js";
+import { Company } from "../models/Company.js";
 
 // Handlers
 import { errorHandler } from "../utils/errorHandler.js";

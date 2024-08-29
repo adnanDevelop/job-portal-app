@@ -26,6 +26,7 @@ import CompanyProfile from "../modules/companyProfile/CompanyProfile";
 import CandidateProfile from "../modules/candidateProfile/CandidateProfile";
 
 // Recruitor Routes
+import RecruitorBlog from "../modules/recruitorModules/blogs/page/RecruitorBlog";
 import RecruitorLayout from "../components/layout/recruitorLayout/RecruitorLayout";
 import RecruitorJobs from "../modules/recruitorModules/recruitorJobs/page/RecruitorJobs";
 import RecruitorDashboard from "../modules/recruitorModules/dashboard/page/RecruitorDashboard";
@@ -72,12 +73,13 @@ export const Routes = () => {
           index: true,
           element: <Navigate to="/recruiter/dashboard" replace />,
         },
-        { path: "/recruiter/dashboard", element: <RecruitorDashboard /> },
         { path: "recruiter/jobs", element: <RecruitorJobs /> },
-        { path: "recruiter/applications", element: <RecruitorApplications /> },
+        { path: "recruiter/blogs", element: <RecruitorBlog /> },
         { path: "recruiter/profile", element: <RecruitorProfile /> },
         { path: "recruiter/companies", element: <RecruitorCompanies /> },
+        { path: "/recruiter/dashboard", element: <RecruitorDashboard /> },
         { path: "recruiter/candidates", element: <RecruitorCandidates /> },
+        { path: "recruiter/applications", element: <RecruitorApplications /> },
       ],
     },
     {

@@ -1,18 +1,18 @@
+import cors from "cors";
 import express from "express";
 const app = express();
 import dotenv from "dotenv";
 dotenv.config({});
-import cors from "cors";
-import cookieParser from "cookie-parser";
 import connectDb from "./db/db.js";
+import cookieParser from "cookie-parser";
 
 // All routes
 import userRoute from "./routes/userRoutes.js";
-import companyRoute from "./routes/companyRoutes.js";
-import jobRoute from "./routes/jobPostRoutes.js";
-import ApplicationRoute from "./routes/applicationRoutes.js";
 import BlogRoute from "./routes/blogRoutes.js";
 import GmailRoutes from "./routes/gmailRoute.js";
+import jobRoute from "./routes/jobPostRoutes.js";
+import companyRoute from "./routes/companyRoutes.js";
+import ApplicationRoute from "./routes/applicationRoutes.js";
 
 // Configure CORS
 const corsOptions = {
@@ -20,19 +20,19 @@ const corsOptions = {
   credentials: true,
 };
 
-// middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors(corsOptions));
+// Middlewares
 app.use(cookieParser());
+app.use(express.json());
+app.use(cors(corsOptions));
+app.use(express.urlencoded({ extended: true }));
 
-// All routes
+// All Routes
 app.use("/api/v1", userRoute);
-app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
-app.use("/api/v1/application", ApplicationRoute);
 app.use("/api/v1/blog", BlogRoute);
 app.use("/api/v1/gmail", GmailRoutes);
+app.use("/api/v1/company", companyRoute);
+app.use("/api/v1/application", ApplicationRoute);
 
 // Server running
 const PORT = process.env.PORT || 3000;
