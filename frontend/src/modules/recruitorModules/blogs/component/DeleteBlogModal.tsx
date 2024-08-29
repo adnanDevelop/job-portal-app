@@ -17,7 +17,7 @@ const DeleteBlogModal = ({ id }: { id: string }) => {
 
   const deleteBlogFunction = async (id: string) => {
     try {
-      await deleteBlog(id)
+      await deleteBlog({ id })
         .unwrap()
         .then(() => {
           toast.success("Company deleted successfully");

@@ -8,4 +8,5 @@ export const singleUpload = upload.fields([
   { name: "image", maxCount: 1 },
   { name: "resume", maxCount: 1 },
   { name: "profilePhoto", maxCount: 1 },
+  { name: "blogImage", maxCount: 1 },
 ]);

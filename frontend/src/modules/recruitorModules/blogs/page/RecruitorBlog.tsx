@@ -22,9 +22,11 @@ const RecruitorBlog = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const { data: blogData, isLoading } = useListBlogsQuery({});
 
-  const filterBlogs = blogData?.data?.filter((element: { userId: string }) => {
-    return element.userId === user?._id;
-  });
+  const filterBlogs = blogData?.data?.filter(
+    (element: { createdBy: { _id: string } }) => {
+      return element?.createdBy?._id === user?._id;
+    }
+  );
 
   console.log(filterBlogs);
 
@@ -36,15 +38,17 @@ const RecruitorBlog = () => {
     }
   };
 
+  // console.log(filterBlogs);
+
   return (
     <main className={` ${filterBlogs?.length <= 4 ? "h-[80vh]" : null}`}>
-      {/* Company Search section */}
+      {/* Blog Search section */}
       <section className="my-[40px] flex items-center justify-between w-full">
         {/* Search bar */}
         <div>
           <div>
             <label className="text-sm font-medium text-start text-white font-poppin mb-1.5 block">
-              Search Company
+              Search Blog
             </label>
             <div className="sm:w-[280px] w-full rounded-md border-color border h-[40px] relative">
               <input
@@ -58,19 +62,19 @@ const RecruitorBlog = () => {
             </div>
           </div>
         </div>
-        {/* Create company button */}
+        {/* Create Blog button */}
         <button
           className="primary-btn px-[20px]"
           onClick={() => {
             const element = document.getElementById(
-              "createCompany"
+              "createBlog"
             ) as HTMLDialogElement;
             if (element) {
               element.showModal();
             }
           }}
         >
-          Create Company
+          Create Blog
         </button>
       </section>
 
@@ -85,11 +89,10 @@ const RecruitorBlog = () => {
             {filterBlogs?.map(
               (
                 element: {
-                  icon: string;
-                  logo: string;
-                  companyName: string;
-                  bio: string;
-                  allJobs: string;
+                  blogImage: string;
+                  title: string;
+                  subTitle: string;
+                  content: string;
                   _id: string;
                 },
                 index: number
@@ -128,28 +131,23 @@ const RecruitorBlog = () => {
                       </button>
                     </div>
 
-                    <div className="flex items-center gap-3 mt-8">
-                      <div className="w-[60px] h-[60px] rounded-md bg-dark-blue flex items-center justify-center text-[25px] text-white">
-                        {element.icon}
-                        <img src={element.logo} className="w-[40px]" alt="" />
-                      </div>
+                    <div className="flex items-center gap-2.5">
+                      <img
+                        src={element.blogImage}
+                        className="w-[100px] h-[100px] object-cover rounded-md"
+                        alt=""
+                      />
                       <div>
-                        <h4 className="text-base font-medium text-white font-poppin">
-                          {element.companyName}
-                        </h4>
-                        <p className="text-xs text-slate font-poppin">
-                          {element.bio.length > 50
-                            ? element.bio.slice(0, 50) + "..."
-                            : element.bio}
+                        <h3 className="text-base font-medium text-white font-poppin">
+                          {element?.title.length > 50
+                            ? element?.title.slice(0, 50) + "..."
+                            : element?.title}
+                        </h3>
+                        <p className="text-sm text-slate font-jakarta">
+                          {element?.subTitle}
                         </p>
                       </div>
                     </div>
-                    <button className="px-[20px] py-[8px] text-xs font-poppin border border-green rounded-full transitions bg-transparent text-green hover:bg-green hover:text-white sm:mt-0 mt-4">
-                      {element.allJobs?.length < 1
-                        ? 0
-                        : element.allJobs?.length}{" "}
-                      Jobs Available
-                    </button>
                   </div>
                 );
               }
@@ -158,32 +156,34 @@ const RecruitorBlog = () => {
         </section>
       )}
       {/* Pagniation */}
-      <div className="flex items-center justify-center mt-10 col-span-full">
-        <div className="flex items-center justify-center">
-          <button className="w-[40px] h-[40px] flex items-center justify-center rounded-tl-full rounded-bl-full border border-color text-sm text-slate  transitions hover:bg-green hover:border-green hover:text-white focus:bg-green focus:text-white focus:border-green">
-            <FaChevronLeft />
-          </button>
-          {[1, 2, 3, 4, 5].map((element: number, index: number) => {
-            return (
-              <button
-                key={index}
-                className="w-[40px] h-[40px] flex items-center justify-center  border border-color text-sm text-slate transitions hover:bg-green hover:border-green hover:text-white focus:bg-green focus:text-white focus:border-green"
-              >
-                {element}
-              </button>
-            );
-          })}
-          <button className="w-[40px] h-[40px] flex items-center justify-center rounded-tr-full rounded-br-full border border-color text-sm text-slate transitions hover:bg-green hover:border-green hover:text-white focus:bg-green focus:text-white focus:border-green">
-            {" "}
-            <FaChevronRight />
-          </button>
+      {blogData?.data.length > 9 && (
+        <div className="flex items-center justify-center mt-10 col-span-full">
+          <div className="flex items-center justify-center">
+            <button className="w-[40px] h-[40px] flex items-center justify-center rounded-tl-full rounded-bl-full border border-color text-sm text-slate  transitions hover:bg-green hover:border-green hover:text-white focus:bg-green focus:text-white focus:border-green">
+              <FaChevronLeft />
+            </button>
+            {[1, 2, 3, 4, 5].map((element: number, index: number) => {
+              return (
+                <button
+                  key={index}
+                  className="w-[40px] h-[40px] flex items-center justify-center  border border-color text-sm text-slate transitions hover:bg-green hover:border-green hover:text-white focus:bg-green focus:text-white focus:border-green"
+                >
+                  {element}
+                </button>
+              );
+            })}
+            <button className="w-[40px] h-[40px] flex items-center justify-center rounded-tr-full rounded-br-full border border-color text-sm text-slate transitions hover:bg-green hover:border-green hover:text-white focus:bg-green focus:text-white focus:border-green">
+              {" "}
+              <FaChevronRight />
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Modals */}
       <DeleteBlogModal id={cardId} />
       <UpdateJobModal id={updateCardId} />
-      <CreateBlogModal id="createCompany" />
+      <CreateBlogModal id="createBlog" />
     </main>
   );
 };

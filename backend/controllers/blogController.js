@@ -8,19 +8,19 @@ export const createBlog = async (req, res) => {
   try {
     const userId = req.id;
     const files = req.files;
-    const { title, subTitle, content } = req.body;
+    const { title, subTitle, content, category } = req.body;
 
     if (!userId) {
       return errorHandler(res, 400, "User not found");
     }
 
-    if (!title || !subTitle || !content) {
+    if (!title || !subTitle || !content || !category) {
       return errorHandler(res, 400, "All fields are required");
     }
 
     let imgUrl;
-    if (files?.image && files?.image.length > 0) {
-      const imageUri = getDataUri(files?.image[0]);
+    if (files?.blogImage && files?.blogImage.length > 0) {
+      const imageUri = getDataUri(files?.blogImage[0]);
       const cloudinaryResponse = await cloudinary.uploader.upload(
         imageUri.content
       );
@@ -31,7 +31,8 @@ export const createBlog = async (req, res) => {
       title,
       subTitle,
       content,
-      image: imgUrl,
+      category,
+      blogImage: imgUrl,
       createdBy: userId,
     });
 
@@ -46,7 +47,7 @@ export const updateBlog = async (req, res) => {
   try {
     const { id } = req.params;
     const files = req.files;
-    const { title, subTitle, content } = req.body;
+    const { title, subTitle, content, category } = req.body;
     let imgUrl;
 
     // Find the blog to be updated
@@ -57,8 +58,8 @@ export const updateBlog = async (req, res) => {
     }
 
     // Check if new image is provided
-    if (files?.image && files?.image.length > 0) {
-      const imageUri = getDataUri(files.image[0]);
+    if (files?.blogImage && files?.blogImage.length > 0) {
+      const imageUri = getDataUri(files.blogImage[0]);
       const cloudinaryResponse = await cloudinary.uploader.upload(
         imageUri.content
       );
@@ -69,7 +70,7 @@ export const updateBlog = async (req, res) => {
     }
 
     // Validate required fields
-    if (!title || !subTitle || !content) {
+    if (!title || !subTitle || !content || !category) {
       return errorHandler(res, 400, "All fields are required");
     }
 
@@ -77,8 +78,9 @@ export const updateBlog = async (req, res) => {
     const updateData = {
       title,
       subTitle,
+      category,
       content,
-      image: imgUrl,
+      blogImage: imgUrl,
     };
 
     // Update blog

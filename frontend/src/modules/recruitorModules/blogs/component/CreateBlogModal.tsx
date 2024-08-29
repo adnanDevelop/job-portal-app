@@ -1,5 +1,8 @@
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+// Text Editor
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 import { ICreateBlogProp } from "../type";
 import Modal from "../../../../components/ui/toast/Modal";
@@ -8,8 +11,10 @@ import Modal from "../../../../components/ui/toast/Modal";
 
 // Apis
 import { useCreateBlogMutation } from "../../../../redux/features/blogApi";
+import { useState } from "react";
 
 const CreateBlogModal = ({ id }: { id: string }) => {
+  const [contentValue, setContentValue] = useState("");
   const {
     reset,
     register,
@@ -26,7 +31,8 @@ const CreateBlogModal = ({ id }: { id: string }) => {
 
       formData.append("title", data.title);
       formData.append("subTitle", data.subTitle);
-      formData.append("content", data.content);
+      formData.append("content", contentValue);
+      formData.append("category", data.category);
 
       if (data.blogImage?.[0]) {
         formData.append("blogImage", data.blogImage[0]);
@@ -71,7 +77,7 @@ const CreateBlogModal = ({ id }: { id: string }) => {
             <input
               type="text"
               className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
-              placeholder="Company name"
+              placeholder="Title"
               {...register("title", {
                 required: "Company name is required",
               })}
@@ -134,17 +140,17 @@ const CreateBlogModal = ({ id }: { id: string }) => {
               </p>
             )}
           </div>
-
-          {/* Content section */}
-          <div className="mb-2"></div>
-
           {/* Image input */}
-          <div className="mb-2 col-span-full">
-            <label className="text-xs text-white xl:text-sm font-poppin">
+          <div className="mb-2 ">
+            <label
+              htmlFor="blogImage"
+              className="text-xs text-white xl:text-sm font-poppin"
+            >
               Image:
             </label>
             <input
               type="file"
+              id="blogImage"
               className="mt-1 w-full h-[40px] placeholder:text-slate text-slate rounded-md px-2 border text-xs focus:outline-none border-[#94a3b857] bg-transparent focus:border-green"
               placeholder="Image"
               {...register("blogImage", {
@@ -156,6 +162,16 @@ const CreateBlogModal = ({ id }: { id: string }) => {
                 {errors.blogImage.message}
               </p>
             )}
+          </div>
+
+          {/* Content section */}
+          <div className="mb-10 col-span-full">
+            <ReactQuill
+              theme="snow"
+              value={contentValue}
+              onChange={setContentValue}
+              className="h-[200px] text-white "
+            />
           </div>
 
           {/* Submit button */}
@@ -176,11 +192,12 @@ const CreateBlogModal = ({ id }: { id: string }) => {
             <button
               type="submit"
               className="px-[30px] h-[40px] rounded-lg bg-green text-white font-medium transitions hover:scale-105 text-sm"
+              disabled={loading.isLoading}
             >
               {loading.isLoading ? (
                 <span className="loading loading-dots loading-md"></span>
               ) : (
-                "Register"
+                "Create"
               )}
             </button>
           </div>
