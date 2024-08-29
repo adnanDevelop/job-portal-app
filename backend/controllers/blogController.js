@@ -44,38 +44,45 @@ export const createBlog = async (req, res) => {
 
 export const updateBlog = async (req, res) => {
   try {
-    let imgUrl;
     const { id } = req.params;
     const files = req.files;
     const { title, subTitle, content } = req.body;
-    console.log(req.body);
+    let imgUrl;
 
+    // Find the blog to be updated
     const findBlog = await Blog.findOne({ _id: id });
 
     if (!findBlog) {
       return errorHandler(res, 400, "Blog not found");
     }
 
-    if (files?.image && files?.image?.length > 0) {
-      const imageUri = getDataUri(files?.image[0]);
+    // Check if new image is provided
+    if (files?.image && files?.image.length > 0) {
+      const imageUri = getDataUri(files.image[0]);
       const cloudinaryResponse = await cloudinary.uploader.upload(
         imageUri.content
       );
       imgUrl = cloudinaryResponse.secure_url;
+    } else {
+      // Keep the existing image URL if no new image is provided
+      imgUrl = findBlog.image;
     }
 
+    // Validate required fields
     if (!title || !subTitle || !content) {
       return errorHandler(res, 400, "All fields are required");
     }
 
+    // Prepare data for update
     const updateData = {
       title,
-      content,
       subTitle,
+      content,
       image: imgUrl,
     };
 
-    const updateBlog = findByIdAndUpdate({ _id: id }, updateData, {
+    // Update blog
+    const updateBlog = await Blog.findByIdAndUpdate(id, updateData, {
       new: true,
     });
 

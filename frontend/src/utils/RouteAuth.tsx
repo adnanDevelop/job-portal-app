@@ -20,7 +20,6 @@ export const ProtectedRoute = ({ children }: React.PropsWithChildren) => {
 };
 
 // Public routes
-
 export const PublicRoute = ({ children }: React.PropsWithChildren) => {
   const { user, isAuthenticated } = useSelector(
     (state: RootState) => state.auth
