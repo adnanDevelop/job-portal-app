@@ -15,7 +15,6 @@ import { useListAllApplyJobsQuery } from "../../../../redux/features/applyJobApi
 const ViewsStats = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const { data: applicationData } = useListAllApplyJobsQuery({});
-  console.log(user?._id);
 
   const acceptecApplications = applicationData?.data?.filter(
     (element: { status: string }) => element.status === "accepted"

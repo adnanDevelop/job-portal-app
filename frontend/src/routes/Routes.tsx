@@ -44,67 +44,20 @@ export const Routes = () => {
         </ProtectedRoute>
       ),
       children: [
-        {
-          path: "/",
-          index: true,
-          element: <Home />,
-        },
-        {
-          path: "about",
-          element: <About />,
-        },
-        {
-          path: "/jobs",
-          element: <JobList />,
-        },
-        {
-          path: "/job-details/:id",
-          element: <JobDetail />,
-        },
-        {
-          path: "service",
-          element: <Service />,
-        },
-        {
-          path: "candidates",
-          element: <Candidate />,
-        },
-        {
-          path: "candidates/profile/:id",
-          element: <CandidateProfile />,
-        },
-        {
-          path: "companies",
-          element: <Companies />,
-        },
-        {
-          path: "company-profile/:id",
-          element: <CompanyProfile />,
-        },
-        {
-          path: "career",
-          element: <Career />,
-        },
-        {
-          path: "blog",
-          element: <Blog />,
-        },
-        {
-          path: "about",
-          element: <About />,
-        },
-        {
-          path: "user-profile",
-          element: <UserProfile />,
-        },
-        {
-          path: "user-setting",
-          element: <UserSetting />,
-        },
-        {
-          path: "contact",
-          element: <Contact />,
-        },
+        { path: "/", index: true, element: <Home /> },
+        { path: "about", element: <About /> },
+        { path: "jobs", element: <JobList /> },
+        { path: "job-details/:id", element: <JobDetail /> },
+        { path: "service", element: <Service /> },
+        { path: "candidates", element: <Candidate /> },
+        { path: "candidates/profile/:id", element: <CandidateProfile /> },
+        { path: "companies", element: <Companies /> },
+        { path: "company-profile/:id", element: <CompanyProfile /> },
+        { path: "career", element: <Career /> },
+        { path: "blog", element: <Blog /> },
+        { path: "user-profile", element: <UserProfile /> },
+        { path: "user-setting", element: <UserSetting /> },
+        { path: "contact", element: <Contact /> },
       ],
     },
     {
@@ -115,8 +68,11 @@ export const Routes = () => {
         </AdminRoute>
       ),
       children: [
-        { index: true, element: <Navigate to="recruiter/dashboard" replace /> }, // Index route simplified
-        { path: "recruiter/dashboard", element: <RecruitorDashboard /> },
+        {
+          index: true,
+          element: <Navigate to="/recruiter/dashboard" replace />,
+        },
+        { path: "/recruiter/dashboard", element: <RecruitorDashboard /> },
         { path: "recruiter/jobs", element: <RecruitorJobs /> },
         { path: "recruiter/applications", element: <RecruitorApplications /> },
         { path: "recruiter/profile", element: <RecruitorProfile /> },
@@ -131,19 +87,10 @@ export const Routes = () => {
         </PublicRoute>
       ),
       children: [
-        {
-          path: "login",
-          element: <Login />,
-        },
-        {
-          path: "register",
-          element: <Register />,
-        },
+        { path: "login", element: <Login /> },
+        { path: "register", element: <Register /> },
       ],
     },
-    {
-      path: "*",
-      element: <NotFound />,
-    },
+    { path: "*", element: <NotFound /> },
   ]);
 };

@@ -89,9 +89,9 @@ export const login = async (req, res, next) => {
     }
 
     // generate token
-    const generateToken = await jwt.sign(
+    const generateToken = jwt.sign(
       {
-        userId: isUserExist._id.toString(),
+        userId: isUserExist._id,
       },
       process.env.SECRET_KEY,
       { expiresIn: "1d" }
@@ -106,7 +106,7 @@ export const login = async (req, res, next) => {
         sameSite: "strict",
       })
       .json({
-        message: `Welcome back ${isUserExist.fullName}`,
+        message: `Welcome back ${isUserExist?.fullName}`,
         data: isUserExist,
         status_code: 200,
       });
