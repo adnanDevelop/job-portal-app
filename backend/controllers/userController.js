@@ -298,7 +298,7 @@ export const updateUserViews = async (req, res) => {
 
     const user = await User.findByIdAndUpdate(id, { $inc: { totalViews: 1 } });
 
-    return responseHandler(res, 200, "Data updated successfully", user);
+    return responseHandler(res, 200, "User views updated successfully", user);
   } catch (error) {
     console.log("error while updating user views", error.message);
     return errorHandler(res, 400, error.message);

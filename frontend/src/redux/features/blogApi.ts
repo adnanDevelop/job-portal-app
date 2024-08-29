@@ -28,6 +28,15 @@ const blogApi = createApi({
       invalidatesTags: ["blogApi"],
     }),
 
+    updateBlogViews: builder.mutation({
+      query: (payload) => ({
+        url: `/update-blog-views/${payload.id}`,
+        method: "PATCH",
+        body: payload.body,
+      }),
+      invalidatesTags: ["blogApi"],
+    }),
+
     // Delete blog endpoint
     deleteBlog: builder.mutation({
       query: (payload) => ({

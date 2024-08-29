@@ -114,6 +114,34 @@ export const deleteBlog = async (req, res) => {
   }
 };
 
+export const updateBlogViews = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const findBlog = await Blog.findOne({ _id: id });
+    if (!findBlog) {
+      return errorHandler(res, 400, "Blog not found");
+    }
+
+    // Update blogs views
+    const updateBlog = await Blog.findByIdAndUpdate(
+      id,
+      {
+        $inc: { totalViews: 1 },
+      },
+      { new: true }
+    );
+    return responseHandler(
+      res,
+      200,
+      "Blog views updated successfully",
+      updateBlog
+    );
+  } catch (error) {
+    console.log("Error while updating blog views:", error.message);
+    return errorHandler(res, 400, error.message);
+  }
+};
+
 export const getBlog = async (req, res) => {
   try {
     const { search, category, page = 1, limit = 12 } = req.query;
