@@ -10,7 +10,6 @@ import { logout } from "../../../../redux/slices/authSlice";
 
 // Apis
 import { useUpdateUserMutation } from "../../../../redux/features/userApi";
-import { useGetUserByIdQuery } from "../../../../redux/features/userApi";
 
 const RecruitorProfile = () => {
   const dispatch = useDispatch();
@@ -23,7 +22,8 @@ const RecruitorProfile = () => {
   // Calling Apis
   const [updateUser] = useUpdateUserMutation();
   const { user } = useSelector((state: RootState) => state.auth);
-  const { data: userData } = useGetUserByIdQuery({ id: user?._id });
+
+  console.log(user);
 
   // Update profile function
   const updateProfileData = async (data: IUpdateUserProps) => {
@@ -73,13 +73,13 @@ const RecruitorProfile = () => {
         <div className="px-4 py-10 rounded-md col-span-full lg:col-span-4 xl:col-span-3 bg-light-blue">
           <div className="flex flex-col items-center justify-center">
             <img
-              src={userData?.data?.profile?.profilePhoto || "/image/avator.jpg"}
+              src={user?.profile?.profilePhoto || "/image/avator.jpg"}
               // src="/image/avator.jpg"
               className="sm:w-[130px] w-[100px] rounded-full border-2 border-green"
               alt=""
             />
             <h3 className="mt-3 text-xl font-medium leading-none text-white capitalize font-poppin">
-              {userData?.data?.fullName}
+              {user?.fullName}
             </h3>
             <p className="text-sm text-slate font-jakarta">Recruitor</p>
           </div>
@@ -113,7 +113,7 @@ const RecruitorProfile = () => {
               <input
                 type="text"
                 className="w-full capitalize border border-gray-700 rounded-md h-[40px] bg-transparent focus:outline-none focus:border-green placeholder:text-xs flex items-center px-2 text-xs text-slate"
-                placeholder={userData?.data?.fullName}
+                placeholder={user?.fullName}
                 {...register("fullName", { required: "Name is required" })}
               />
               {errors.fullName && (
@@ -129,7 +129,7 @@ const RecruitorProfile = () => {
               <input
                 type="text"
                 className="w-full border border-gray-700 rounded-md h-[40px] bg-transparent focus:outline-none focus:border-green placeholder:text-xs flex items-center px-2 text-xs text-slate"
-                placeholder={userData?.data?.email}
+                placeholder={user?.email}
                 {...register("email", { required: "Email is required" })}
               />
             </div>
@@ -140,7 +140,7 @@ const RecruitorProfile = () => {
               <input
                 type="tel"
                 className="w-full border border-gray-700 rounded-md h-[40px] bg-transparent focus:outline-none focus:border-green placeholder:text-xs flex items-center px-2 text-xs text-slate"
-                placeholder={userData?.data?.phoneNumber}
+                placeholder={user?.phoneNumber}
                 {...register("phoneNumber", { required: "Name is required" })}
               />
               {errors.phoneNumber && (
@@ -156,7 +156,7 @@ const RecruitorProfile = () => {
               <input
                 type="text"
                 className="w-full border border-gray-700 rounded-md h-[40px] bg-transparent focus:outline-none focus:border-green placeholder:text-xs flex items-center px-2 text-xs text-slate"
-                placeholder={userData?.data?.profile?.address}
+                placeholder={user?.profile?.address}
                 {...register("address", { required: "Name is required" })}
               />
               {errors.address && (
@@ -172,7 +172,7 @@ const RecruitorProfile = () => {
               <input
                 type="text"
                 className="w-full border border-gray-700 rounded-md h-[40px] bg-transparent focus:outline-none focus:border-green placeholder:text-xs flex items-center px-2 text-xs text-slate"
-                placeholder={userData?.data?.profile?.country}
+                placeholder={user?.profile?.country}
                 {...register("country", { required: "Country is required" })}
               />
               {errors.country && (
@@ -188,7 +188,7 @@ const RecruitorProfile = () => {
               <input
                 type="text"
                 className="w-full border border-gray-700 rounded-md h-[40px] bg-transparent focus:outline-none focus:border-green placeholder:text-xs flex items-center px-2 text-xs text-slate"
-                placeholder={userData?.data?.profile?.city}
+                placeholder={user?.profile?.city}
                 {...register("city", { required: "Name is required" })}
               />
               {errors.city && (

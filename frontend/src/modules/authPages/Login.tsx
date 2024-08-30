@@ -11,6 +11,7 @@ import { userApiEndPoint } from "../../utils/apiEndPoints";
 // Redux
 import { RootState } from "../../redux/store";
 import { login } from "../../redux/slices/authSlice";
+// import { useLoginUserMutation } from "../../redux/features/authApi";
 
 const Login = () => {
   // const navigate = useNavigate();
@@ -22,10 +23,23 @@ const Login = () => {
     formState: { errors },
   } = useForm<ILoginUser>();
 
+  // const [lognUser] = useLoginUserMutation();
+
   // Submit data
   const submitData = async (data: ILoginUser) => {
     try {
       dispatch(setLoading(true));
+
+      // lognUser({ body: data })
+      //   .unwrap()
+      //   .then((response) => {
+      //     dispatch(login(response.data));
+      //     toast.success(response.message);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //     toast.error(error.data.message);
+      //   });
 
       const response = await fetch(`${userApiEndPoint}/login`, {
         method: "POST",

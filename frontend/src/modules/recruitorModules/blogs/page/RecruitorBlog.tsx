@@ -1,4 +1,7 @@
 import { useState } from "react";
+import CreateBlogModal from "../component/CreateBlogModal";
+import DeleteBlogModal from "../component/DeleteBlogModal";
+import UpdateBlogModal from "../component/UpdateBlogModal";
 
 // Redux
 import { useSelector } from "react-redux";
@@ -10,9 +13,6 @@ import { IoIosSearch } from "react-icons/io";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import CreateBlogModal from "../component/CreateBlogModal";
-import UpdateJobModal from "../../recruitorJobs/component/UpdateJobModal";
-import DeleteBlogModal from "../component/DeleteBlogModal";
 
 const RecruitorBlog = () => {
   const [cardId, setCardId] = useState<string>("");
@@ -182,8 +182,8 @@ const RecruitorBlog = () => {
 
       {/* Modals */}
       <DeleteBlogModal id={cardId} />
-      <UpdateJobModal id={updateCardId} />
       <CreateBlogModal id="createBlog" />
+      <UpdateBlogModal id={updateCardId} />
     </main>
   );
 };
