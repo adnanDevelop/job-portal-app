@@ -7,7 +7,7 @@ import {
   updateJob,
   getJobById,
   getJobByAdmin,
-} from "../controllers/postJobController.js";
+} from "../controllers/jobController.js";
 
 const router = Router();
 

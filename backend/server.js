@@ -7,10 +7,10 @@ import connectDb from "./db/db.js";
 import cookieParser from "cookie-parser";
 
 // All routes
+import jobRoute from "./routes/jobtRoutes.js";
 import userRoute from "./routes/userRoutes.js";
 import BlogRoute from "./routes/blogRoutes.js";
 import GmailRoutes from "./routes/gmailRoute.js";
-import jobRoute from "./routes/jobPostRoutes.js";
 import companyRoute from "./routes/companyRoutes.js";
 import ApplicationRoute from "./routes/applicationRoutes.js";
 

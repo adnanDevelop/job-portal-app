@@ -31,6 +31,8 @@ const ProfileInfo = () => {
 
   const { data: applicationData } = useListAllApplyJobsQuery({});
 
+  console.log(applicationData?.data, "applicationData");
+
   return (
     <div>
       {/* Info section */}
@@ -122,72 +124,80 @@ const ProfileInfo = () => {
         <h2 className="mb-4 text-lg font-semibold text-white capitalize font-jakarta">
           Applied Jobs:
         </h2>
-        <table className="table">
-          {/* head */}
-          <thead>
-            <tr className="border-b-slate">
-              <th className="text-base font-semibold text-white font-jakarta">
-                Date
-              </th>
-              <th className="text-base font-semibold text-white font-jakarta">
-                Job Role
-              </th>
-              <th className="text-base font-semibold text-white font-jakarta">
-                Company
-              </th>
-              <th className="text-base font-semibold text-white font-jakarta">
-                Status
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {applicationData?.data?.map(
-              (
-                element: {
-                  job: { title: string; company: { companyName: string } };
-                  status: string;
-                  createdAt: string;
-                },
-                index: string
-              ) => {
-                if (element?.job === null) return null;
-                let badgeColor = "";
-                switch (element?.status) {
-                  case "pending":
-                    badgeColor = "bg-slate text-gray-800";
-                    break;
-                  case "accepted":
-                    badgeColor = "bg-green text-white";
-                    break;
-                  case "rejected":
-                    badgeColor = "bg-red-500 text-white";
-                    break;
-                }
+        {applicationData?.data.length < 1 ? (
+          <p className="text-white">You have not applied for any jobs yet.</p>
+        ) : (
+          <table className="table">
+            {/* head */}
+            <thead>
+              <tr className="border-b-slate">
+                <th className="text-base font-semibold text-white font-jakarta">
+                  Date
+                </th>
+                <th className="text-base font-semibold text-white font-jakarta">
+                  Job Role
+                </th>
+                <th className="text-base font-semibold text-white font-jakarta">
+                  Company
+                </th>
+                <th className="text-base font-semibold text-white font-jakarta">
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {applicationData?.data?.map(
+                (
+                  element: {
+                    job: { title: string; company: { companyName: string } };
+                    status: string;
+                    createdAt: string;
+                  },
+                  index: number
+                ) => {
+                  if (!element?.job) return null; // Check if job is null or undefined
 
-                return (
-                  <tr key={index} className="border-b-slate">
-                    <th className="text-sm font-light text-slate">
-                      {format(new Date(element?.createdAt), "dd-M-yyyy")}
-                    </th>
-                    <td className="text-sm font-light text-slate">
-                      {element?.job?.title}
-                    </td>
-                    <td className="text-sm font-light text-slate">
-                      {element?.job?.company?.companyName}
-                    </td>
-                    <td>
-                      <p
-                        className={`text-xs capitalize  rounded-full w-[90px] h-[30px] flex items-center justify-center font-medium ${badgeColor}`}
-                      >
-                        {element?.status}
-                      </p>
-                    </td>
-                  </tr>
-                );
-              }
-            )}
-          </tbody>
-        </table>
+                  let badgeColor = "";
+                  switch (element.status) {
+                    case "pending":
+                      badgeColor = "bg-slate text-gray-800";
+                      break;
+                    case "accepted":
+                      badgeColor = "bg-green text-white";
+                      break;
+                    case "rejected":
+                      badgeColor = "bg-red-500 text-white";
+                      break;
+                    default:
+                      badgeColor = "bg-gray-500 text-white"; // Fallback color
+                      break;
+                  }
+
+                  return (
+                    <tr key={index} className="border-b-slate">
+                      <th className="text-sm font-light text-slate">
+                        {format(new Date(element.createdAt), "dd-M-yyyy")}
+                      </th>
+                      <td className="text-sm font-light text-slate">
+                        {element.job.title}
+                      </td>
+                      <td className="text-sm font-light text-slate">
+                        {element.job.company?.companyName || "N/A"}
+                      </td>
+                      <td>
+                        <p
+                          className={`text-xs capitalize rounded-full w-[90px] h-[30px] flex items-center justify-center font-medium ${badgeColor}`}
+                        >
+                          {element.status}
+                        </p>
+                      </td>
+                    </tr>
+                  );
+                }
+              )}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );
