@@ -14,8 +14,6 @@ const BlogCard = ({
   createdAt: string;
   createdBy: { fullName: string };
 }) => {
-  console.log(data);
-
   return (
     <div className="overflow-hidden border border-gray-700 rounded-lg shadow-sm cursor-pointer shadow-gray-700">
       {/* Image section */}
@@ -44,13 +42,16 @@ const BlogCard = ({
           </p>
         </div>
         <h3 className="my-4 text-base font-medium leading-5 text-white font-poppin transitions hover:text-green">
-          {data.title}
+          {data?.title?.length > 28
+            ? `${data?.title?.slice(0, 28)}...`
+            : data?.title}
         </h3>
 
         <div className="flex items-center justify-between ">
           <Link
             to={`/blog-detail/${data?._id}`}
             className="relative text-sm font-medium text-white font-jakarta transitions before:absolute before:content-[''] before:w-0 before:h-[1px] before:bg-green before:bottom-0 before:left-0 hover:text-green hover:before:w-full before:transitions"
+            onClick={() => window.scrollTo(0, 0)}
           >
             Read More
           </Link>

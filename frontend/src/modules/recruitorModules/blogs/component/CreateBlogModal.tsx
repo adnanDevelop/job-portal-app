@@ -171,6 +171,18 @@ const CreateBlogModal = ({ id }: { id: string }) => {
               value={contentValue}
               onChange={setContentValue}
               className="h-[200px] text-white "
+              modules={{
+                toolbar: [
+                  [{ font: [] }],
+                  [{ size: [] }],
+                  ["bold", "italic", "underline"],
+                  [{ color: [] }, { background: [] }],
+                  [{ align: [] }],
+                  // ["link", "image"],
+                  ["link"],
+                  ["clean"],
+                ],
+              }}
             />
           </div>
 
