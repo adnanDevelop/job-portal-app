@@ -1,51 +1,22 @@
 import BlogCard from "../../blog/component/BlogCard";
 import SectionHeader from "../../../components/global/SectionHeader";
 
+// Apis
+import { useListBlogsQuery } from "../../../redux/features/blogApi";
+
 // Interface
-interface IblogProps {
-  image: string;
-  badge: string;
-  title: string;
-  date: string;
-  time: string;
-  company: string;
+interface DataProps {
+  data: {
+    blogImage: string;
+    category: string;
+    title: string;
+    createdAt: string;
+    createdBy: { fullName: string };
+  };
 }
 
 const BlogSection = () => {
-  const blogContent: IblogProps[] = [
-    {
-      image: "/image/blog/img-1.jpg",
-      badge: "Arts",
-      title: "11 Tips to Help You Get New Clients Through Cold Calling",
-      date: "20th February, 2023",
-      time: "5 min read",
-      company: "Xeven Solution",
-    },
-    {
-      image: "/image/blog/img-2.jpg",
-      badge: "Illustration",
-      title: "DigitalOcean launches first Canadian data centre in Toronto",
-      date: "20th February, 2023",
-      time: "5 min read",
-      company: "Programmer Force",
-    },
-    {
-      image: "/image/blog/img-3.jpg",
-      badge: "Design",
-      title: "Using Banner Stands To Increase Trade Show Traffic",
-      date: "20th February, 2023",
-      time: "5 min read",
-      company: "System Limited",
-    },
-    {
-      image: "/image/blog/img-4.jpg",
-      badge: "Arts",
-      title: "11 Tips to Help You Get New Clients Through Cold Calling",
-      date: "20th February, 2023",
-      time: "5 min read",
-      company: "Xeven Solution",
-    },
-  ];
+  const { data: blogData } = useListBlogsQuery({});
 
   return (
     <main className="padding-inline padding-block bg-light-blue group transitions">
@@ -59,16 +30,18 @@ const BlogSection = () => {
 
       {/* Blog Card section */}
       <section className="grid grid-cols-12 gap-4 mt-[60px]">
-        {blogContent.map((element: IblogProps, index: number) => {
-          return (
-            <div
-              key={index}
-              className="lg:col-span-4 sm:col-span-6 col-span-full xl:col-span-3"
-            >
-              <BlogCard data={element} />
-            </div>
-          );
-        })}
+        {blogData?.data
+          ?.slice(0, 4)
+          .map((element: DataProps, index: number) => {
+            return (
+              <div
+                key={index}
+                className="lg:col-span-4 sm:col-span-6 col-span-full xl:col-span-3"
+              >
+                <BlogCard data={element} />
+              </div>
+            );
+          })}
       </section>
     </main>
   );

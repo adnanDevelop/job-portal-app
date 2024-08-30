@@ -28,8 +28,6 @@ const RecruitorBlog = () => {
     }
   );
 
-  console.log(filterBlogs);
-
   const deleteBlogFunction = (id: string) => {
     setCardId(id);
     const deleteModalElement = document.getElementById(id);
@@ -131,10 +129,10 @@ const RecruitorBlog = () => {
                       </button>
                     </div>
 
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2.5 mt-[10px]">
                       <img
                         src={element.blogImage}
-                        className="w-[100px] h-[100px] object-cover rounded-md"
+                        className="w-[150px] h-[100px] object-cover rounded-md"
                         alt=""
                       />
                       <div>

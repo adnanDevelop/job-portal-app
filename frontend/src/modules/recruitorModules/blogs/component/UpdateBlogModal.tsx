@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 // Text Editor
@@ -26,6 +26,12 @@ const UpdateBlogModal = ({ id }: { id: string }) => {
   const [updateBlog, loading] = useUpdateBlogMutation();
   const { data: blogData } = useGetBlogByIdQuery({ id });
   console.log(blogData?.data, "blog data");
+
+  useEffect(() => {
+    if (blogData?.data?.content) {
+      setContentValue(blogData.data.content);
+    }
+  }, [blogData]);
 
   const submitData = async (data: ICreateBlogProp) => {
     // Create a new FormData object
