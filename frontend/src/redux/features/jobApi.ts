@@ -39,9 +39,10 @@ const jobApi = createApi({
 
     // GET /get
     listJobs: builder.query({
-      query: () => ({
+      query: (payload) => ({
         url: "/get",
         method: "GET",
+        params: payload.params, // Ensuring this uses the passed params
       }),
       providesTags: ["Job"],
     }),

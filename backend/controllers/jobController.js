@@ -145,8 +145,8 @@ export const getJob = async (req, res) => {
       category = "",
       location = "",
       jobType = "",
-      salaryMin = 0,
-      salaryMax = 0,
+      salaryMin,
+      salaryMax,
       page = 1, // Current page
       limit = 10, // Number of results per page
     } = req.query;
@@ -158,17 +158,17 @@ export const getJob = async (req, res) => {
     // Build the query object
     const query = {
       $and: [
-        {
-          $or: [
-            { title: { $regex: search, $options: "i" } },
-            { description: { $regex: search, $options: "i" } },
-          ],
-        },
+        search ? { title: { $regex: search, $options: "i" } } : {},
         category ? { category: { $regex: category, $options: "i" } } : {},
         location ? { location: { $regex: location, $options: "i" } } : {},
         jobType ? { jobType: { $regex: jobType, $options: "i" } } : {},
-        salaryMin && salaryMax
-          ? { salary: { $gte: Number(salaryMin), $lte: Number(salaryMax) } }
+        salaryMin || salaryMax
+          ? {
+              salary: {
+                $gte: Number(salaryMin) || 0,
+                $lte: Number(salaryMax) || Infinity,
+              },
+            }
           : {},
       ],
     };

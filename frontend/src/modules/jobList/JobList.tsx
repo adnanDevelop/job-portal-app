@@ -1,3 +1,4 @@
+import { useState } from "react";
 // Components
 import JobFilter from "./component/JobFilter";
 import JobStack from "../home/component/JobStack";
@@ -12,10 +13,22 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { useListJobsQuery } from "../../redux/features/jobApi";
 
 const JobList = () => {
-  const { data } = useListJobsQuery({});
+  const [params, setParams] = useState({
+    search: "",
+    category: "",
+    location: "",
+    jobType: "",
+    salaryMin: 0,
+    salaryMax: 0,
+    page: 1,
+    limit: 100,
+  });
+  const { data: jobData } = useListJobsQuery({ params });
+
+  console.log(jobData?.data);
 
   return (
-    <main className="relative">
+    <main>
       {/* Page header section */}
       <section>
         <PageHeader title="Job Vacancies" breadCrumb="Job List" />
@@ -24,10 +37,10 @@ const JobList = () => {
       {/* Job list section */}
       <section className="grid grid-cols-12 gap-4 padding-inline md:pt-[100px] pt-[80px]">
         <section className="xl:col-span-3 lg:col-span-4 col-span-full">
-          <JobFilter />
+          <JobFilter params={params} setParams={setParams} />
         </section>
         <section className="grid grid-cols-12 gap-4 mt-3 lg:mt-0 xl:col-span-9 lg:col-span-8 col-span-full">
-          {data?.data?.map((element: IJobProp, index: number) => {
+          {jobData?.data?.map((element: IJobProp, index: number) => {
             return (
               <div key={index} className="sm:col-span-6 col-span-full">
                 <JobCard data={element} />
@@ -36,6 +49,7 @@ const JobList = () => {
           })}
 
           {/* Pagniation */}
+
           <div className="flex items-center justify-center mt-8 col-span-full">
             <div className="flex items-center justify-center">
               <button className="w-[40px] h-[40px] flex items-center justify-center rounded-tl-full rounded-bl-full border border-color text-sm text-slate  transitions hover:bg-green hover:border-green hover:text-white focus:bg-green focus:text-white focus:border-green">

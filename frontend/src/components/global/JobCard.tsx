@@ -56,7 +56,7 @@ const JobCard = ({ data }: IJobProp) => {
         </div>
         <div>
           <p className="flex items-center mb-2 text-sm text-slate font-poppin gap-x-1">
-            <FaRegClock /> {formattedDate}
+            <FaRegClock /> {formattedDate} ago
           </p>
           <p className="text-sm leading-none text-white font-poppin text-end">
             {data?.salary} PKR

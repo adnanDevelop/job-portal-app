@@ -3,7 +3,19 @@ import { CiFilter } from "react-icons/ci";
 import { GrClose } from "react-icons/gr";
 import { IoIosSearch } from "react-icons/io";
 
-const JobFilter = () => {
+interface IFilterProps {
+  params: {
+    search: string;
+    category: string;
+    location: string;
+    jobType: string;
+    salaryMin: number;
+    salaryMax: number;
+  };
+  setParams: ({}: any) => void;
+}
+
+const JobFilter = ({ params, setParams }: IFilterProps) => {
   const [sideBar, showSideBar] = useState<boolean>(false);
   const filters = {
     categories: [
@@ -39,13 +51,17 @@ const JobFilter = () => {
         {/* Search box */}
         <div>
           <label className="text-sm font-medium text-white font-poppin mb-1.5 block">
-            Search Company
+            Search Job
           </label>
           <div className="w-full rounded-md border-color border h-[40px] relative">
             <input
               type="text"
               className="w-full h-full text-xs text-white bg-transparent border border-transparent rounded-md placeholder:text-xs placeholder:text-white ps-3 pe-8 focus:outline-none focus:border-green"
               placeholder="Search..."
+              value={params.search}
+              onChange={(e) => {
+                setParams({ ...params, search: e.target.value });
+              }}
             />
             <span className="absolute text-white right-2 top-[50%] translate-y-[-50%] text-xl cursor-pointer">
               <IoIosSearch />
@@ -58,7 +74,12 @@ const JobFilter = () => {
           <label className="text-sm font-medium text-white font-poppin mb-1.5 block">
             Categories
           </label>
-          <select className="w-full bg-transparent h-[40px] min-h-[40px] text-xs select text-white focus:outline-none focus:border-green  rounded-md border-color border">
+          <select
+            className="w-full bg-transparent h-[40px] min-h-[40px] text-xs select text-white focus:outline-none focus:border-green  rounded-md border-color border"
+            onChange={(e) => {
+              setParams({ ...params, category: e.target.value });
+            }}
+          >
             <option disabled selected className="text-gray-800">
               Select Category
             </option>
@@ -81,7 +102,12 @@ const JobFilter = () => {
           <label className="text-sm font-medium text-white font-poppin mb-1.5 block">
             Location
           </label>
-          <select className="w-full bg-transparent h-[40px] min-h-[40px] text-xs select text-white focus:outline-none focus:border-green  rounded-md border-color border">
+          <select
+            className="w-full bg-transparent h-[40px] min-h-[40px] text-xs select text-white focus:outline-none focus:border-green  rounded-md border-color border"
+            onChange={(e) => {
+              setParams({ ...params, location: e.target.value });
+            }}
+          >
             <option disabled selected className="text-gray-800">
               Select Location
             </option>
@@ -113,6 +139,22 @@ const JobFilter = () => {
                     <input
                       id={element.title}
                       type="checkbox"
+                      value={element.title}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setParams({
+                            ...params,
+                            jobType: [...params.jobType, e.target.value],
+                          });
+                        } else {
+                          setParams({
+                            ...params,
+                            jobType: params.jobType.filter(
+                              (item) => item !== e.target.value
+                            ),
+                          });
+                        }
+                      }}
                       className="rounded-md checkbox checkbox-success checkbox-sm"
                     />
                     {element.title}
