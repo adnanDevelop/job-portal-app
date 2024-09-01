@@ -95,9 +95,11 @@ const RecruitorJobs = () => {
       {/* Job Card section */}
       <section className="mt-5">
         <div className="grid grid-cols-12 gap-4 lg:gap-6">
-          {isLoading ? (
+          {filterJobByAdmin?.length < 1 ? (
             <div className="w-full h-[60vh] flex items-center justify-center col-span-full">
-              <span className="text-green loading loading-dots loading-lg"></span>
+              <h3 className="text-lg font-medium text-white font-poppin">
+                You have not created any job yet
+              </h3>
             </div>
           ) : (
             filterJobByAdmin?.map((element: jobType, index: number) => {

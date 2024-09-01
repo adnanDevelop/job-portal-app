@@ -20,7 +20,7 @@ const RecruitorBlog = () => {
 
   // Calling Apis
   const { user } = useSelector((state: RootState) => state.auth);
-  const { data: blogData, isLoading } = useListBlogsQuery({});
+  const { data: blogData } = useListBlogsQuery({});
 
   const filterBlogs = blogData?.data?.filter(
     (element: { createdBy: { _id: string } }) => {
@@ -35,8 +35,6 @@ const RecruitorBlog = () => {
       (deleteModalElement as HTMLDialogElement).showModal();
     }
   };
-
-  // console.log(filterBlogs);
 
   return (
     <main className={` ${filterBlogs?.length <= 4 ? "h-[80vh]" : null}`}>
@@ -76,10 +74,12 @@ const RecruitorBlog = () => {
         </button>
       </section>
 
-      {/* Job Card section */}
-      {isLoading ? (
+      {/* Blog card section */}
+      {filterBlogs?.length < 1 ? (
         <div className="w-full h-[60vh] flex items-center justify-center col-span-full">
-          <span className="text-green loading loading-dots loading-lg"></span>
+          <h3 className="text-lg font-medium text-white font-poppin">
+            You have not created any blog yet.
+          </h3>
         </div>
       ) : (
         <section className="mt-5">

@@ -8,11 +8,12 @@ interface IFilterProps {
     search: string;
     category: string;
     location: string;
-    jobType: string;
+    jobType: string[];
     salaryMin: number;
     salaryMax: number;
   };
-  setParams: ({}: any) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setParams: (params: any) => void;
 }
 
 const JobFilter = ({ params, setParams }: IFilterProps) => {
@@ -80,7 +81,7 @@ const JobFilter = ({ params, setParams }: IFilterProps) => {
               setParams({ ...params, category: e.target.value });
             }}
           >
-            <option disabled selected className="text-gray-800">
+            <option value="" disabled selected className="text-gray-800">
               Select Category
             </option>
             {filters.categories.map((element, index) => {
@@ -108,7 +109,7 @@ const JobFilter = ({ params, setParams }: IFilterProps) => {
               setParams({ ...params, location: e.target.value });
             }}
           >
-            <option disabled selected className="text-gray-800">
+            <option disabled value="" selected className="text-gray-800">
               Select Location
             </option>
             {filters.location.map((element, index) => {
@@ -186,6 +187,16 @@ const JobFilter = ({ params, setParams }: IFilterProps) => {
                       name="element"
                       type="radio"
                       className=" radio radio-sm"
+                      onChange={() => {
+                        const [min, max] = element
+                          .split(" - ")
+                          .map((val) => parseInt(val.replace("k", "000")));
+                        setParams({
+                          ...params,
+                          salaryMin: min,
+                          salaryMax: max,
+                        });
+                      }}
                     />
                     {element}
                   </label>
@@ -197,7 +208,21 @@ const JobFilter = ({ params, setParams }: IFilterProps) => {
 
         {/* Filter Button */}
         <div className="mt-8">
-          <button className="w-full !h-[40px] primary-btn">
+          <button
+            onClick={() => {
+              setParams({
+                search: "",
+                category: "",
+                location: "",
+                jobType: "",
+                salaryMin: 0,
+                salaryMax: 0,
+                page: 1,
+                limit: 100,
+              });
+            }}
+            className="w-full !h-[40px] primary-btn"
+          >
             Apply Filters
           </button>
         </div>
@@ -205,9 +230,9 @@ const JobFilter = ({ params, setParams }: IFilterProps) => {
 
       {/* Mobile screen filters */}
       <div className="block lg:hidden">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-end sm:justify-between">
           {/* Search box */}
-          <div className="basis-1/2">
+          <div className="hidden basis-1/2 sm:block">
             <label className="text-sm font-medium text-white font-poppin mb-1.5 block">
               Search Company
             </label>
@@ -216,6 +241,10 @@ const JobFilter = ({ params, setParams }: IFilterProps) => {
                 type="text"
                 className="w-full h-full text-xs text-white bg-transparent border border-transparent rounded-md placeholder:text-xs placeholder:text-white ps-3 pe-8 focus:outline-none focus:border-green"
                 placeholder="Search..."
+                value={params.search}
+                onChange={(e) => {
+                  setParams({ ...params, search: e.target.value });
+                }}
               />
               <span className="absolute text-white right-2 top-[50%] translate-y-[-50%] text-xl cursor-pointer">
                 <IoIosSearch />
@@ -263,6 +292,10 @@ const JobFilter = ({ params, setParams }: IFilterProps) => {
                 type="text"
                 className="w-full h-full text-xs text-white bg-transparent border border-transparent rounded-md placeholder:text-xs placeholder:text-white ps-3 pe-8 focus:outline-none focus:border-green"
                 placeholder="Search..."
+                value={params.search}
+                onChange={(e) => {
+                  setParams({ ...params, search: e.target.value });
+                }}
               />
               <span className="absolute text-white right-2 top-[50%] translate-y-[-50%] text-xl cursor-pointer">
                 <IoIosSearch />
@@ -275,7 +308,12 @@ const JobFilter = ({ params, setParams }: IFilterProps) => {
             <label className="text-sm font-medium text-white font-poppin mb-1.5 block">
               Categories
             </label>
-            <select className="w-full bg-transparent h-[40px] min-h-[40px] text-xs select text-white focus:outline-none focus:border-green  rounded-md border-color border">
+            <select
+              onChange={(e) => {
+                setParams({ ...params, category: e.target.value });
+              }}
+              className="w-full bg-transparent h-[40px] min-h-[40px] text-xs select text-white focus:outline-none focus:border-green  rounded-md border-color border"
+            >
               <option disabled selected className="text-gray-800">
                 Select Category
               </option>
@@ -298,7 +336,12 @@ const JobFilter = ({ params, setParams }: IFilterProps) => {
             <label className="text-sm font-medium text-white font-poppin mb-1.5 block">
               Location
             </label>
-            <select className="w-full bg-transparent h-[40px] min-h-[40px] text-xs select text-white focus:outline-none focus:border-green  rounded-md border-color border">
+            <select
+              onChange={(e) => {
+                setParams({ ...params, location: e.target.value });
+              }}
+              className="w-full bg-transparent h-[40px] min-h-[40px] text-xs select text-white focus:outline-none focus:border-green  rounded-md border-color border"
+            >
               <option disabled selected className="text-gray-800">
                 Select Location
               </option>
@@ -334,6 +377,21 @@ const JobFilter = ({ params, setParams }: IFilterProps) => {
                         id={element.title}
                         type="checkbox"
                         className="rounded-md checkbox checkbox-success checkbox-sm"
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setParams({
+                              ...params,
+                              jobType: [...params.jobType, e.target.value],
+                            });
+                          } else {
+                            setParams({
+                              ...params,
+                              jobType: params.jobType.filter(
+                                (item) => item !== e.target.value
+                              ),
+                            });
+                          }
+                        }}
                       />
                       {element.title}
                     </label>
@@ -364,6 +422,16 @@ const JobFilter = ({ params, setParams }: IFilterProps) => {
                         name="element"
                         type="radio"
                         className=" radio radio-sm"
+                        onChange={() => {
+                          const [min, max] = element
+                            .split(" - ")
+                            .map((val) => parseInt(val.replace("k", "000")));
+                          setParams({
+                            ...params,
+                            salaryMin: min,
+                            salaryMax: max,
+                          });
+                        }}
                       />
                       {element}
                     </label>
@@ -375,7 +443,22 @@ const JobFilter = ({ params, setParams }: IFilterProps) => {
 
           {/* Filter Button */}
           <div className="mt-8">
-            <button className="w-full !h-[40px] primary-btn">
+            <button
+              type="button"
+              className="w-full !h-[40px] primary-btn"
+              onClick={() => {
+                setParams({
+                  search: "",
+                  category: "",
+                  location: "",
+                  jobType: [],
+                  salaryMin: 0,
+                  salaryMax: 0,
+                  page: 1,
+                  limit: 100,
+                });
+              }}
+            >
               Apply Filters
             </button>
           </div>

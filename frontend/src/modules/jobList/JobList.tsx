@@ -17,7 +17,7 @@ const JobList = () => {
     search: "",
     category: "",
     location: "",
-    jobType: "",
+    jobType: [],
     salaryMin: 0,
     salaryMax: 0,
     page: 1,
@@ -25,7 +25,7 @@ const JobList = () => {
   });
   const { data: jobData } = useListJobsQuery({ params });
 
-  console.log(jobData?.data);
+  console.log(params, "params");
 
   return (
     <main>
@@ -40,16 +40,19 @@ const JobList = () => {
           <JobFilter params={params} setParams={setParams} />
         </section>
         <section className="grid grid-cols-12 gap-4 mt-3 lg:mt-0 xl:col-span-9 lg:col-span-8 col-span-full">
-          {jobData?.data?.map((element: IJobProp, index: number) => {
-            return (
+          {jobData?.data?.length === 0 ? (
+            <div className="text-lg text-center text-white col-span-full font-poppin mt-[40px]">
+              No jobs found.
+            </div>
+          ) : (
+            jobData?.data?.map((element: IJobProp, index: number) => (
               <div key={index} className="sm:col-span-6 col-span-full">
                 <JobCard data={element} />
               </div>
-            );
-          })}
+            ))
+          )}
 
           {/* Pagniation */}
-
           <div className="flex items-center justify-center mt-8 col-span-full">
             <div className="flex items-center justify-center">
               <button className="w-[40px] h-[40px] flex items-center justify-center rounded-tl-full rounded-bl-full border border-color text-sm text-slate  transitions hover:bg-green hover:border-green hover:text-white focus:bg-green focus:text-white focus:border-green">

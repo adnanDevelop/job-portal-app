@@ -1,13 +1,18 @@
+import { useState } from "react";
+import DeleteApplicationModal from "../components/DeleteApplicationModal";
+import UpdateApplicationModal from "../components/UpdateApplicationModal";
+
 // Apis
 import { useListAllApplicationDataQuery } from "../../../../redux/features/applyJobApi";
 
 // Icons
 import { FaSearch } from "react-icons/fa";
-import DeleteApplicationModal from "../components/DeleteApplicationModal";
-import { useState } from "react";
-import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { RiDeleteBinLine } from "react-icons/ri";
-import UpdateApplicationModal from "../components/UpdateApplicationModal";
+import { HiOutlinePencilSquare } from "react-icons/hi2";
+
+// Redux
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store";
 
 // types
 interface applicationType {
@@ -20,12 +25,14 @@ interface applicationType {
 }
 
 const RecruitorApplications = () => {
+  const { user } = useSelector((state: RootState) => state.auth);
   const [cardId, setCardId] = useState<string>("");
   const [updateCardId, setUpdateCardId] = useState<string>("");
   const { data: appData } = useListAllApplicationDataQuery({});
 
   const filterNullApplicants = appData?.data?.filter(
-    (element: { job: never }) => element.job !== null
+    (element: { job: { createdBy: string } }) =>
+      element.job !== null && element.job.createdBy === user._id
   );
 
   const deleteApplication = (id: string) => {
@@ -53,94 +60,102 @@ const RecruitorApplications = () => {
 
       {/* Application list */}
       <div className="grid grid-cols-12 gap-4">
-        {filterNullApplicants?.map(
-          (element: applicationType, index: number) => {
-            let badgeColor = "";
+        {filterNullApplicants?.length > 0 ? (
+          filterNullApplicants?.map(
+            (element: applicationType, index: number) => {
+              let badgeColor = "";
 
-            // Use a switch statement to set the badgeColor based on the application status
-            switch (element.status) {
-              case "accepted":
-                badgeColor = "bg-green text-white";
-                break;
-              case "rejected":
-                badgeColor = "bg-red-500 text-white";
-                break;
-              case "pending":
-                badgeColor = "bg-gray-700 text-slate";
-                break;
-              default:
-                badgeColor = "bg-gray-700 text-slate"; // Default color if status doesn't match any case
-            }
-            return (
-              <div
-                key={index}
-                className="lg:col-span-3 md:col-span-4 sm:col-span-6 col-span-full"
-              >
-                <div className="p-4 pt-4 border border-gray-700 rounded-md bg-light-blue py-7">
-                  {/* Buttons */}
-                  <div className="flex justify-end gap-2 mb-4">
-                    {/* Update button */}
-                    <button
-                      onClick={() => {
-                        setUpdateCardId(element._id);
-                        const deleteModalElement = document.getElementById(
-                          element?._id
-                        );
-                        if (deleteModalElement) {
-                          (deleteModalElement as HTMLDialogElement).showModal();
-                        }
-                      }}
-                      className="w-[30px] h-[30px] rounded-md bg-green focus:bg-[#23755b] text-white flex items-center justify-center"
-                    >
-                      {" "}
-                      <HiOutlinePencilSquare className="text-base text-white" />
-                    </button>
-                    {/* Delete button */}
-                    <button
-                      onClick={() => deleteApplication(element._id)}
-                      className="w-[30px] h-[30px] rounded-md bg-red-500 focus:bg-red-700 text-white flex items-center justify-center"
-                    >
-                      {" "}
-                      <RiDeleteBinLine className="text-white" />
-                    </button>
-                  </div>
-                  <div className="flex flex-col items-center justify-center gap-3">
-                    <div>
-                      <div className="w-[60px] h-[60px] rounded-md bg-dark-blue text-white text-[20px] flex items-center justify-center">
-                        <img
-                          src={element?.applicant?.profile?.profilePhoto}
-                          className="w-[40px] rounded-full"
-                          alt=""
-                        />
-                      </div>
+              // Use a switch statement to set the badgeColor based on the application status
+              switch (element.status) {
+                case "accepted":
+                  badgeColor = "bg-green text-white";
+                  break;
+                case "rejected":
+                  badgeColor = "bg-red-500 text-white";
+                  break;
+                case "pending":
+                  badgeColor = "bg-gray-700 text-slate";
+                  break;
+                default:
+                  badgeColor = "bg-gray-700 text-slate"; // Default color if status doesn't match any case
+              }
+              return (
+                <div
+                  key={index}
+                  className="lg:col-span-3 md:col-span-4 sm:col-span-6 col-span-full"
+                >
+                  <div className="p-4 pt-4 border border-gray-700 rounded-md bg-light-blue py-7">
+                    {/* Buttons */}
+                    <div className="flex justify-end gap-2 mb-4">
+                      {/* Update button */}
+                      <button
+                        onClick={() => {
+                          setUpdateCardId(element._id);
+                          const deleteModalElement = document.getElementById(
+                            element?._id
+                          );
+                          if (deleteModalElement) {
+                            (
+                              deleteModalElement as HTMLDialogElement
+                            ).showModal();
+                          }
+                        }}
+                        className="w-[30px] h-[30px] rounded-md bg-green focus:bg-[#23755b] text-white flex items-center justify-center"
+                      >
+                        {" "}
+                        <HiOutlinePencilSquare className="text-base text-white" />
+                      </button>
+                      {/* Delete button */}
+                      <button
+                        onClick={() => deleteApplication(element._id)}
+                        className="w-[30px] h-[30px] rounded-md bg-red-500 focus:bg-red-700 text-white flex items-center justify-center"
+                      >
+                        {" "}
+                        <RiDeleteBinLine className="text-white" />
+                      </button>
                     </div>
-                    <div className="text-center">
-                      <h4 className="flex flex-col text-base font-medium capitalize font-jakarta">
-                        <span className="text-red-500">Name:</span>{" "}
-                        <span className="text-slate">
-                          {element?.applicant?.fullName}
-                        </span>
-                      </h4>
-                      <p className="flex flex-col text-xs text-red-500 font-jakarta">
-                        <span>Job:</span>{" "}
-                        <span className="text-slate">
-                          {element?.job?.title}
-                        </span>
-                      </p>
-                      <p className="flex flex-col text-xs text-red-500 font-jakarta">
-                        <span>Status:</span>{" "}
-                        <span
-                          className={`capitalize w-[90px] mt-1 mx-auto leading-none px-[10px] h-[25px] flex items-center justify-center rounded-full  ${badgeColor}`}
-                        >
-                          {element?.status}
-                        </span>
-                      </p>
+                    <div className="flex flex-col items-center justify-center gap-3">
+                      <div>
+                        <div className="w-[60px] h-[60px] rounded-md bg-dark-blue text-white text-[20px] flex items-center justify-center">
+                          <img
+                            src={element?.applicant?.profile?.profilePhoto}
+                            className="w-[40px] rounded-full"
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                      <div className="text-center">
+                        <h4 className="flex flex-col text-base font-medium capitalize font-jakarta">
+                          <span className="text-red-500">Name:</span>{" "}
+                          <span className="text-slate">
+                            {element?.applicant?.fullName}
+                          </span>
+                        </h4>
+                        <p className="flex flex-col text-xs text-red-500 font-jakarta">
+                          <span>Job:</span>{" "}
+                          <span className="text-slate">
+                            {element?.job?.title}
+                          </span>
+                        </p>
+                        <p className="flex flex-col text-xs text-red-500 font-jakarta">
+                          <span>Status:</span>{" "}
+                          <span
+                            className={`capitalize w-[90px] mt-1 mx-auto leading-none px-[10px] h-[25px] flex items-center justify-center rounded-full  ${badgeColor}`}
+                          >
+                            {element?.status}
+                          </span>
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          }
+              );
+            }
+          )
+        ) : (
+          <h3 className="flex items-center justify-center text-lg font-medium text-white font-poppin col-span-full h-[40vh]">
+            You don't have any company yet
+          </h3>
         )}
       </div>
 

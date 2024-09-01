@@ -21,7 +21,7 @@ const RecruitorCompanies = () => {
   const [updateCardId, setUpdateCardId] = useState<string>("");
 
   // Calling apis
-  const { data: companiesData, isLoading } = useListCompaniesQuery({});
+  const { data: companiesData } = useListCompaniesQuery({});
 
   // Filtering companies based on user id
   const filterCompanies = companiesData?.data?.filter(
@@ -29,7 +29,6 @@ const RecruitorCompanies = () => {
       return element.userId === user?._id;
     }
   );
-
 
   const deleteCompanyFun = (id: string) => {
     setCardId(id);
@@ -78,14 +77,16 @@ const RecruitorCompanies = () => {
       </section>
 
       {/* Job Card section */}
-      {isLoading ? (
+      {filterCompanies?.length === 0 ? (
         <div className="w-full h-[60vh] flex items-center justify-center col-span-full">
-          <span className="text-green loading loading-dots loading-lg"></span>
+          <h3 className="text-lg font-medium text-white font-poppin">
+            You don't have any company yet
+          </h3>
         </div>
       ) : (
         <section className="mt-5">
           <div className="grid grid-cols-12 gap-4 lg:gap-6">
-            {filterCompanies?.map(
+            {filterCompanies.map(
               (
                 element: {
                   icon: string;
@@ -118,7 +119,6 @@ const RecruitorCompanies = () => {
                         }}
                         className="w-[30px] h-[30px] rounded-md bg-green focus:bg-[#23755b] text-white flex items-center justify-center"
                       >
-                        {" "}
                         <HiOutlinePencilSquare className="text-base text-white" />
                       </button>
                       {/* Delete button */}
@@ -126,7 +126,6 @@ const RecruitorCompanies = () => {
                         onClick={() => deleteCompanyFun(element._id)}
                         className="w-[30px] h-[30px] rounded-md bg-red-500 focus:bg-red-700 text-white flex items-center justify-center"
                       >
-                        {" "}
                         <RiDeleteBinLine className="text-white" />
                       </button>
                     </div>
@@ -160,28 +159,31 @@ const RecruitorCompanies = () => {
           </div>
         </section>
       )}
+
       {/* Pagniation */}
-      <div className="flex items-center justify-center mt-10 col-span-full">
-        <div className="flex items-center justify-center">
-          <button className="w-[40px] h-[40px] flex items-center justify-center rounded-tl-full rounded-bl-full border border-color text-sm text-slate  transitions hover:bg-green hover:border-green hover:text-white focus:bg-green focus:text-white focus:border-green">
-            <FaChevronLeft />
-          </button>
-          {[1, 2, 3, 4, 5].map((element: number, index: number) => {
-            return (
-              <button
-                key={index}
-                className="w-[40px] h-[40px] flex items-center justify-center  border border-color text-sm text-slate transitions hover:bg-green hover:border-green hover:text-white focus:bg-green focus:text-white focus:border-green"
-              >
-                {element}
-              </button>
-            );
-          })}
-          <button className="w-[40px] h-[40px] flex items-center justify-center rounded-tr-full rounded-br-full border border-color text-sm text-slate transitions hover:bg-green hover:border-green hover:text-white focus:bg-green focus:text-white focus:border-green">
-            {" "}
-            <FaChevronRight />
-          </button>
+      {filterCompanies?.length > 10 && (
+        <div className="flex items-center justify-center mt-10 col-span-full">
+          <div className="flex items-center justify-center">
+            <button className="w-[40px] h-[40px] flex items-center justify-center rounded-tl-full rounded-bl-full border border-color text-sm text-slate  transitions hover:bg-green hover:border-green hover:text-white focus:bg-green focus:text-white focus:border-green">
+              <FaChevronLeft />
+            </button>
+            {[1, 2, 3, 4, 5].map((element: number, index: number) => {
+              return (
+                <button
+                  key={index}
+                  className="w-[40px] h-[40px] flex items-center justify-center  border border-color text-sm text-slate transitions hover:bg-green hover:border-green hover:text-white focus:bg-green focus:text-white focus:border-green"
+                >
+                  {element}
+                </button>
+              );
+            })}
+            <button className="w-[40px] h-[40px] flex items-center justify-center rounded-tr-full rounded-br-full border border-color text-sm text-slate transitions hover:bg-green hover:border-green hover:text-white focus:bg-green focus:text-white focus:border-green">
+              {" "}
+              <FaChevronRight />
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Modals */}
       <DeleteCompanyModal id={cardId} />
