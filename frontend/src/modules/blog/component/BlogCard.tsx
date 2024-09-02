@@ -5,15 +5,16 @@ import { format } from "date-fns";
 import { SlCalender } from "react-icons/sl";
 import { FaRegClock } from "react-icons/fa6";
 
-const BlogCard = ({
-  data,
-}: {
-  blogImage: string;
-  category: string;
-  title: string;
-  createdAt: string;
-  createdBy: { fullName: string };
-}) => {
+// interface IBlogProps {
+//   blogImage: string;
+//   category: string;
+//   title: string;
+//   createdAt: string;
+//   createdBy: { fullName: string };
+//   _id: string;
+// }
+
+const BlogCard = ({ data }: any) => {
   return (
     <div className="overflow-hidden border border-gray-700 rounded-lg shadow-sm cursor-pointer shadow-gray-700">
       {/* Image section */}

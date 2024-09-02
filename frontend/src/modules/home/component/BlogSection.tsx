@@ -5,15 +5,15 @@ import SectionHeader from "../../../components/global/SectionHeader";
 import { useListBlogsQuery } from "../../../redux/features/blogApi";
 
 // Interface
-interface DataProps {
-  data: {
-    blogImage: string;
-    category: string;
-    title: string;
-    createdAt: string;
-    createdBy: { fullName: string };
-  };
-}
+// interface DataProps {
+//   data: {
+//     blogImage: string;
+//     category: string;
+//     title: string;
+//     createdAt: string;
+//     createdBy: { fullName: string };
+//   };
+// }
 
 const BlogSection = () => {
   const { data: blogData } = useListBlogsQuery({});
@@ -30,18 +30,16 @@ const BlogSection = () => {
 
       {/* Blog Card section */}
       <section className="grid grid-cols-12 gap-4 mt-[60px]">
-        {blogData?.data
-          ?.slice(0, 4)
-          .map((element: DataProps, index: number) => {
-            return (
-              <div
-                key={index}
-                className="lg:col-span-4 sm:col-span-6 col-span-full xl:col-span-3"
-              >
-                <BlogCard data={element} />
-              </div>
-            );
-          })}
+        {blogData?.data?.slice(0, 4).map((element: never, index: number) => {
+          return (
+            <div
+              key={index}
+              className="lg:col-span-4 sm:col-span-6 col-span-full xl:col-span-3"
+            >
+              <BlogCard data={element} />
+            </div>
+          );
+        })}
       </section>
     </main>
   );
