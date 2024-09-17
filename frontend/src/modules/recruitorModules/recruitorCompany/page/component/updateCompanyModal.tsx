@@ -22,7 +22,6 @@ const UpdateCompanyModal = ({ id }: { id: string }) => {
 
   const submitData = async (data: IUpdateCompany) => {
     try {
-      console.log(data);
       await updateCompany({ id, body: data })
         .unwrap()
         .then((response) => {

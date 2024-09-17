@@ -54,7 +54,6 @@ const ProfileDetails = ({ data }: IDataProps) => {
     },
   ];
 
-  console.log(data);
   return (
     <div className="p-5 rounded-lg xl:p-6 bg-light-blue">
       <h3 className="text-[20px] font-medium text-white font-poppin">

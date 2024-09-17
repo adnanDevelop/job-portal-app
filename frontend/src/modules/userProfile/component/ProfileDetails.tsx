@@ -40,7 +40,6 @@ const ProfileDetails = () => {
     },
   ];
 
-  console.log(user?.profile?.resume);
 
   return (
     <div className="p-5 rounded-lg xl:p-6 bg-light-blue">

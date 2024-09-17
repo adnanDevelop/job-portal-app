@@ -25,7 +25,6 @@ const JobList = () => {
   });
   const { data: jobData } = useListJobsQuery({ params });
 
-  console.log(params, "params");
 
   return (
     <main>

@@ -26,7 +26,7 @@ const RecruitorCompanies = () => {
   // Filtering companies based on user id
   const filterCompanies = companiesData?.data?.filter(
     (element: { userId: string }) => {
-      return element.userId === user?._id;
+      return element?.userId === user?._id;
     }
   );
 
@@ -86,7 +86,7 @@ const RecruitorCompanies = () => {
       ) : (
         <section className="mt-5">
           <div className="grid grid-cols-12 gap-4 lg:gap-6">
-            {filterCompanies.map(
+            {filterCompanies?.map(
               (
                 element: {
                   icon: string;

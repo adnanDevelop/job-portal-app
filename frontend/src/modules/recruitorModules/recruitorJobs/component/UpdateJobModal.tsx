@@ -27,7 +27,6 @@ const UpdateJobModal = ({ id }: { id: string }) => {
   const [updateJob] = useUpdateJobMutation();
   const { data: companyData } = useListCompaniesQuery({});
   const { data: jobData } = useGetJobByIdQuery({ id });
-  //   console.log(jobData?.data);
 
   // Filter companies based on userId
   const filterCompanies = companyData?.data.filter(

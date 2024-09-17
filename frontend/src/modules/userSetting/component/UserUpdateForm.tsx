@@ -56,7 +56,6 @@ const UserUpdateForm = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log(responseData?.data);
         dispatch(setUser(responseData.data));
         navigate("/user-profile");
         toast.success(responseData.message);
@@ -357,7 +356,7 @@ const UserUpdateForm = () => {
               />
             </div>
 
-            <div className="mt-5  col-span-full">
+            <div className="mt-5 col-span-full">
               <button
                 type="submit"
                 className="px-[20px] primary-btn"

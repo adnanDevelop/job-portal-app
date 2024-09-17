@@ -31,7 +31,6 @@ const ProfileInfo = () => {
 
   const { data: applicationData } = useListAllApplyJobsQuery({});
 
-  console.log(applicationData?.data, "applicationData");
 
   return (
     <div>

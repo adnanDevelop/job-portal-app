@@ -10,7 +10,6 @@ import { userApiEndPoint } from "../../../utils/apiEndPoints";
 
 const DeleteModal = ({ id }: { id: string }) => {
   const { user } = useSelector((state: RootState) => state.auth);
-  console.log(user?._id);
 
   const disptach = useDispatch();
   const closeModal = () => {

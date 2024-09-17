@@ -26,14 +26,12 @@ export const registerCompany = async (req, res) => {
       websiteLink,
     } = req.body;
 
-    console.log(req.files.logo);
 
     if (files.logo && files.logo.length > 0) {
       const logoUri = getDataUri(files.logo[0]);
       const cloudinaryResponse = await cloudinary.uploader.upload(
         logoUri.content
       );
-      console.log(cloudinaryResponse, "cloudinary response");
       companyLogoUrl = cloudinaryResponse.secure_url;
     }
 

@@ -36,7 +36,6 @@ const CreateCompanyModal = ({ id }: { id: string }) => {
         formData.append("logo", data.logo[0]);
       }
 
-      console.log(data);
 
       // Send formData to the registerCompany function
       await registerCompany({ body: formData })

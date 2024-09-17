@@ -25,7 +25,6 @@ const UpdateBlogModal = ({ id }: { id: string }) => {
 
   const [updateBlog, loading] = useUpdateBlogMutation();
   const { data: blogData } = useGetBlogByIdQuery({ id });
-  console.log(blogData?.data, "blog data");
 
   useEffect(() => {
     if (blogData?.data?.content) {

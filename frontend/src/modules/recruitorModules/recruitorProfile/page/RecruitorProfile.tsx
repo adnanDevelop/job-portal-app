@@ -23,8 +23,6 @@ const RecruitorProfile = () => {
   const [updateUser] = useUpdateUserMutation();
   const { user } = useSelector((state: RootState) => state.auth);
 
-  console.log(user);
-
   // Update profile function
   const updateProfileData = async (data: IUpdateUserProps) => {
     try {

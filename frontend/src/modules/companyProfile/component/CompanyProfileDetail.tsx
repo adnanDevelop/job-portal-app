@@ -19,7 +19,6 @@ interface IDataProps {
 }
 
 const CompanyProfileDetail = ({ data }: IDataProps) => {
-  console.log(data);
 
   const details = [
     { key: "Founded", value: data?.founded },

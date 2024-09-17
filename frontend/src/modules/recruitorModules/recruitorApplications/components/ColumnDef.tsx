@@ -40,10 +40,6 @@ export const columnDef = (actions: Action[]) => {
       accessorKey: "resumeOriginalName",
       header: "Resume",
       cell: ({ row }: any) => {
-        console.log(
-          row?.original?.applicant?.profile?.resumeOriginalName === "" &&
-            "adnan"
-        );
         return (
           <p>
             {row?.original?.applicant?.profile?.resumeOriginalName ||
